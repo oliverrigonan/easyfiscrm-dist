@@ -62401,7 +62401,7 @@ module.exports = ".navbar {\r\n    box-shadow: 0px 2px 3px 0px #323232;\r\n}\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar fixed-top navbar-expand-sm navbar-light bg-light\">\r\n    <a class=\"navbar-brand\" routerLink=\"/landing/home\">\r\n        <img src=\"../../../assets/logo/easyfislogo.png\" height=\"30\" alt=\"\">\r\n    </a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\r\n        aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n        <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n        <ul class=\"navbar-nav mr-auto\"></ul>\r\n        <ul class=\"navbar-nav\">\r\n            <li class=\"nav-item dropdown\">\r\n                <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\"\r\n                    aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                    {{ username }}\r\n                </a>\r\n                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n                    <a class=\"dropdown-item\" routerLink=\"#\" (click)=\"signOut()\">\r\n                        <i class=\"fa fa-power-off fa-fw\"></i> Sign Out\r\n                    </a>\r\n                </div>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</nav>\r\n<div class=\"navbar-space\"></div>\r\n<mat-drawer-container class=\"side-bar-container\">\r\n    <mat-drawer #sidenav mode=\"side\" class=\"side-bar\">\r\n        <div class=\"list-group list-group-flush\" id=\"list-tab\" role=\"tablist\">\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/sys/dashboard\">\r\n                <img src=\"../../../assets/img/icons/dashboard.png\" height=\"30\" alt=\"\"> &nbsp; Main Menu\r\n            </a>\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/trn/lead\">\r\n                <img src=\"../../../assets/img/icons/leads.png\" height=\"30\" alt=\"\"> &nbsp; Lead\r\n            </a>\r\n        </div>\r\n    </mat-drawer>\r\n    <mat-drawer-content>\r\n        <div class=\"container-fluid content-header\">\r\n            <!-- <button class=\"btn btn-info\" (click)=\"openSideBar()\">\r\n                <i class=\"fa fa-bars fa-fw\"></i>\r\n            </button>\r\n            &nbsp; -->\r\n            <img id=\"toolBarImage\" height=\"25\" />\r\n            &nbsp;\r\n            <span class=\"toolbar-title-style\">\r\n                {{ ToolbarTitle }}\r\n            </span>\r\n        </div>\r\n        <div class=\"container-fluid\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <br />\r\n    </mat-drawer-content>\r\n</mat-drawer-container>\r\n<div class=\"software-footer\">\r\n    <div class=\"container-fluid\">\r\n        <small><b>Easyfis CRM</b> V.1.02032019.1749.NOR</small>\r\n    </div>\r\n</div>"
+module.exports = "<nav class=\"navbar fixed-top navbar-expand-sm navbar-light bg-light\">\r\n    <a class=\"navbar-brand\" routerLink=\"/landing/home\">\r\n        <img src=\"../../../assets/logo/easyfislogo.png\" height=\"30\" alt=\"\">\r\n    </a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\r\n        aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n        <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n        <ul class=\"navbar-nav mr-auto\"></ul>\r\n        <ul class=\"navbar-nav\">\r\n            <li class=\"nav-item dropdown\">\r\n                <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\"\r\n                    aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                    {{ username }}\r\n                </a>\r\n                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n                    <a class=\"dropdown-item\" routerLink=\"#\" (click)=\"signOut()\">\r\n                        <i class=\"fa fa-power-off fa-fw\"></i> Sign Out\r\n                    </a>\r\n                </div>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</nav>\r\n<div class=\"navbar-space\"></div>\r\n<mat-drawer-container class=\"side-bar-container\">\r\n    <mat-drawer #sidenav mode=\"side\" class=\"side-bar\">\r\n        <div class=\"list-group list-group-flush\" id=\"list-tab\" role=\"tablist\">\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/sys/dashboard\">\r\n                <img src=\"../../../assets/img/icons/dashboard.png\" height=\"30\" alt=\"\"> &nbsp; Main Menu\r\n            </a>\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/trn/lead\">\r\n                <img src=\"../../../assets/img/icons/leads.png\" height=\"30\" alt=\"\"> &nbsp; Leads\r\n            </a>\r\n        </div>\r\n    </mat-drawer>\r\n    <mat-drawer-content>\r\n        <div class=\"container-fluid content-header\">\r\n            <!-- <button class=\"btn btn-info\" (click)=\"openSideBar()\">\r\n                <i class=\"fa fa-bars fa-fw\"></i>\r\n            </button>\r\n            &nbsp; -->\r\n            <img id=\"toolBarImage\" height=\"25\" />\r\n            &nbsp;\r\n            <span class=\"toolbar-title-style\">\r\n                {{ ToolbarTitle }}\r\n            </span>\r\n        </div>\r\n        <div class=\"container-fluid\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <br />\r\n    </mat-drawer-content>\r\n</mat-drawer-container>\r\n<div class=\"software-footer\">\r\n    <div class=\"container-fluid\">\r\n        <small><b>Easyfis CRM</b> V.1.02032019.1749.NOR</small>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -62503,7 +62503,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnSaveLeadClick()\" style=\"margin-right: 5px;\" id=\"btnSaveLead\"\n            disabled>\n            <i class=\"fa fa-save fa-fw\"></i> Save\n          </button>\n          <button class=\"btn btn-primary\" (click)=\"btnLockLeadClick()\" style=\"margin-right: 5px;\" id=\"btnLockLead\"\n            disabled>\n            <i class=\"fa fa-lock fa-fw\"></i> Lock\n          </button>\n          <button class=\"btn btn-primary\" (click)=\"btnUnlockLeadClick()\" style=\"margin-right: 5px;\" id=\"btnUnlockLead\"\n            disabled>\n            <i class=\"fa fa-unlock fa-fw\"></i> Unlock\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software/trn/lead\" id=\"btnCloseLead\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-lg-6\">\n        <div class=\"form-group row\">\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD No.</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"leadDetailModel.LDNumber\" placeholder=\"LD Number...\"\n              disabled>\n          </div>\n          <br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD Date</label>\n          <div class=\"col-sm-8\">\n            <wj-input-date #cboShopOrderDate [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.LDDate\" format=\"MM-dd-yyyy\"\n              style=\"width: 100%; padding: 3px;\">\n            </wj-input-date>\n          </div>\n          <br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Name</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Name\"\n              placeholder=\"Name...\">\n          </div>\n          <br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Address</label>\n          <div class=\"col-sm-8\">\n            <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Address\"\n              placeholder=\"Remarks...\" rows=\"5\">\n            </textarea>\n          </div>\n          <br /><br /><br /><br /><br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Person</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPerson\"\n              placeholder=\"Contact Person...\">\n          </div>\n          <br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Position</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPosition\"\n              placeholder=\"Contact Position...\">\n          </div>\n          <br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Email</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactEmail\"\n              placeholder=\"Contact Email...\">\n          </div>\n          <br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Phone No.</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPhoneNumber\"\n              placeholder=\"Contact Phone Number...\">\n          </div>\n          <br /><br />\n        </div>\n      </div>\n      <div class=\"col-lg-6\">\n        <div class=\"form-group row\">\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Remarks</label>\n          <div class=\"col-sm-8\">\n            <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Remarks\"\n              placeholder=\"Remarks...\" rows=\"5\">\n            </textarea>\n          </div>\n          <br /><br /><br /><br /><br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Referred By</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ReferredBy\"\n              placeholder=\"Referred By...\">\n          </div>\n          <br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Assigned To:</label>\n          <div class=\"col-sm-8\">\n            <wj-combo-box #cboLeadAssignedToUser [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.AssignedToUserId\"\n              [itemsSource]=\"cboLeadAssignedToUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n            </wj-combo-box>\n          </div>\n          <br /><br />\n          <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Status</label>\n          <div class=\"col-sm-8\">\n            <wj-combo-box #cboLeadStatus [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Status\" [itemsSource]=\"cboLeadStatusObservableArray\"\n              [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n              style=\"width: 100%; padding: 3px;\">\n            </wj-combo-box>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div [hidden]=\"isLoadingSpinnerHidden\">\n  <br /><br /><br />\n  <mat-spinner style=\"margin: auto;\"></mat-spinner>\n</div>\n<div [hidden]=\"isContentHidden\">\n  <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\" style=\"margin-top: 10px; margin-bottom: 10px;\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link active\" id=\"lead-tab\" data-toggle=\"tab\" href=\"#lead\" role=\"tab\" aria-controls=\"lead\"\n        aria-selected=\"true\">Lead Detail</a>\n    </li>\n    <li class=\"nav-item\" [hidden]=\"isActivityTabHidden\">\n      <a class=\"nav-link\" id=\"activities-tab\" data-toggle=\"tab\" href=\"#activities\" role=\"tab\" aria-controls=\"activities\"\n        aria-selected=\"false\" (click)=\"listActivity()\">Activities</a>\n    </li>\n  </ul>\n\n  <div class=\"tab-content\" id=\"myTabContent\">\n    <div class=\"tab-pane fade show active\" id=\"lead\" role=\"tabpanel\" aria-labelledby=\"lead-tab\">\n      <div class=\"card card-default\">\n\n        <div class=\"card-header\">\n          <table border=\"0\" style=\"width: 100%; border: none;\">\n            <tr>\n              <td style=\"text-align: right;\">\n                <button class=\"btn btn-primary\" (click)=\"btnSaveLeadClick()\" style=\"margin-right: 5px;\" id=\"btnSaveLead\"\n                  disabled>\n                  <i class=\"fa fa-save fa-fw\"></i> Save\n                </button>\n                <button class=\"btn btn-primary\" (click)=\"btnLockLeadClick()\" style=\"margin-right: 5px;\" id=\"btnLockLead\"\n                  disabled>\n                  <i class=\"fa fa-lock fa-fw\"></i> Lock\n                </button>\n                <button class=\"btn btn-primary\" (click)=\"btnUnlockLeadClick()\" style=\"margin-right: 5px;\" id=\"btnUnlockLead\"\n                  disabled>\n                  <i class=\"fa fa-unlock fa-fw\"></i> Unlock\n                </button>\n                <button class=\"btn btn-danger\" routerLink=\"/software/trn/lead\" id=\"btnCloseLead\">\n                  <i class=\"fa fa-close fa-fw\"></i> Close\n                </button>\n              </td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-lg-6\">\n              <div class=\"form-group row\">\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD No.</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [(ngModel)]=\"leadDetailModel.LDNumber\" placeholder=\"LD Number...\"\n                    disabled>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD Date</label>\n                <div class=\"col-sm-8\">\n                  <wj-input-date #cboShopOrderDate [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.LDDate\" format=\"MMMM dd, yyyy\"\n                    style=\"width: 100%; padding: 3px;\">\n                  </wj-input-date>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Name</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Name\"\n                    placeholder=\"Name...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Address</label>\n                <div class=\"col-sm-8\">\n                  <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Address\"\n                    placeholder=\"Remarks...\" rows=\"5\">\n                    </textarea>\n                </div>\n                <br /><br /><br /><br /><br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Person</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPerson\"\n                    placeholder=\"Contact Person...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Position</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPosition\"\n                    placeholder=\"Contact Position...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Email</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactEmail\"\n                    placeholder=\"Contact Email...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Phone No.</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPhoneNumber\"\n                    placeholder=\"Contact Phone Number...\">\n                </div>\n                <br /><br />\n              </div>\n            </div>\n            <div class=\"col-lg-6\">\n              <div class=\"form-group row\">\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Remarks</label>\n                <div class=\"col-sm-8\">\n                  <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Remarks\"\n                    placeholder=\"Remarks...\" rows=\"5\">\n                  </textarea>\n                </div>\n                <br /><br /><br /><br /><br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Referred By</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ReferredBy\"\n                    placeholder=\"Referred By...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Assigned To:</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboLeadAssignedToUser [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.AssignedToUserId\"\n                    [itemsSource]=\"cboLeadAssignedToUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                  </wj-combo-box>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Status</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboLeadStatus [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Status\" [itemsSource]=\"cboLeadStatusObservableArray\"\n                    [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                    style=\"width: 100%; padding: 3px;\">\n                  </wj-combo-box>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"card card-default\" style=\"margin-top: 10px;\">\n        <div class=\"card-header\">\n          User stamp\n        </div>\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n              <p>Created by:</p>\n              <div style=\"padding-left: 10px;\">\n                <i class=\"fa fa-key\"></i>&nbsp;\n                <label id=\"createdBy\">\n                  {{\n                  leadDetailModel != null ?\n                  leadDetailModel.CreatedByUser : 'NA'\n                  }}\n                </label>\n                <br />\n                <small>\n                  <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                  <span id=\"createdDate\">\n                    {{\n                    leadDetailModel != null ?\n                    leadDetailModel.CreatedDateTime : 'mm/dd/yyyy'\n                    }}\n                  </span>\n                </small>\n              </div>\n              <br />\n            </div>\n            <div class=\"col-md-6\">\n              <p>Updated by:</p>\n              <div style=\"padding-left: 10px;\">\n                <i class=\"fa fa-key\"></i>&nbsp;\n                <label id=\"updatedBy\">\n                  {{\n                  leadDetailModel != null ?\n                  leadDetailModel.UpdatedByUser : 'NA'\n                  }}\n                </label>\n                <br />\n                <small>\n                  <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                  <span id=\"updatedDate\">\n                    {{\n                    leadDetailModel != null ?\n                    leadDetailModel.UpdatedDateTime : 'mm/dd/yyyy'\n                    }}\n                  </span>\n                </small>\n              </div>\n              <br />\n            </div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n    <div class=\"tab-pane fade\" id=\"activities\" role=\"tabpanel\" aria-labelledby=\"activities-tab\" [hidden]=\"isActivityTabHidden\">\n      <div class=\"card card-default\">\n\n        <div class=\"card-header\">\n          <table border=\"0\" style=\"width: 100%; border: none;\">\n            <tr>\n              <td>\n                <div class=\"input-group\">\n                  <div class=\"input-group-prepend\">\n                    <div class=\"input-group-text\">\n                      <b>\n                        <i class=\"fa fa-table\"></i>\n                      </b>\n                    </div>\n                  </div>\n                  <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\" (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n                    style=\"width: 140px;\">\n                  </wj-combo-box>\n                </div>\n              </td>\n              <td style=\"text-align: right;\">\n                <button class=\"btn btn-primary\" (click)=\"btnAddActivityClick(activityModalTemplate)\" style=\"margin-right: 5px;\"\n                  id=\"btnAddActivity\">\n                  <i class=\"fa fa-plus fa-fw\"></i> Add\n                </button>\n                <button class=\"btn btn-danger\" routerLink=\"/software/trn/lead\" id=\"btnCloseActivity\">\n                  <i class=\"fa fa-close fa-fw\"></i> Close\n                </button>\n              </td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"card-body\">\n          <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n          <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listActivityCollectionView\" [selectionMode]=\"3\"\n            [frozenColumns]=\"2\">\n            <wj-flex-grid-filter></wj-flex-grid-filter>\n            <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n              <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditActivityClick(activityModalTemplate)\"\n                  id=\"btnEditActivity\">\n                  <i class=\"fa fa-edit fa-fw\"></i> Edit\n                </button>\n              </ng-template>\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n              <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\" (click)=\"btnDeleteActivityClick(activityDeleteModalTemplate)\"\n                  id=\"btnDeleteActivity\">\n                  <i class=\"fa fa-trash fa-fw\"></i> Delete\n                </button>\n              </ng-template>\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'No.'\" [binding]=\"'ACNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'ACDate'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'User'\" [binding]=\"'User'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'CRM Status'\" [binding]=\"'CRMStatus'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Activity'\" [binding]=\"'Activity'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n          </wj-flex-grid>\n        </div>\n\n        <div class=\"card-footer\">\n          <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n              <i class=\"fa fa-fast-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n              <i class=\"fa fa-step-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n              {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n              <i class=\"fa fa-step-forward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n              <i class=\"fa fa-fast-forward\"></i>\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <ng-template #activityModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        {{ activityModalHeaderTitle }}\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      <div [hidden]=\"isActivityLoadingSpinnerHidden\">\n        <br /><br />\n        <mat-spinner style=\"margin: auto;\"></mat-spinner>\n        <br /><br />\n      </div>\n      <div [hidden]=\"isActivityContentHidden\">\n        <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link active\" id=\"activity-detail-tab\" data-toggle=\"tab\" href=\"#activity-detail\" role=\"tab\"\n              aria-controls=\"activity-detail\" aria-selected=\"true\">Detail</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" id=\"activity-activity-tab\" data-toggle=\"tab\" href=\"#activity-activity\" role=\"tab\"\n              aria-controls=\"activity-activity\" aria-selected=\"false\">Activity</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" id=\"activity-cost-tab\" data-toggle=\"tab\" href=\"#activity-cost\" role=\"tab\" aria-controls=\"activity-cost\"\n              aria-selected=\"false\">Cost</a>\n          </li>\n        </ul>\n\n        <br />\n\n        <div class=\"tab-content\" id=\"myTabContent\">\n          <div class=\"tab-pane fade show active\" id=\"activity-detail\" role=\"tabpanel\" aria-labelledby=\"activity-detail-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\" [hidden]=\"isActivityNumberHidden\">No.</label>\n              <div class=\"col-sm-9\" [hidden]=\"isActivityNumberHidden\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Number...\" [(ngModel)]=\"leadDetailActivityModel.ACNumber\"\n                  disabled>\n              </div>\n              <div [hidden]=\"isActivityNumberHidden\">\n                <br /><br />\n              </div>\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">CRM</label>\n              <div class=\"col-sm-9\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"CRM Status...\" [(ngModel)]=\"leadDetailActivityModel.CRMStatus\"\n                  disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Date</label>\n              <div class=\"col-sm-9\">\n                <wj-input-date #cboActivityDate format=\"MMMM dd, yyyy\" [(ngModel)]=\"leadDetailActivityModel.ACDate\"\n                  style=\"width: 100%; padding: 3px;\">\n                </wj-input-date>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Functional</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityFunctionalUser [(ngModel)]=\"leadDetailActivityModel.FunctionalUserId\"\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Technical</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityTechnicalUser [(ngModel)]=\"leadDetailActivityModel.TechnicalUserId\"\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Start</label>\n              <div class=\"col-sm-9\">\n                <table style=\"width: 100%;\">\n                  <tr>\n                    <td style=\"width: 60%\">\n                      <wj-input-date #cboActivityStartDate [(ngModel)]=\"leadDetailActivityModel.StartDate\" format=\"MMMM dd, yyyy\"></wj-input-date>\n                    </td>\n                    <td style=\"width: 1%\"></td>\n                    <td style=\"width: 39%\">\n                      <wj-input-time #cboActivityStartTime [(ngModel)]=\"leadDetailActivityModel.StartTime\" format=\"h:mm tt\"\n                        [step]=\"1\"></wj-input-time>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">End</label>\n              <div class=\"col-sm-9\">\n                <table style=\"width: 100%;\">\n                  <tr>\n                    <td style=\"width: 60%\">\n                      <wj-input-date #cboActivityEndDate [(ngModel)]=\"leadDetailActivityModel.EndDate\" format=\"MMMM dd, yyyy\"></wj-input-date>\n                    </td>\n                    <td style=\"width: 1%\"></td>\n                    <td style=\"width: 39%\">\n                      <wj-input-time #cboActivityEndTime [(ngModel)]=\"leadDetailActivityModel.EndTime\" format=\"h:mm tt\"\n                        [step]=\"1\"></wj-input-time>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Status</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityStatus [(ngModel)]=\"leadDetailActivityModel.Status\" [itemsSource]=\"cboListActivityStatusObservableArray\"\n                  [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n            </div>\n          </div>\n          <div class=\"tab-pane fade\" id=\"activity-activity\" role=\"tabpanel\" aria-labelledby=\"activity-activity-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">User</label>\n              <div class=\"col-sm-9\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"User...\" [(ngModel)]=\"leadDetailActivityModel.User\"\n                  disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Activity</label>\n              <div class=\"col-sm-9\">\n                <textarea [(ngModel)]=\"leadDetailActivityModel.Activity\" type=\"text\" class=\"form-control\" style=\"resize: vertical\"\n                  placeholder=\"Activity...\" rows=\"10\"></textarea>\n              </div>\n            </div>\n          </div>\n          <div class=\"tab-pane fade\" id=\"activity-cost\" role=\"tabpanel\" aria-labelledby=\"activity-cost-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Transpo.</label>\n              <div class=\"col-sm-9\">\n                <wj-input-number [(ngModel)]=\"leadDetailActivityModel.TransportationCost\" #numActivityTranspoCost style=\"width: 100%; padding: 3px;\"></wj-input-number>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">On-site</label>\n              <div class=\"col-sm-9\">\n                <wj-input-number [(ngModel)]=\"leadDetailActivityModel.OnSiteCost\" #numActivityOnsiteCost style=\"width: 100%; padding: 3px;\"></wj-input-number>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button [hidden]=\"isActivityContentHidden\" type=\"button\" class=\"btn btn-primary\" style=\"margin-right: 5px;\"\n        (click)=\"btnSaveActivityClick()\" id=\"btnSaveActivity\">\n        <i class=\"fa fa-save\"></i> Save\n      </button>\n      <button type=\"button\" class=\"btn btn-danger\" (click)=\"activitiyModalRef.hide()\" id=\"btnSaveActivityClickCloseModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n\n  <ng-template #activityDeleteModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        Delete\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      Are you sure you want to delete this activity?\n      <br /> <br />\n\n      AC Number:\n      <b>\n        {{\n        listActivityCollectionView.items.length > 0 ?\n        listActivityCollectionView.currentItem.ACNumber : 'NA'\n        }}\n      </b>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteAcitivityClick()\"\n        id=\"btnConfirmDeleteAcitivity\">\n        <i class=\"fa fa-trash\"></i> Delete\n      </button>\n      <button type=\"button\" class=\"btn\" (click)=\"deleteActivitiyModalRef.hide()\" id=\"btnCloseConfirmDeleteAcitivityModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n</div>"
 
 /***/ }),
 
@@ -62522,8 +62522,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
 /* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _lead_detail_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lead-detail.service */ "./src/app/software/lead-detail/lead-detail.service.ts");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lead_detail_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lead-detail.service */ "./src/app/software/lead-detail/lead-detail.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+
+
 
 
 
@@ -62531,12 +62536,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LeadDetailComponent = /** @class */ (function () {
-    function LeadDetailComponent(leadDetailService, toastr, activatedRoute, router) {
+    function LeadDetailComponent(leadDetailService, toastr, activatedRoute, router, modalService) {
         this.leadDetailService = leadDetailService;
         this.toastr = toastr;
         this.activatedRoute = activatedRoute;
         this.router = router;
+        this.modalService = modalService;
         this.cboLeadAssignedToUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboLeadStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
         this.isLocked = false;
         this.leadDetailModel = {
             Id: 0,
@@ -62553,7 +62560,7 @@ var LeadDetailComponent = /** @class */ (function () {
             AssignedToUserId: 0,
             AssignedToUser: "",
             Status: "",
-            IsLocked: "",
+            IsLocked: false,
             CreatedByUserId: 0,
             CreatedByUser: "",
             CreatedDateTime: "",
@@ -62561,12 +62568,57 @@ var LeadDetailComponent = /** @class */ (function () {
             UpdatedByUser: "",
             UpdatedDateTime: ""
         };
-        this.cboLeadStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listActivityObservableArray);
+        this.listActivityPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+        this.isLoadingSpinnerHidden = false;
+        this.isContentHidden = true;
+        this.isActivityTabHidden = true;
+        this.activityModalHeaderTitle = "Activity";
+        this.cboListActivityUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboListActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.isActivityNumberHidden = false;
+        this.leadDetailActivityModel = {
+            Id: 0,
+            ACNumber: "",
+            ACDate: new Date(),
+            UserId: 0,
+            User: "",
+            FunctionalUserId: 0,
+            FunctionalUser: "",
+            TechnicalUserId: 0,
+            TechnicalUser: "",
+            CRMStatus: "",
+            Activity: "",
+            StartDate: new Date(),
+            StartTime: new Date(),
+            EndDate: new Date(),
+            EndTime: new Date(),
+            TransportationCost: 0,
+            OnSiteCost: 0,
+            LDId: null,
+            SIId: null,
+            SPId: null,
+            Status: "",
+            IsLocked: false,
+            CreatedByUserId: 0,
+            CreatedByUser: "",
+            CreatedDateTime: "",
+            UpdatedByUserId: 0,
+            UpdatedByUser: "",
+            UpdatedDateTime: ""
+        };
+        this.isAddClicked = false;
     }
     LeadDetailComponent.prototype.createCboAssignedToUser = function () {
         var _this = this;
         this.leadDetailService.listAssignedUsers();
-        this.cboLeadAssignedToUsersSub = this.leadDetailService.listLeadAssignedToUsersObservable.subscribe(function (data) {
+        this.cboAssignedToUsersSub = this.leadDetailService.listLeadAssignedToUsersObservable.subscribe(function (data) {
             var assignedUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
             if (data != null) {
                 for (var i = 0; i <= data.length - 1; i++) {
@@ -62579,40 +62631,40 @@ var LeadDetailComponent = /** @class */ (function () {
             }
             _this.cboLeadAssignedToUsersObservableArray = assignedUsersObservableArray;
             if (_this.cboLeadAssignedToUsersObservableArray.length > 0) {
-                _this.createCboLeadStatus();
+                setTimeout(function () {
+                    _this.createCboLeadStatus();
+                }, 100);
             }
-            if (_this.cboLeadAssignedToUsersSub != null)
-                _this.cboLeadAssignedToUsersSub.unsubscribe();
+            if (_this.cboAssignedToUsersSub != null)
+                _this.cboAssignedToUsersSub.unsubscribe();
         });
     };
     LeadDetailComponent.prototype.createCboLeadStatus = function () {
         var _this = this;
-        for (var i = 0; i <= 2; i++) {
-            var status_1 = "Open";
-            switch (i) {
-                case 0: {
-                    status_1 = "Open";
-                    break;
-                }
-                case 1: {
-                    status_1 = "For Closing";
-                    break;
-                }
-                case 2: {
-                    status_1 = "Close";
-                    break;
-                }
-                default: {
-                    break;
+        this.leadDetailService.listStatus();
+        this.cboListStatusSub = this.leadDetailService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
                 }
             }
-            this.cboLeadStatusObservableArray.push({
-                Status: status_1
-            });
-        }
-        setTimeout(function () {
-            _this.detailLead();
-        }, 100);
+            _this.cboLeadStatusObservableArray = statusObservableArray;
+            if (_this.cboLeadStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.detailLead();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
     };
     LeadDetailComponent.prototype.detailLead = function () {
         var _this = this;
@@ -62652,7 +62704,10 @@ var LeadDetailComponent = /** @class */ (function () {
                     btnSaveLead.disabled = true;
                     btnLockLead.disabled = true;
                     btnUnlockLead.disabled = false;
+                    _this.isActivityTabHidden = false;
                 }
+                _this.isLoadingSpinnerHidden = true;
+                _this.isContentHidden = false;
             }
             if (_this.detailLeadSub != null)
                 _this.detailLeadSub.unsubscribe();
@@ -62703,6 +62758,7 @@ var LeadDetailComponent = /** @class */ (function () {
                     btnSaveLead.disabled = true;
                     btnLockLead.disabled = true;
                     btnUnlockLead.disabled = false;
+                    _this.isActivityTabHidden = false;
                 }, 500);
             }
             else if (data[0] == "failed") {
@@ -62717,6 +62773,7 @@ var LeadDetailComponent = /** @class */ (function () {
     };
     LeadDetailComponent.prototype.btnUnlockLeadClick = function () {
         var _this = this;
+        this.isActivityTabHidden = true;
         var btnSaveLead = document.getElementById("btnSaveLead");
         var btnLockLead = document.getElementById("btnLockLead");
         var btnUnlockLead = document.getElementById("btnUnlockLead");
@@ -62732,6 +62789,7 @@ var LeadDetailComponent = /** @class */ (function () {
                     btnSaveLead.disabled = false;
                     btnLockLead.disabled = false;
                     btnUnlockLead.disabled = true;
+                    _this.isActivityTabHidden = true;
                 }, 500);
             }
             else if (data[0] == "failed") {
@@ -62739,34 +62797,314 @@ var LeadDetailComponent = /** @class */ (function () {
                 btnSaveLead.disabled = true;
                 btnLockLead.disabled = true;
                 btnUnlockLead.disabled = false;
+                _this.isActivityTabHidden = false;
             }
             if (_this.unlockLeadSub != null)
                 _this.unlockLeadSub.unsubscribe();
         });
     };
+    LeadDetailComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    LeadDetailComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.listActivityCollectionView.pageSize = this.listActivityPageIndex;
+        this.listActivityCollectionView.refresh();
+        this.listActivityCollectionView.refresh();
+    };
+    LeadDetailComponent.prototype.listActivity = function () {
+        var _this = this;
+        if (!this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+                _this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listActivityObservableArray);
+                _this.listActivityCollectionView.pageSize = 15;
+                _this.listActivityCollectionView.trackChanges = true;
+                _this.listActivityCollectionView.refresh();
+                _this.listActivityFlexGrid.refresh();
+                _this.isProgressBarHidden = false;
+                var id = 0;
+                _this.activatedRoute.params.subscribe(function (params) { id = params["id"]; });
+                _this.leadDetailService.listActivity(id);
+                _this.listActivitySub = _this.leadDetailService.listActivityObservable.subscribe(function (data) {
+                    if (data.length > 0) {
+                        _this.listActivityObservableArray = data;
+                        _this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listActivityObservableArray);
+                        _this.listActivityCollectionView.pageSize = _this.listActivityPageIndex;
+                        _this.listActivityCollectionView.trackChanges = true;
+                        _this.listActivityCollectionView.refresh();
+                        _this.listActivityFlexGrid.refresh();
+                    }
+                    _this.isDataLoaded = true;
+                    _this.isProgressBarHidden = true;
+                    if (_this.listActivitySub != null)
+                        _this.listActivitySub.unsubscribe();
+                });
+            }, 100);
+        }
+    };
+    LeadDetailComponent.prototype.listActivityUsers = function () {
+        var _this = this;
+        this.leadDetailService.listActivityUsers();
+        this.cboListActivityUsersSub = this.leadDetailService.listActivityUsersObservable.subscribe(function (data) {
+            var usersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    usersObservableArray.push({
+                        Id: data[i].Id,
+                        FullName: data[i].FullName,
+                        UserName: data[i].UserName
+                    });
+                }
+            }
+            _this.cboListActivityUsersObservableArray = usersObservableArray;
+            setTimeout(function () {
+                _this.listActivityStatus();
+            }, 100);
+            if (_this.cboListActivityUsersSub != null)
+                _this.cboListActivityUsersSub.unsubscribe();
+        });
+    };
+    LeadDetailComponent.prototype.listActivityStatus = function () {
+        var _this = this;
+        this.leadDetailService.listActivityStatus();
+        this.cboListActivityStatusSub = this.leadDetailService.listActivityStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboListActivityStatusObservableArray = statusObservableArray;
+            setTimeout(function () {
+                _this.currentActivity();
+            }, 100);
+            _this.isActivityLoadingSpinnerHidden = true;
+            _this.isActivityContentHidden = false;
+            if (_this.cboListActivityStatusSub != null)
+                _this.cboListActivityStatusSub.unsubscribe();
+        });
+    };
+    LeadDetailComponent.prototype.currentActivity = function () {
+        var LDId = 0;
+        this.activatedRoute.params.subscribe(function (params) { LDId = params["id"]; });
+        if (this.isAddClicked) {
+            this.leadDetailActivityModel = {
+                Id: 0,
+                ACNumber: "0000000001",
+                ACDate: new Date(),
+                UserId: 0,
+                User: localStorage.getItem("username"),
+                FunctionalUserId: 0,
+                FunctionalUser: "",
+                TechnicalUserId: 0,
+                TechnicalUser: "",
+                CRMStatus: this.leadDetailModel.Status,
+                Activity: "",
+                StartDate: new Date(),
+                StartTime: new Date(),
+                EndDate: new Date(),
+                EndTime: new Date(),
+                TransportationCost: 0,
+                OnSiteCost: 0,
+                LDId: LDId,
+                SIId: null,
+                SPId: null,
+                Status: "",
+                IsLocked: false,
+                CreatedByUserId: 0,
+                CreatedByUser: "",
+                CreatedDateTime: "",
+                UpdatedByUserId: 0,
+                UpdatedByUser: "",
+                UpdatedDateTime: ""
+            };
+        }
+        else {
+            var currentActivity = this.listActivityCollectionView.currentItem;
+            this.leadDetailActivityModel = {
+                Id: currentActivity.Id,
+                ACNumber: currentActivity.ACNumber,
+                ACDate: currentActivity.ACDate,
+                UserId: currentActivity.UserId,
+                User: currentActivity.User,
+                FunctionalUserId: currentActivity.FunctionalUserId,
+                FunctionalUser: currentActivity.FunctionalUser,
+                TechnicalUserId: currentActivity.TechnicalUserId,
+                TechnicalUser: currentActivity.TechnicalUser,
+                CRMStatus: currentActivity.CRMStatus,
+                Activity: currentActivity.Activity,
+                StartDate: currentActivity.StartDate,
+                StartTime: currentActivity.StartTime,
+                EndDate: currentActivity.EndDate,
+                EndTime: currentActivity.EndTime,
+                TransportationCost: currentActivity.TransportationCost,
+                OnSiteCost: currentActivity.OnSiteCost,
+                LDId: currentActivity.LDId,
+                SIId: currentActivity.SIId,
+                SPId: currentActivity.SPId,
+                Status: currentActivity.Status,
+                IsLocked: currentActivity.IsLocked,
+                CreatedByUserId: currentActivity.CreatedByUserId,
+                CreatedByUser: currentActivity.CreatedByUser,
+                CreatedDateTime: currentActivity.CreatedDateTime,
+                UpdatedByUserId: currentActivity.UpdatedByUserId,
+                UpdatedByUser: currentActivity.UpdatedByUser,
+                UpdatedDateTime: currentActivity.UpdatedDateTime
+            };
+        }
+    };
+    LeadDetailComponent.prototype.btnAddActivityClick = function (activityModalTemplate) {
+        this.activitiyModalRef = this.modalService.show(activityModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: ""
+        });
+        this.isAddClicked = true;
+        this.activityModalHeaderTitle = "Add Activity";
+        this.isActivityNumberHidden = true;
+        this.listActivityUsers();
+    };
+    LeadDetailComponent.prototype.btnEditActivityClick = function (activityModalTemplate) {
+        this.activitiyModalRef = this.modalService.show(activityModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: ""
+        });
+        this.isAddClicked = false;
+        this.activityModalHeaderTitle = "Edit Activity";
+        this.isActivityNumberHidden = false;
+        this.listActivityUsers();
+    };
+    LeadDetailComponent.prototype.btnSaveActivityClick = function () {
+        var _this = this;
+        var btnSaveActivity = document.getElementById("btnSaveActivity");
+        var btnSaveActivityClickCloseModal = document.getElementById("btnSaveActivityClickCloseModal");
+        btnSaveActivity.disabled = true;
+        btnSaveActivityClickCloseModal.disabled = true;
+        this.leadDetailService.saveActivity(this.leadDetailActivityModel);
+        this.saveActivitySub = this.leadDetailService.saveActivityObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Activity was successfully saved.", "Success");
+                setTimeout(function () {
+                    _this.isDataLoaded = false;
+                    _this.listActivity();
+                    _this.activitiyModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveActivity.disabled = false;
+                btnSaveActivityClickCloseModal.disabled = false;
+            }
+            if (_this.saveActivitySub != null)
+                _this.saveActivitySub.unsubscribe();
+        });
+    };
+    LeadDetailComponent.prototype.btnDeleteActivityClick = function (activityDeleteModalTemplate) {
+        this.deleteActivitiyModalRef = this.modalService.show(activityDeleteModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
+    };
+    LeadDetailComponent.prototype.btnConfirmDeleteAcitivityClick = function () {
+        var _this = this;
+        var btnConfirmDeleteAcitivity = document.getElementById("btnConfirmDeleteAcitivity");
+        var btnCloseConfirmDeleteAcitivityModal = document.getElementById("btnCloseConfirmDeleteAcitivityModal");
+        btnConfirmDeleteAcitivity.disabled = true;
+        btnCloseConfirmDeleteAcitivityModal.disabled = true;
+        var currentActivity = this.listActivityCollectionView.currentItem;
+        this.leadDetailService.deleteActivity(currentActivity.Id);
+        this.deleteActivitySub = this.leadDetailService.deleteActivityObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Lead was successfully deleted.", "Success");
+                setTimeout(function () {
+                    _this.isDataLoaded = false;
+                    _this.listActivity();
+                    _this.deleteActivitiyModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnConfirmDeleteAcitivity.disabled = false;
+                btnCloseConfirmDeleteAcitivityModal.disabled = false;
+            }
+            if (_this.deleteActivitySub != null)
+                _this.deleteActivitySub.unsubscribe();
+        });
+    };
     LeadDetailComponent.prototype.ngOnInit = function () {
         this.createCboAssignedToUser();
+        this.createCboShowNumberOfRows();
     };
     LeadDetailComponent.prototype.ngOnDestroy = function () {
-        if (this.cboLeadAssignedToUsersSub != null)
-            this.cboLeadAssignedToUsersSub.unsubscribe();
+        if (this.cboAssignedToUsersSub != null)
+            this.cboAssignedToUsersSub.unsubscribe();
+        if (this.cboListStatusSub != null)
+            this.cboListStatusSub.unsubscribe();
         if (this.detailLeadSub != null)
             this.detailLeadSub.unsubscribe();
         if (this.lockLeadSub != null)
             this.lockLeadSub.unsubscribe();
         if (this.unlockLeadSub != null)
             this.unlockLeadSub.unsubscribe();
+        if (this.cboListActivityUsersSub != null)
+            this.cboListActivityUsersSub.unsubscribe();
+        if (this.cboListActivityStatusSub != null)
+            this.cboListActivityStatusSub.unsubscribe();
+        if (this.listActivitySub != null)
+            this.listActivitySub.unsubscribe();
+        if (this.saveActivitySub != null)
+            this.saveActivitySub.unsubscribe();
+        if (this.deleteActivitySub != null)
+            this.deleteActivitySub.unsubscribe();
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listActivityFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], LeadDetailComponent.prototype, "listActivityFlexGrid", void 0);
     LeadDetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-lead-detail',
             template: __webpack_require__(/*! ./lead-detail.component.html */ "./src/app/software/lead-detail/lead-detail.component.html"),
             styles: [__webpack_require__(/*! ./lead-detail.component.css */ "./src/app/software/lead-detail/lead-detail.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_lead_detail_service__WEBPACK_IMPORTED_MODULE_4__["LeadDetailService"],
-            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_lead_detail_service__WEBPACK_IMPORTED_MODULE_5__["LeadDetailService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"]])
     ], LeadDetailComponent);
     return LeadDetailComponent;
 }());
@@ -62811,6 +63149,8 @@ var LeadDetailService = /** @class */ (function () {
         this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
         this.listLeadAssignedToUsersSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.listLeadAssignedToUsersObservable = this.listLeadAssignedToUsersSubject.asObservable();
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
         this.detailLeadSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.detailLeadObservable = this.detailLeadSubject.asObservable();
         this.saveLeadSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
@@ -62819,6 +63159,16 @@ var LeadDetailService = /** @class */ (function () {
         this.lockLeadObservable = this.lockLeadSubject.asObservable();
         this.unlockLeadSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.unlockLeadObservable = this.unlockLeadSubject.asObservable();
+        this.listActivityUsersSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityUsersObservable = this.listActivityUsersSubject.asObservable();
+        this.listActivityStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityStatusObservable = this.listActivityStatusSubject.asObservable();
+        this.listActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityObservable = this.listActivitySubject.asObservable();
+        this.saveActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveActivityObservable = this.saveActivitySubject.asObservable();
+        this.deleteActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteActivityObservable = this.deleteActivitySubject.asObservable();
     }
     LeadDetailService.prototype.listAssignedUsers = function () {
         var _this = this;
@@ -62836,6 +63186,23 @@ var LeadDetailService = /** @class */ (function () {
                 }
             }
             _this.listLeadAssignedToUsersSubject.next(listAssignedToUsersObservableArray);
+        });
+    };
+    LeadDetailService.prototype.listStatus = function () {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/lead/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
         });
     };
     LeadDetailService.prototype.detailLead = function (id) {
@@ -62902,6 +63269,115 @@ var LeadDetailService = /** @class */ (function () {
             _this.unlockLeadSubject.next(errorResults);
         });
     };
+    LeadDetailService.prototype.listActivityUsers = function () {
+        var _this = this;
+        var listActivityUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityUsersSubject.next(listActivityUsersObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/users", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityUsersObservableArray.push({
+                        Id: results[i].Id,
+                        FullName: results[i].FullName,
+                        UserName: results[i].UserName
+                    });
+                }
+            }
+            _this.listActivityUsersSubject.next(listActivityUsersObservableArray);
+        });
+    };
+    LeadDetailService.prototype.listActivityStatus = function () {
+        var _this = this;
+        var listActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityStatusSubject.next(listActivityStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listActivityStatusSubject.next(listActivityStatusObservableArray);
+        });
+    };
+    LeadDetailService.prototype.listActivity = function (leadId) {
+        var _this = this;
+        var listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivitySubject.next(listActivityObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/lead/list/" + leadId, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityObservableArray.push({
+                        Id: results[i].Id,
+                        ACNumber: results[i].ACNumber,
+                        ACDate: results[i].ACDate,
+                        UserId: results[i].UserId,
+                        User: results[i].User,
+                        FunctionalUserId: results[i].FunctionalUserId,
+                        FunctionalUser: results[i].FunctionalUser,
+                        TechnicalUserId: results[i].TechnicalUserId,
+                        TechnicalUser: results[i].TechnicalUser,
+                        CRMStatus: results[i].CRMStatus,
+                        Activity: results[i].Activity,
+                        StartDate: results[i].StartDate,
+                        StartTime: results[i].StartTime,
+                        EndDate: results[i].EndDate,
+                        EndTime: results[i].EndTime,
+                        TransportationCost: results[i].TransportationCost,
+                        OnSiteCost: results[i].OnSiteCost,
+                        LDId: results[i].LDId,
+                        SIId: results[i].SIId,
+                        SPId: results[i].SPId,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listActivitySubject.next(listActivityObservableArray);
+        });
+    };
+    LeadDetailService.prototype.saveActivity = function (objActivity) {
+        var _this = this;
+        if (objActivity.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/crm/trn/activity/add", JSON.stringify(objActivity), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveActivitySubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveActivitySubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/activity/update/" + objActivity.Id, JSON.stringify(objActivity), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveActivitySubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveActivitySubject.next(errorResults);
+            });
+        }
+    };
+    LeadDetailService.prototype.deleteActivity = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/crm/trn/activity/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteActivitySubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteActivitySubject.next(errorResults);
+        });
+    };
     LeadDetailService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -62934,7 +63410,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\" (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnAddLeadClick()\" style=\"margin-right: 5px;\" id=\"btnAddLead\">\n            <i class=\"fa fa-plus fa-fw\"></i> Add\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software\" id=\"btnCloseLead\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  <div class=\"card-body\">\n\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboLeadStartDateFilter [(ngModel)]=\"leadStartDateFilterData\" [ngModelOptions]=\"{standalone: true}\"\n                  (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\" style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboLeadEndDateFilter [(ngModel)]=\"leadEndDateFilterData\" [ngModelOptions]=\"{standalone: true}\"\n                  (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\" style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboLeadStatus [itemsSource]=\"cboLeadStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboLeadStatusSelectedIndexChanged(cboLeadStatus.selectedValue)\" style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listLeadFlexGrid [itemsSource]=\"listLeadCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditLeadClick()\" id=\"btnEditLead\">\n            <i class=\"fa fa-edit fa-fw\"></i> Edit\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\" (click)=\"btnDeleteLeadClick(leadDeleteModalTemplate)\"\n            id=\"btnDeleteLead\">\n            <i class=\"fa fa-trash fa-fw\"></i> Delete\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'LD No.'\" [binding]=\"'LDNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'LD Date'\" [binding]=\"'LDDate'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'Name'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact No.'\" [binding]=\"'ContactPhoneNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Referred By'\" [binding]=\"'ReferredBy'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Remarks'\" [binding]=\"'Remarks'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"'0.5*'\"></wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listLeadCollectionView.pageIndex + 1 }} / {{ listLeadCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n\n<div class=\"card card-default\" style=\"margin-top: 10px;\">\n  <div class=\"card-header\">\n    User stamp\n  </div>\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-6\">\n        <p>Created by:</p>\n        <div style=\"padding-left: 10px;\">\n          <i class=\"fa fa-key\"></i>&nbsp;\n          <label id=\"createdBy\">\n            {{\n            listLeadCollectionView.items.length > 0 ?\n            listLeadCollectionView.currentItem.CreatedBy : 'NA'\n            }}\n          </label>\n          <br />\n          <small>\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n            <span id=\"createdDate\">\n              {{\n              listLeadCollectionView.items.length > 0 ?\n              listLeadCollectionView.currentItem.CreatedDateTime : 'mm/dd/yyyy'\n              }}\n            </span>\n          </small>\n        </div>\n        <br />\n      </div>\n      <div class=\"col-md-6\">\n        <p>Updated by:</p>\n        <div style=\"padding-left: 10px;\">\n          <i class=\"fa fa-key\"></i>&nbsp;\n          <label id=\"updatedBy\">\n            {{\n            listLeadCollectionView.items.length > 0 ?\n            listLeadCollectionView.currentItem.UpdatedBy : 'NA'\n            }}\n          </label>\n          <br />\n          <small>\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n            <span id=\"updatedDate\">\n              {{\n              listLeadCollectionView.items.length > 0 ?\n              listLeadCollectionView.currentItem.UpdatedDateTime : 'mm/dd/yyyy'\n              }}\n            </span>\n          </small>\n        </div>\n        <br />\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #leadDeleteModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      Delete\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    Are you sure you want to delete this lead?\n    <br /> <br />\n    LD Number:\n    <b>\n      {{\n      listLeadCollectionView.items.length > 0 ?\n      listLeadCollectionView.currentItem.LDNumber : 'NA'\n      }}\n    </b>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteLeadClick()\" id=\"btnConfirmDeleteLead\">\n      <i class=\"fa fa-trash\"></i> Delete\n    </button>\n    <button type=\"button\" class=\"btn\" (click)=\"leadDeleteModalRef.hide()\" id=\"btnCloseConfirmDeleteLeadModal\">\n      <i class=\"fa fa-close\"></i> Cancel\n    </button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\" (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnAddLeadClick()\" style=\"margin-right: 5px;\" id=\"btnAddLead\">\n            <i class=\"fa fa-plus fa-fw\"></i> Add\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software\" id=\"btnCloseLead\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  <div class=\"card-body\">\n\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboLeadStartDateFilter [(ngModel)]=\"leadStartDateFilterData\" [ngModelOptions]=\"{standalone: true}\"\n                  (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\" style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboLeadEndDateFilter [(ngModel)]=\"leadEndDateFilterData\" [ngModelOptions]=\"{standalone: true}\"\n                  (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\" style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboLeadStatus [itemsSource]=\"cboLeadStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboLeadStatusSelectedIndexChanged(cboLeadStatus.selectedValue)\" style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listLeadFlexGrid [itemsSource]=\"listLeadCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditLeadClick()\" id=\"btnEditLead\">\n            <i class=\"fa fa-edit fa-fw\"></i> Edit\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\" (click)=\"btnDeleteLeadClick(leadDeleteModalTemplate)\"\n            id=\"btnDeleteLead\">\n            <i class=\"fa fa-trash fa-fw\"></i> Delete\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'LD No.'\" [binding]=\"'LDNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'LD Date'\" [binding]=\"'LDDate'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'Name'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact No.'\" [binding]=\"'ContactPhoneNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Referred By'\" [binding]=\"'ReferredBy'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Remarks'\" [binding]=\"'Remarks'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"'0.5*'\"></wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listLeadCollectionView.pageIndex + 1 }} / {{ listLeadCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n\n<div class=\"card card-default\" style=\"margin-top: 10px;\">\n  <div class=\"card-header\">\n    User stamp\n  </div>\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-6\">\n        <p>Created by:</p>\n        <div style=\"padding-left: 10px;\">\n          <i class=\"fa fa-key\"></i>&nbsp;\n          <label id=\"createdBy\">\n            {{\n            listLeadCollectionView.items.length > 0 ?\n            listLeadCollectionView.currentItem.CreatedByUser : 'NA'\n            }}\n          </label>\n          <br />\n          <small>\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n            <span id=\"createdDate\">\n              {{\n              listLeadCollectionView.items.length > 0 ?\n              listLeadCollectionView.currentItem.CreatedDateTime : 'mm/dd/yyyy'\n              }}\n            </span>\n          </small>\n        </div>\n        <br />\n      </div>\n      <div class=\"col-md-6\">\n        <p>Updated by:</p>\n        <div style=\"padding-left: 10px;\">\n          <i class=\"fa fa-key\"></i>&nbsp;\n          <label id=\"updatedBy\">\n            {{\n            listLeadCollectionView.items.length > 0 ?\n            listLeadCollectionView.currentItem.UpdatedByUser : 'NA'\n            }}\n          </label>\n          <br />\n          <small>\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n            <span id=\"updatedDate\">\n              {{\n              listLeadCollectionView.items.length > 0 ?\n              listLeadCollectionView.currentItem.UpdatedDateTime : 'mm/dd/yyyy'\n              }}\n            </span>\n          </small>\n        </div>\n        <br />\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #leadDeleteModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      Delete\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    Are you sure you want to delete this lead?\n    <br /> <br />\n    LD Number:\n    <b>\n      {{\n      listLeadCollectionView.items.length > 0 ?\n      listLeadCollectionView.currentItem.LDNumber : 'NA'\n      }}\n    </b>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteLeadClick()\" id=\"btnConfirmDeleteLead\">\n      <i class=\"fa fa-trash\"></i> Delete\n    </button>\n    <button type=\"button\" class=\"btn\" (click)=\"leadDeleteModalRef.hide()\" id=\"btnCloseConfirmDeleteLeadModal\">\n      <i class=\"fa fa-close\"></i> Cancel\n    </button>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -63036,29 +63512,31 @@ var LeadComponent = /** @class */ (function () {
         }
     };
     LeadComponent.prototype.createCboLeadStatus = function () {
-        for (var i = 0; i <= 2; i++) {
-            var status_1 = "Open";
-            switch (i) {
-                case 0: {
-                    status_1 = "Open";
-                    break;
-                }
-                case 1: {
-                    status_1 = "For Closing";
-                    break;
-                }
-                case 2: {
-                    status_1 = "Close";
-                    break;
-                }
-                default: {
-                    break;
+        var _this = this;
+        this.leadService.listStatus();
+        this.cboListStatusSub = this.leadService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
                 }
             }
-            this.cboLeadStatusObservableArray.push({
-                Status: status_1
-            });
-        }
+            _this.cboLeadStatusObservableArray = statusObservableArray;
+            if (_this.cboLeadStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listLead();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
     };
     LeadComponent.prototype.cboLeadStatusSelectedIndexChanged = function (selectedValue) {
         var _this = this;
@@ -63119,7 +63597,11 @@ var LeadComponent = /** @class */ (function () {
         this.router.navigate(['/software/trn/lead/detail/', currentLead.Id]);
     };
     LeadComponent.prototype.btnDeleteLeadClick = function (leadDeleteModalTemplate) {
-        this.leadDeleteModalRef = this.modalService.show(leadDeleteModalTemplate, { class: "modal-sm" });
+        this.leadDeleteModalRef = this.modalService.show(leadDeleteModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
     };
     LeadComponent.prototype.btnConfirmDeleteLeadClick = function () {
         var _this = this;
@@ -63147,14 +63629,12 @@ var LeadComponent = /** @class */ (function () {
         });
     };
     LeadComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.createCboShowNumberOfRows();
         this.createCboLeadStatus();
-        setTimeout(function () {
-            _this.listLead();
-        }, 100);
     };
     LeadComponent.prototype.ngOnDestroy = function () {
+        if (this.cboListStatusSub != null)
+            this.cboListStatusSub.unsubscribe();
         if (this.listLeadSub != null)
             this.listLeadSub.unsubscribe();
         if (this.addLeadSub != null)
@@ -63218,6 +63698,8 @@ var LeadService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             })
         };
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
         this.listLeadSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.listLeadObservable = this.listLeadSubject.asObservable();
         this.addLeadSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
@@ -63225,6 +63707,23 @@ var LeadService = /** @class */ (function () {
         this.deleteLeadSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.deleteLeadObservable = this.deleteLeadSubject.asObservable();
     }
+    LeadService.prototype.listStatus = function () {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/lead/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
+        });
+    };
     LeadService.prototype.listLead = function (startDate, endDate, status) {
         var _this = this;
         var listLeadObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
