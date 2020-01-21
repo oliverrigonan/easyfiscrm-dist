@@ -62327,6 +62327,899 @@ function getVersion(){return _VERSION}function setLicenseKey(t){Control._licKey=
 
 /***/ }),
 
+/***/ "./src/app/software/activity/activity.component.css":
+/*!**********************************************************!*\
+  !*** ./src/app/software/activity/activity.component.css ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2FjdGl2aXR5L2FjdGl2aXR5LmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/activity/activity.component.html":
+/*!***********************************************************!*\
+  !*** ./src/app/software/activity/activity.component.html ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnCSVReportClick()\" style=\"margin-right: 5px;\" id=\"btnPrint\">\n            <i class=\"fa fa-file-excel-o fa-fw\"></i> CSV\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software\" id=\"btnCloseActivity\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboActivityStartDateFilter [(ngModel)]=\"ActivityStartDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboActivityEndDateFilter [(ngModel)]=\"ActivityEndDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Document</span>\n                <wj-combo-box #cboActivityDocument [itemsSource]=\"cboActivityDocumentObservableArray\"\n                  [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Category'\"\n                  [selectedValuePath]=\"'Category'\"\n                  (selectedIndexChanged)=\"cboDocumentSelectedIndexChanged(cboActivityDocument.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboActivityStatus [itemsSource]=\"cboActivityStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboActivityStatusSelectedIndexChanged(cboActivityStatus.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  User</span>\n                <wj-combo-box #cboActivityUser [itemsSource]=\"cboActivityUserObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\"\n                  (selectedIndexChanged)=\"cboActivityUserSelectedIndexChanged(cboActivityUser.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listActivityHeaderCollectionView\" [selectionMode]=\"3\"\n      [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\"\n            (click)=\"btnActivityListClick(activityListModalTemplate)\" id=\"btnActivity\">\n            Activity\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'Date'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Document'\" [binding]=\"'DocType'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Reference'\" [binding]=\"'Reference'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Customer'\" [binding]=\"'Customer'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Particular'\" [binding]=\"'Particular'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityHeaderCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityHeaderCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listActivityHeaderCollectionView.pageIndex + 1 }} / {{ listActivityHeaderCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityHeaderCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityHeaderCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n\n\n<ng-template #activityListModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      {{ activityModalHeaderTitle }}\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"card card-default\">\n      <div class=\"card-header\">\n        <table border=\"0\" style=\"width: 100%; border: none;\">\n          <tr>\n            <td>\n              <div class=\"input-group\">\n                <div class=\"input-group-prepend\">\n                  <div class=\"input-group-text\">\n                    <b>\n                      <i class=\"fa fa-table\"></i>\n                    </b>\n                  </div>\n                </div>\n                <wj-combo-box #cboNumberOfRows [itemsSource]=\"modalcboShowNumberOfRows\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n                  (selectedIndexChanged)=\"modalCboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n                  style=\"width: 140px;\">\n                </wj-combo-box>\n              </div>\n            </td>\n            <td style=\"text-align: right;\">\n              <button class=\"btn btn-primary\" (click)=\"btnAddActivityClick(activityModalTemplate)\"\n                style=\"margin-right: 5px;\" id=\"btnAddActivity\">\n                <i class=\"fa fa-plus fa-fw\"></i> Add\n              </button>\n              <button class=\"btn btn-danger\" (click)=\"activityListModalRef.hide()\" id=\"btnCloseActivity\">\n                <i class=\"fa fa-close fa-fw\"></i> Close\n              </button>\n            </td>\n          </tr>\n        </table>\n      </div>\n\n      <div class=\"card-body\">\n        <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\">\n        </mat-progress-bar>\n        <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"modalListActivityCollectionView\" [selectionMode]=\"3\"\n          [frozenColumns]=\"2\">\n          <wj-flex-grid-filter></wj-flex-grid-filter>\n          <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n              <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\"\n                (click)=\"btnEditActivityClick(activityModalTemplate)\" id=\"btnEditActivity\">\n                <i class=\"fa fa-edit fa-fw\"></i> Edit\n              </button>\n            </ng-template>\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n              <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\n                (click)=\"btnDeleteActivityClick(activityDeleteModalTemplate)\" id=\"btnDeleteActivity\">\n                <i class=\"fa fa-trash fa-fw\"></i> Delete\n              </button>\n            </ng-template>\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'No.'\" [binding]=\"'ACNumber'\" [isReadOnly]=\"true\" [width]=\"110\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'ACDate'\" [isReadOnly]=\"true\" [width]=\"110\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'User'\" [binding]=\"'User'\" [isReadOnly]=\"true\" [width]=\"200\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'CRM Status'\" [binding]=\"'CRMStatus'\" [isReadOnly]=\"true\" [width]=\"200\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Activity'\" [binding]=\"'Activity'\" [isReadOnly]=\"true\" [width]=\"300\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\n          </wj-flex-grid-column>\n        </wj-flex-grid>\n      </div>\n      <!-- <div class=\"card-footer\">\n        <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n            <i class=\"fa fa-fast-backward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n            <i class=\"fa fa-step-backward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n            {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n            <i class=\"fa fa-step-forward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n            <i class=\"fa fa-fast-forward\"></i>\n          </button>\n        </div>\n      </div> -->\n    </div>\n    \n  </div>\n  <!-- <div class=\"modal-footer\"> -->\n  <div class=\"modal-footer\">\n    <table>\n      <tr>\n        <td>\n          <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modalListActivityCollectionView.moveToFirstPage()\">\n              <i class=\"fa fa-fast-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modalListActivityCollectionView.moveToPreviousPage()\">\n              <i class=\"fa fa-step-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n              {{ modalListActivityCollectionView.pageIndex + 1 }} / {{ modalListActivityCollectionView.pageCount }}\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modalListActivityCollectionView.moveToNextPage()\">\n              <i class=\"fa fa-step-forward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modalListActivityCollectionView.moveToLastPage()\">\n              <i class=\"fa fa-fast-forward\"></i>\n            </button>\n          </div>\n        </td>\n        <td></td>\n      </tr>\n    </table>\n  </div>\n</ng-template>\n\n<ng-template #activityModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      {{ activityModalHeaderTitle }}\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    <div [hidden]=\"isActivityLoadingSpinnerHidden\">\n      <br /><br />\n      <mat-spinner style=\"margin: auto;\"></mat-spinner>\n      <br /><br />\n    </div>\n    <div [hidden]=\"isActivityContentHidden\">\n      <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link active\" id=\"activity-detail-tab\" data-toggle=\"tab\" href=\"#activity-detail\" role=\"tab\"\n            aria-controls=\"activity-detail\" aria-selected=\"true\">Detail</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" id=\"activity-activity-tab\" data-toggle=\"tab\" href=\"#activity-activity\" role=\"tab\"\n            aria-controls=\"activity-activity\" aria-selected=\"false\">Activity</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" id=\"activity-cost-tab\" data-toggle=\"tab\" href=\"#activity-cost\" role=\"tab\"\n            aria-controls=\"activity-cost\" aria-selected=\"false\">Cost</a>\n        </li>\n      </ul>\n      <br />\n      <div class=\"tab-content\" id=\"myTabContent\">\n        <div class=\"tab-pane fade show active\" id=\"activity-detail\" role=\"tabpanel\"\n          aria-labelledby=\"activity-detail-tab\">\n          <div class=\"form-group row\">\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\"\n              [hidden]=\"isActivityNumberHidden\">No.</label>\n            <div class=\"col-sm-9\" [hidden]=\"isActivityNumberHidden\">\n              <input type=\"text\" class=\"form-control\" placeholder=\"Number...\"\n                [(ngModel)]=\"activityModel.ACNumber\" disabled>\n            </div>\n            <div [hidden]=\"isActivityNumberHidden\">\n              <br /><br />\n            </div>\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">CRM</label>\n            <div class=\"col-sm-9\">\n              <input type=\"text\" class=\"form-control\" placeholder=\"CRM Status...\"\n                [(ngModel)]=\"activityModel.CRMStatus\" disabled>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Date</label>\n            <div class=\"col-sm-9\">\n              <wj-input-date #cboActivityDate format=\"MMMM dd, yyyy\" [(ngModel)]=\"activityModel.ACDate\"\n                style=\"width: 100%; padding: 3px;\">\n              </wj-input-date>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Functional</label>\n            <div class=\"col-sm-9\">\n              <wj-combo-box #cboActivityFunctionalUser [(ngModel)]=\"activityModel.FunctionalUserId\"\n                [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n              </wj-combo-box>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Technical</label>\n            <div class=\"col-sm-9\">\n              <wj-combo-box #cboActivityTechnicalUser [(ngModel)]=\"activityModel.TechnicalUserId\"\n                [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n              </wj-combo-box>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Start</label>\n            <div class=\"col-sm-9\">\n              <table style=\"width: 100%;\">\n                <tr>\n                  <td style=\"width: 60%\">\n                    <wj-input-date #cboActivityStartDate [(ngModel)]=\"activityModel.StartDate\"\n                      format=\"MMMM dd, yyyy\"></wj-input-date>\n                  </td>\n                  <td style=\"width: 1%\"></td>\n                  <td style=\"width: 39%\">\n                    <wj-input-time #cboActivityStartTime [(ngModel)]=\"activityModel.StartTime\"\n                      format=\"h:mm tt\" [step]=\"1\"></wj-input-time>\n                  </td>\n                </tr>\n              </table>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">End</label>\n            <div class=\"col-sm-9\">\n              <table style=\"width: 100%;\">\n                <tr>\n                  <td style=\"width: 60%\">\n                    <wj-input-date #cboActivityEndDate [(ngModel)]=\"activityModel.EndDate\"\n                      format=\"MMMM dd, yyyy\"></wj-input-date>\n                  </td>\n                  <td style=\"width: 1%\"></td>\n                  <td style=\"width: 39%\">\n                    <wj-input-time #cboActivityEndTime [(ngModel)]=\"activityModel.EndTime\"\n                      format=\"h:mm tt\" [step]=\"1\"></wj-input-time>\n                  </td>\n                </tr>\n              </table>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Status</label>\n            <div class=\"col-sm-9\">\n              <wj-combo-box #cboActivityStatus [(ngModel)]=\"activityModel.Status\"\n                [itemsSource]=\"cboListActivityStatusObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\n                [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\" style=\"width: 100%; padding: 3px;\">\n              </wj-combo-box>\n            </div>\n          </div>\n        </div>\n        <div class=\"tab-pane fade\" id=\"activity-activity\" role=\"tabpanel\" aria-labelledby=\"activity-activity-tab\">\n          <div class=\"form-group row\">\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">User</label>\n            <div class=\"col-sm-9\">\n              <input type=\"text\" class=\"form-control\" placeholder=\"User...\"\n                [(ngModel)]=\"activityModel.User\" disabled>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Activity</label>\n            <div class=\"col-sm-9\">\n              <textarea [(ngModel)]=\"activityModel.Activity\" type=\"text\" class=\"form-control\"\n                style=\"resize: vertical\" placeholder=\"Activity...\" rows=\"10\"></textarea>\n            </div>\n          </div>\n        </div>\n        <div class=\"tab-pane fade\" id=\"activity-cost\" role=\"tabpanel\" aria-labelledby=\"activity-cost-tab\">\n          <div class=\"form-group row\">\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Transpo.</label>\n            <div class=\"col-sm-9\">\n              <wj-input-number [(ngModel)]=\"activityModel.TransportationCost\" #numActivityTranspoCost\n                style=\"width: 100%; padding: 3px;\"></wj-input-number>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">On-site</label>\n            <div class=\"col-sm-9\">\n              <wj-input-number [(ngModel)]=\"activityModel.OnSiteCost\" #numActivityOnsiteCost\n                style=\"width: 100%; padding: 3px;\"></wj-input-number>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button [hidden]=\"isActivityContentHidden\" type=\"button\" class=\"btn btn-primary\" style=\"margin-right: 5px;\"\n      (click)=\"btnSaveActivityClick()\" id=\"btnSaveActivity\">\n      <i class=\"fa fa-save\"></i> Save\n    </button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"activitiyModalRef.hide()\"\n      id=\"btnSaveActivityClickCloseModal\">\n      <i class=\"fa fa-close\"></i> Cancel\n    </button>\n  </div>\n</ng-template>\n\n<ng-template #activityDeleteModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      Delete\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    Are you sure you want to delete this activity?\n    <br /> <br />\n\n    AC Number:\n    <b>\n      {{\n        modalListActivityCollectionView.items.length > 0 ?\n        modalListActivityCollectionView.currentItem.ACNumber : 'NA'\n      }}\n    </b>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteAcitivityClick()\"\n      id=\"btnConfirmDeleteAcitivity\">\n      <i class=\"fa fa-trash\"></i> Delete\n    </button>\n    <button type=\"button\" class=\"btn\" (click)=\"deleteActivitiyModalRef.hide()\" id=\"btnCloseConfirmDeleteAcitivityModal\">\n      <i class=\"fa fa-close\"></i> Cancel\n    </button>\n  </div>\n</ng-template>"
+
+/***/ }),
+
+/***/ "./src/app/software/activity/activity.component.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/software/activity/activity.component.ts ***!
+  \*********************************************************/
+/*! exports provided: ActivityComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActivityComponent", function() { return ActivityComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _activity_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./activity.service */ "./src/app/software/activity/activity.service.ts");
+
+
+
+
+
+
+
+
+var ActivityComponent = /** @class */ (function () {
+    function ActivityComponent(activityService, modalService, toastr, router) {
+        this.activityService = activityService;
+        this.modalService = modalService;
+        this.toastr = toastr;
+        this.router = router;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.ActivityStartDateFilterData = new Date();
+        this.ActivityEndDateFilterData = new Date();
+        this.cboActivityUserObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboActivityUserSelectedValue = 0;
+        this.cboActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboActivityStatusSelectedValue = "Open";
+        this.cboActivityDocumentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboActivityDocumentSelectedValue = "Open";
+        this.clistActivityHeaderObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityHeaderCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.clistActivityHeaderObservableArray);
+        this.listActivityPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+        this.modalcboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.modalListActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.modalListActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.modalListActivityObservableArray);
+        this.modalListActivityPageIndex = 15;
+        this.isLoadingSpinnerHidden = false;
+        this.isContentHidden = true;
+        this.isActivityTabHidden = true;
+        this.activityModalHeaderTitle = "Activity";
+        this.cboListActivityUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboListActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.isActivityNumberHidden = false;
+        this.isAddClicked = false;
+        this.isActivityDataLoaded = false;
+        this.activityModel = {
+            Id: 0,
+            ACNumber: "",
+            ACDate: new Date(),
+            UserId: 0,
+            User: "",
+            FunctionalUserId: 0,
+            FunctionalUser: "",
+            TechnicalUserId: 0,
+            TechnicalUser: "",
+            CRMStatus: "",
+            Activity: "",
+            StartDate: new Date(),
+            StartTime: new Date(),
+            EndDate: new Date(),
+            EndTime: new Date(),
+            TransportationCost: 0,
+            OnSiteCost: 0,
+            LDId: 0,
+            SDId: 0,
+            SPId: 0,
+            Status: "",
+            IsLocked: false,
+            CreatedByUserId: 0,
+            CreatedByUser: "",
+            CreatedDateTime: "",
+            UpdatedByUserId: 0,
+            UpdatedByUser: "",
+            UpdatedDateTime: "",
+        };
+    }
+    ActivityComponent.prototype.ngOnInit = function () {
+        this.createCboShowNumberOfRows();
+        this.createCboActivityDocument();
+        this.createCboActivityStatus();
+        this.createCboActivityUser();
+    };
+    ActivityComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    ActivityComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.listActivityHeaderCollectionView.pageSize = this.listActivityPageIndex;
+        this.listActivityHeaderCollectionView.refresh();
+        this.listActivityHeaderCollectionView.refresh();
+    };
+    ActivityComponent.prototype.cboStartDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivityHeader();
+            }, 100);
+        }
+    };
+    ActivityComponent.prototype.cboEndDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivityHeader();
+            }, 100);
+        }
+    };
+    ActivityComponent.prototype.createCboActivityUser = function () {
+        var _this = this;
+        this.activityService.listUser();
+        this.cboListUserSub = this.activityService.listUserObservable.subscribe(function (data) {
+            var userObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    userObservableArray.push({
+                        Id: data[i].Id,
+                        UserName: data[i].UserName,
+                        FullName: data[i].FullName
+                    });
+                }
+            }
+            _this.cboActivityUserObservableArray = userObservableArray;
+            setTimeout(function () {
+                _this.listActivityHeader();
+            }, 100);
+            if (_this.cboListUserSub != null)
+                _this.cboListUserSub.unsubscribe();
+        });
+    };
+    ActivityComponent.prototype.cboActivityUserSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboActivityUserSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.createCboActivityStatus();
+            }, 100);
+        }
+    };
+    ActivityComponent.prototype.createCboActivityDocument = function () {
+        var _this = this;
+        this.activityService.listDocument();
+        this.cboListDocumentSub = this.activityService.listDocumentObservable.subscribe(function (data) {
+            var documentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    documentObservableArray.push({
+                        Id: data[i].Id,
+                        Category: data[i].Category
+                    });
+                }
+            }
+            _this.cboActivityDocumentObservableArray = documentObservableArray;
+            if (_this.cboActivityDocumentObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listActivityHeader();
+                }, 100);
+            }
+            if (_this.cboListDocumentSub != null)
+                _this.cboListDocumentSub.unsubscribe();
+        });
+    };
+    ActivityComponent.prototype.cboDocumentSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboActivityDocumentSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.createCboActivityStatus();
+            }, 100);
+        }
+    };
+    ActivityComponent.prototype.createCboActivityStatus = function () {
+        var _this = this;
+        this.activityService.listStatus(this.cboActivityDocumentSelectedValue);
+        this.cboListStatusSub = this.activityService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            console.log("Good!");
+            _this.cboActivityStatusObservableArray = statusObservableArray;
+            if (_this.cboActivityStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listActivityHeader();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
+    };
+    ActivityComponent.prototype.cboActivityStatusSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboActivityStatusSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivityHeader();
+            }, 100);
+        }
+    };
+    ActivityComponent.prototype.listActivityHeader = function () {
+        var _this = this;
+        this.clistActivityHeaderObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityHeaderCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.clistActivityHeaderObservableArray);
+        this.listActivityHeaderCollectionView.pageSize = 15;
+        this.listActivityHeaderCollectionView.trackChanges = true;
+        this.listActivityHeaderCollectionView.refresh();
+        this.listActivityFlexGrid.refresh();
+        var startDate = [this.ActivityStartDateFilterData.getFullYear(), this.ActivityStartDateFilterData.getMonth() + 1, this.ActivityStartDateFilterData.getDate()].join('-');
+        var endDate = [this.ActivityEndDateFilterData.getFullYear(), this.ActivityEndDateFilterData.getMonth() + 1, this.ActivityEndDateFilterData.getDate()].join('-');
+        this.isProgressBarHidden = false;
+        this.activityService.listActivityHeader(startDate, endDate, this.cboActivityDocumentSelectedValue, this.cboActivityStatusSelectedValue, this.cboActivityUserSelectedValue);
+        this.listActivityHeaderSub = this.activityService.listActivityHeadingObservable.subscribe(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                _this.clistActivityHeaderObservableArray = data;
+                _this.listActivityHeaderCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.clistActivityHeaderObservableArray);
+                _this.listActivityHeaderCollectionView.pageSize = _this.listActivityPageIndex;
+                _this.listActivityHeaderCollectionView.trackChanges = true;
+                _this.listActivityHeaderCollectionView.refresh();
+                _this.listActivityFlexGrid.refresh();
+            }
+            _this.isDataLoaded = true;
+            _this.isProgressBarHidden = true;
+            if (_this.listActivityHeaderSub != null)
+                _this.listActivityHeaderSub.unsubscribe();
+        });
+    };
+    ActivityComponent.prototype.btnActivityListClick = function (activityListModalTemplate) {
+        var _this = this;
+        this.activityModalHeaderTitle = "Activity List";
+        this.modalCreateCboShowNumberOfRows();
+        this.isActivityDataLoaded = false;
+        this.listActivity();
+        setTimeout(function () {
+            _this.activityListModalRef = _this.modalService.show(activityListModalTemplate, {
+                backdrop: true,
+                ignoreBackdropClick: true,
+                class: "modal-lg"
+            });
+        }, 300);
+    };
+    ActivityComponent.prototype.modalCreateCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.modalcboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    ActivityComponent.prototype.modalCboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.modalListActivityCollectionView.pageSize = this.listActivityPageIndex;
+        this.modalListActivityCollectionView.refresh();
+        this.modalListActivityCollectionView.refresh();
+    };
+    ActivityComponent.prototype.listActivity = function () {
+        var _this = this;
+        if (!this.isActivityDataLoaded) {
+            setTimeout(function () {
+                _this.modalListActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+                _this.modalListActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.modalListActivityObservableArray);
+                _this.modalListActivityCollectionView.pageSize = 15;
+                _this.modalListActivityCollectionView.trackChanges = true;
+                _this.modalListActivityCollectionView.refresh();
+                _this.listActivityFlexGrid.refresh();
+                _this.isProgressBarHidden = false;
+                var currentActivityHeader = _this.listActivityHeaderCollectionView.currentItem;
+                _this.activityService.listActivity(currentActivityHeader.DocType, currentActivityHeader.Id);
+                _this.listActivitySub = _this.activityService.listActivityObservable.subscribe(function (data) {
+                    if (data.length > 0) {
+                        _this.modalListActivityObservableArray = data;
+                        _this.modalListActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.modalListActivityObservableArray);
+                        _this.modalListActivityCollectionView.pageSize = _this.listActivityPageIndex;
+                        _this.modalListActivityCollectionView.trackChanges = true;
+                        _this.modalListActivityCollectionView.refresh();
+                        _this.listActivityFlexGrid.refresh();
+                    }
+                    _this.isActivityDataLoaded = true;
+                    _this.isProgressBarHidden = true;
+                    if (_this.listActivitySub != null)
+                        _this.listActivitySub.unsubscribe();
+                });
+            }, 100);
+        }
+    };
+    ActivityComponent.prototype.currentActivity = function () {
+        var currentActivityHeader = this.listActivityHeaderCollectionView.currentItem;
+        var leadId;
+        var salesDeliveryId;
+        var supportId;
+        if (currentActivityHeader.DocType == "LEAD") {
+            leadId = currentActivityHeader.Id;
+            salesDeliveryId = null;
+            supportId = null;
+        }
+        if (currentActivityHeader.DocType == "SALES DELIVERY") {
+            leadId = null;
+            salesDeliveryId = currentActivityHeader.Id;
+            supportId = null;
+        }
+        if (currentActivityHeader.DocType == "SUPPORT") {
+            leadId = null;
+            salesDeliveryId = null;
+            supportId = currentActivityHeader.Id;
+        }
+        console.log(leadId, salesDeliveryId, supportId);
+        if (this.isAddClicked) {
+            this.activityModel = {
+                Id: 0,
+                ACNumber: "0000000001",
+                ACDate: new Date(),
+                UserId: 0,
+                User: localStorage.getItem("username"),
+                FunctionalUserId: 0,
+                FunctionalUser: "",
+                TechnicalUserId: 0,
+                TechnicalUser: "",
+                CRMStatus: this.activityModel.Status,
+                Activity: "",
+                StartDate: new Date(),
+                StartTime: new Date(),
+                EndDate: new Date(),
+                EndTime: new Date(),
+                TransportationCost: 0,
+                OnSiteCost: 0,
+                LDId: leadId,
+                SDId: salesDeliveryId,
+                SPId: supportId,
+                Status: "",
+                IsLocked: false,
+                CreatedByUserId: 0,
+                CreatedByUser: "",
+                CreatedDateTime: "",
+                UpdatedByUserId: 0,
+                UpdatedByUser: "",
+                UpdatedDateTime: ""
+            };
+        }
+        else {
+            var currentActivity = this.modalListActivityCollectionView.currentItem;
+            this.activityModel = {
+                Id: currentActivity.Id,
+                ACNumber: currentActivity.ACNumber,
+                ACDate: currentActivity.ACDate,
+                UserId: currentActivity.UserId,
+                User: currentActivity.User,
+                FunctionalUserId: currentActivity.FunctionalUserId,
+                FunctionalUser: currentActivity.FunctionalUser,
+                TechnicalUserId: currentActivity.TechnicalUserId,
+                TechnicalUser: currentActivity.TechnicalUser,
+                CRMStatus: currentActivity.CRMStatus,
+                Activity: currentActivity.Activity,
+                StartDate: currentActivity.StartDate,
+                StartTime: currentActivity.StartTime,
+                EndDate: currentActivity.EndDate,
+                EndTime: currentActivity.EndTime,
+                TransportationCost: currentActivity.TransportationCost,
+                OnSiteCost: currentActivity.OnSiteCost,
+                LDId: currentActivity.LDId,
+                SDId: currentActivity.SDId,
+                SPId: currentActivity.SPId,
+                Status: currentActivity.Status,
+                IsLocked: currentActivity.IsLocked,
+                CreatedByUserId: currentActivity.CreatedByUserId,
+                CreatedByUser: currentActivity.CreatedByUser,
+                CreatedDateTime: currentActivity.CreatedDateTime,
+                UpdatedByUserId: currentActivity.UpdatedByUserId,
+                UpdatedByUser: currentActivity.UpdatedByUser,
+                UpdatedDateTime: currentActivity.UpdatedDateTime
+            };
+        }
+    };
+    ActivityComponent.prototype.btnAddActivityClick = function (activityModalTemplate) {
+        this.activitiyModalRef = this.modalService.show(activityModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: ""
+        });
+        this.isAddClicked = true;
+        this.activityModalHeaderTitle = "Add Activity";
+        this.isActivityNumberHidden = true;
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.listActivityUsers();
+    };
+    ActivityComponent.prototype.btnEditActivityClick = function (activityModalTemplate) {
+        this.activitiyModalRef = this.modalService.show(activityModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: ""
+        });
+        this.isAddClicked = false;
+        this.activityModalHeaderTitle = "Edit Activity";
+        this.isActivityNumberHidden = false;
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.listActivityUsers();
+    };
+    ActivityComponent.prototype.btnSaveActivityClick = function () {
+        var _this = this;
+        var btnSaveActivity = document.getElementById("btnSaveActivity");
+        var btnSaveActivityClickCloseModal = document.getElementById("btnSaveActivityClickCloseModal");
+        btnSaveActivity.disabled = true;
+        btnSaveActivityClickCloseModal.disabled = true;
+        this.activityService.saveActivity(this.activityModel);
+        this.saveActivitySub = this.activityService.saveActivityObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Activity was successfully saved.", "Success");
+                setTimeout(function () {
+                    _this.isActivityDataLoaded = false;
+                    _this.listActivity();
+                    _this.activitiyModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveActivity.disabled = false;
+                btnSaveActivityClickCloseModal.disabled = false;
+            }
+            if (_this.saveActivitySub != null)
+                _this.saveActivitySub.unsubscribe();
+        });
+    };
+    ActivityComponent.prototype.listActivityUsers = function () {
+        var _this = this;
+        this.activityService.listActivityUsers();
+        this.cboListActivityUsersSub = this.activityService.listActivityUsersObservable.subscribe(function (data) {
+            var usersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    usersObservableArray.push({
+                        Id: data[i].Id,
+                        FullName: data[i].FullName,
+                        UserName: data[i].UserName
+                    });
+                }
+            }
+            _this.cboListActivityUsersObservableArray = usersObservableArray;
+            setTimeout(function () {
+                _this.listActivityStatus();
+            }, 100);
+            if (_this.cboListActivityUsersSub != null)
+                _this.cboListActivityUsersSub.unsubscribe();
+        });
+    };
+    ActivityComponent.prototype.listActivityStatus = function () {
+        var _this = this;
+        this.activityService.listActivityStatus();
+        this.cboListActivityStatusSub = this.activityService.listActivityStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboListActivityStatusObservableArray = statusObservableArray;
+            setTimeout(function () {
+                _this.currentActivity();
+            }, 100);
+            _this.isActivityLoadingSpinnerHidden = true;
+            _this.isActivityContentHidden = false;
+            if (_this.cboListActivityStatusSub != null)
+                _this.cboListActivityStatusSub.unsubscribe();
+        });
+    };
+    ActivityComponent.prototype.btnDeleteActivityClick = function (activityDeleteModalTemplate) {
+        this.deleteActivitiyModalRef = this.modalService.show(activityDeleteModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
+    };
+    ActivityComponent.prototype.btnConfirmDeleteAcitivityClick = function () {
+        var _this = this;
+        var btnConfirmDeleteAcitivity = document.getElementById("btnConfirmDeleteAcitivity");
+        var btnCloseConfirmDeleteAcitivityModal = document.getElementById("btnCloseConfirmDeleteAcitivityModal");
+        btnConfirmDeleteAcitivity.disabled = true;
+        btnCloseConfirmDeleteAcitivityModal.disabled = true;
+        var currentActivity = this.modalListActivityCollectionView.currentItem;
+        this.activityService.deleteActivity(currentActivity.Id);
+        this.deleteActivitySub = this.activityService.deleteActivityObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Lead was successfully deleted.", "Success");
+                setTimeout(function () {
+                    _this.isActivityDataLoaded = false;
+                    _this.listActivity();
+                    _this.deleteActivitiyModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnConfirmDeleteAcitivity.disabled = false;
+                btnCloseConfirmDeleteAcitivityModal.disabled = false;
+            }
+            if (_this.deleteActivitySub != null)
+                _this.deleteActivitySub.unsubscribe();
+        });
+    };
+    ActivityComponent.prototype.ngOnDestroy = function () {
+        if (this.cboListStatusSub != null)
+            this.cboListStatusSub.unsubscribe();
+        if (this.cboListDocumentSub != null)
+            this.cboListDocumentSub.unsubscribe();
+        if (this.listActivityHeaderSub != null)
+            this.listActivityHeaderSub.unsubscribe();
+        if (this.listActivitySub != null)
+            this.listActivitySub.unsubscribe();
+        if (this.saveActivitySub != null)
+            this.saveActivitySub.unsubscribe();
+        if (this.cboListActivityUsersSub != null)
+            this.cboListActivityUsersSub.unsubscribe();
+        if (this.deleteActivitySub != null)
+            this.deleteActivitySub.unsubscribe();
+        if (this.cboListActivityStatusSub != null)
+            this.cboListActivityStatusSub.unsubscribe();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listActivityFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], ActivityComponent.prototype, "listActivityFlexGrid", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('modalListActivityFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], ActivityComponent.prototype, "modalListActivityFlexGrid", void 0);
+    ActivityComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-activity',
+            template: __webpack_require__(/*! ./activity.component.html */ "./src/app/software/activity/activity.component.html"),
+            styles: [__webpack_require__(/*! ./activity.component.css */ "./src/app/software/activity/activity.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_activity_service__WEBPACK_IMPORTED_MODULE_7__["ActivityService"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], ActivityComponent);
+    return ActivityComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/activity/activity.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/software/activity/activity.service.ts ***!
+  \*******************************************************/
+/*! exports provided: ActivityService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActivityService", function() { return ActivityService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var ActivityService = /** @class */ (function () {
+    function ActivityService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.listUserSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listUserObservable = this.listUserSubject.asObservable();
+        this.listDocumentSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listDocumentObservable = this.listDocumentSubject.asObservable();
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
+        this.listActivityHeaderSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityHeadingObservable = this.listActivityHeaderSubject.asObservable();
+        this.listActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityObservable = this.listActivitySubject.asObservable();
+        this.listActivityUsersSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityUsersObservable = this.listActivityUsersSubject.asObservable();
+        this.listActivityStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityStatusObservable = this.listActivityStatusSubject.asObservable();
+        this.saveActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveActivityObservable = this.saveActivitySubject.asObservable();
+        this.deleteActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteActivityObservable = this.deleteActivitySubject.asObservable();
+    }
+    ActivityService.prototype.listUser = function () {
+        var _this = this;
+        var listUserObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listUserSubject.next(listUserObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/users", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listUserObservableArray.push({
+                        Id: results[i].Id,
+                        FullName: results[i].FullName,
+                        UserName: results[i].UserName
+                    });
+                }
+            }
+            _this.listUserSubject.next(listUserObservableArray);
+        });
+    };
+    ActivityService.prototype.listDocument = function () {
+        var _this = this;
+        var listDocumentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listDocumentSubject.next(listDocumentObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/list/document", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listDocumentObservableArray.push({
+                        Id: results[i].Id,
+                        Category: results[i].Category
+                    });
+                }
+            }
+            _this.listDocumentSubject.next(listDocumentObservableArray);
+        });
+    };
+    ActivityService.prototype.listStatus = function (document) {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/list/status/" + document, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
+        });
+    };
+    ActivityService.prototype.listActivityHeader = function (startDate, endDate, document, status, userId) {
+        var _this = this;
+        var listActivityHeaderObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityHeaderSubject.next(listActivityHeaderObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/summary/list/" + startDate + "/" + endDate + "/" + document + "/" + status + "/" + userId, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityHeaderObservableArray.push({
+                        Id: results[i].Id,
+                        Date: results[i].Date,
+                        DocType: results[i].DocType,
+                        Reference: results[i].Reference,
+                        Customer: results[i].Customer,
+                        Particular: results[i].Particular,
+                        Status: results[i].Status,
+                    });
+                }
+            }
+            _this.listActivityHeaderSubject.next(listActivityHeaderObservableArray);
+        });
+    };
+    ActivityService.prototype.listActivity = function (document, supportId) {
+        var _this = this;
+        var listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivitySubject.next(listActivityObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/list/" + document + "/" + supportId, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityObservableArray.push({
+                        Id: results[i].Id,
+                        ACNumber: results[i].ACNumber,
+                        ACDate: results[i].ACDate,
+                        UserId: results[i].UserId,
+                        User: results[i].User,
+                        FunctionalUserId: results[i].FunctionalUserId,
+                        FunctionalUser: results[i].FunctionalUser,
+                        TechnicalUserId: results[i].TechnicalUserId,
+                        TechnicalUser: results[i].TechnicalUser,
+                        CRMStatus: results[i].CRMStatus,
+                        Activity: results[i].Activity,
+                        StartDate: results[i].StartDate,
+                        StartTime: results[i].StartTime,
+                        EndDate: results[i].EndDate,
+                        EndTime: results[i].EndTime,
+                        TransportationCost: results[i].TransportationCost,
+                        OnSiteCost: results[i].OnSiteCost,
+                        LDId: results[i].LDId,
+                        SDId: results[i].SIId,
+                        SPId: results[i].SPId,
+                        LastActivity: results[i].LastActivity,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listActivitySubject.next(listActivityObservableArray);
+        });
+    };
+    ActivityService.prototype.listActivityUsers = function () {
+        var _this = this;
+        var listActivityUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityUsersSubject.next(listActivityUsersObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/users", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityUsersObservableArray.push({
+                        Id: results[i].Id,
+                        FullName: results[i].FullName,
+                        UserName: results[i].UserName
+                    });
+                }
+            }
+            _this.listActivityUsersSubject.next(listActivityUsersObservableArray);
+        });
+    };
+    ActivityService.prototype.listActivityStatus = function () {
+        var _this = this;
+        var listActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityStatusSubject.next(listActivityStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listActivityStatusSubject.next(listActivityStatusObservableArray);
+        });
+    };
+    ActivityService.prototype.saveActivity = function (objActivity) {
+        var _this = this;
+        if (objActivity.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/crm/trn/activity/add", JSON.stringify(objActivity), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveActivitySubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveActivitySubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/activity/update/" + objActivity.Id, JSON.stringify(objActivity), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveActivitySubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveActivitySubject.next(errorResults);
+            });
+        }
+    };
+    ActivityService.prototype.deleteActivity = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/crm/trn/activity/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteActivitySubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteActivitySubject.next(errorResults);
+        });
+    };
+    ActivityService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], ActivityService);
+    return ActivityService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/software/dashboard/dashboard.component.css":
 /*!************************************************************!*\
   !*** ./src/app/software/dashboard/dashboard.component.css ***!
@@ -62345,7 +63238,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-lg-3\">\n        <button type=\"button\" class=\"btn btn-light btn-block\" routerLink=\"/software/trn/lead\">\n          <br />\n          <img src=\"../../../assets/img/icons/leads.png\" height=\"100\" alt=\"\">\n          <br />\n          <br />\n          <h5>\n            Leads\n          </h5>\n          <br />\n        </button>\n        <br />\n      </div>\n      <div class=\"col-lg-3\">\n        \n      </div>\n      <div class=\"col-lg-3\">\n        \n      </div>\n      <div class=\"col-lg-3\">\n        \n      </div>\n    </div>\n  </div>"
+module.exports = "<div class=\"container-fluid\">\r\n    <div class=\"row\">\r\n      <div class=\"col-lg-3\">\r\n        <button type=\"button\" class=\"btn btn-light btn-block\" routerLink=\"/software/trn/lead\">\r\n          <br />\r\n          <img src=\"../../../assets/img/icons/leads.png\" height=\"100\" alt=\"\">\r\n          <br />\r\n          <br />\r\n          <h5>\r\n            Leads\r\n          </h5>\r\n          <br />\r\n        </button>\r\n        <br />\r\n      </div>\r\n      <div class=\"col-lg-3\">\r\n        <button type=\"button\" class=\"btn btn-light btn-block\" routerLink=\"/software/trn/sales\">\r\n          <br />\r\n          <img src=\"../../../assets/img/icons/delivery.png\" height=\"100\" alt=\"\">\r\n          <br />\r\n          <br />\r\n          <h5>\r\n            Sales Delivery\r\n          </h5>\r\n          <br />\r\n        </button>\r\n        <br />\r\n      </div>\r\n      <div class=\"col-lg-3\">\r\n        <button type=\"button\" class=\"btn btn-light btn-block\" routerLink=\"/software/trn/support\">\r\n          <br />\r\n          <img src=\"../../../assets/img/icons/support.png\" height=\"100\" alt=\"\">\r\n          <br />\r\n          <br />\r\n          <h5>\r\n            Sales\r\n          </h5>\r\n          <br />\r\n        </button>\r\n        <br />\r\n      </div>\r\n      <div class=\"col-lg-3\">\r\n        <button type=\"button\" class=\"btn btn-light btn-block\" routerLink=\"/software/report\">\r\n          <br />\r\n          <img src=\"../../../assets/img/icons/report.png\" height=\"100\" alt=\"\">\r\n          <br />\r\n          <br />\r\n          <h5>\r\n            Report\r\n          </h5>\r\n          <br />\r\n        </button>\r\n        <br />\r\n      </div>\r\n      <div class=\"col-lg-3\">\r\n        \r\n      </div>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -62390,7 +63283,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".navbar {\r\n    box-shadow: 0px 2px 3px 0px #323232;\r\n}\r\n\r\n.navbar-space {\r\n    width: 100%;\r\n    height: 60px;\r\n}\r\n\r\n.content-header {\r\n    width: 100%;\r\n    padding: 1rem 1.25rem;\r\n    background-color: #f2f2f2;\r\n    margin-bottom: 15px;\r\n}\r\n\r\n.side-bar-container {\r\n    height: calc(100vh - 99px);\r\n}\r\n\r\n.side-bar {\r\n    width: 250px;\r\n    padding-top: 10px;\r\n    padding-bottom: 10px;\r\n    /* background: transparent; */\r\n    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(19, 19, 19, 0.8) ), url('sidemenubg.jpeg') no-repeat center center;\r\n    border-right: 1px solid #323232;\r\n}\r\n\r\n.list-group-item {\r\n    background: transparent;\r\n    color: white;\r\n    /* border: 1px solid rgb(59, 59, 59); */\r\n    border: none;\r\n}\r\n\r\n.list-group-item:hover {\r\n    background: #7a0400;\r\n    /* transition: 1s all; */\r\n    color: white;\r\n}\r\n\r\n.software-footer {\r\n    bottom: 0;\r\n    width: 100%;\r\n    padding-top: 5px;\r\n    padding-bottom: 8px;\r\n    background-color: #000f2e;\r\n    color: white;\r\n}\r\n\r\n.toolbar-title-style {\r\n    font-size: 18px;\r\n}\r\n\r\n.mat-drawer-container {\r\n    background-color: white !important;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc29mdHdhcmUvbGF5b3V0L2xheW91dC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksb0NBQW9DO0NBQ3ZDOztBQUVEO0lBQ0ksWUFBWTtJQUNaLGFBQWE7Q0FDaEI7O0FBRUQ7SUFDSSxZQUFZO0lBQ1osc0JBQXNCO0lBQ3RCLDBCQUEwQjtJQUMxQixvQkFBb0I7Q0FDdkI7O0FBRUQ7SUFDSSwyQkFBMkI7Q0FDOUI7O0FBRUQ7SUFDSSxhQUFhO0lBQ2Isa0JBQWtCO0lBQ2xCLHFCQUFxQjtJQUNyQiw4QkFBOEI7SUFDOUIseUhBQThJO0lBQzlJLGdDQUFnQztDQUNuQzs7QUFFRDtJQUNJLHdCQUF3QjtJQUN4QixhQUFhO0lBQ2Isd0NBQXdDO0lBQ3hDLGFBQWE7Q0FDaEI7O0FBRUQ7SUFDSSxvQkFBb0I7SUFDcEIseUJBQXlCO0lBQ3pCLGFBQWE7Q0FDaEI7O0FBRUQ7SUFDSSxVQUFVO0lBQ1YsWUFBWTtJQUNaLGlCQUFpQjtJQUNqQixvQkFBb0I7SUFDcEIsMEJBQTBCO0lBQzFCLGFBQWE7Q0FDaEI7O0FBRUQ7SUFDSSxnQkFBZ0I7Q0FDbkI7O0FBRUQ7SUFDSSxtQ0FBbUM7Q0FDdEMiLCJmaWxlIjoic3JjL2FwcC9zb2Z0d2FyZS9sYXlvdXQvbGF5b3V0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubmF2YmFyIHtcclxuICAgIGJveC1zaGFkb3c6IDBweCAycHggM3B4IDBweCAjMzIzMjMyO1xyXG59XHJcblxyXG4ubmF2YmFyLXNwYWNlIHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiA2MHB4O1xyXG59XHJcblxyXG4uY29udGVudC1oZWFkZXIge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBwYWRkaW5nOiAxcmVtIDEuMjVyZW07XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjJmMmYyO1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTVweDtcclxufVxyXG5cclxuLnNpZGUtYmFyLWNvbnRhaW5lciB7XHJcbiAgICBoZWlnaHQ6IGNhbGMoMTAwdmggLSA5OXB4KTtcclxufVxyXG5cclxuLnNpZGUtYmFyIHtcclxuICAgIHdpZHRoOiAyNTBweDtcclxuICAgIHBhZGRpbmctdG9wOiAxMHB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDEwcHg7XHJcbiAgICAvKiBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDsgKi9cclxuICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCggcmdiYSgwLCAwLCAwLCAwLjUpLCByZ2JhKDE5LCAxOSwgMTksIDAuOCkgKSwgdXJsKC4uLy4uLy4uL2Fzc2V0cy9pbWcvYmcvc2lkZW1lbnViZy5qcGVnKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlcjtcclxuICAgIGJvcmRlci1yaWdodDogMXB4IHNvbGlkICMzMjMyMzI7XHJcbn1cclxuXHJcbi5saXN0LWdyb3VwLWl0ZW0ge1xyXG4gICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICAvKiBib3JkZXI6IDFweCBzb2xpZCByZ2IoNTksIDU5LCA1OSk7ICovXHJcbiAgICBib3JkZXI6IG5vbmU7XHJcbn1cclxuXHJcbi5saXN0LWdyb3VwLWl0ZW06aG92ZXIge1xyXG4gICAgYmFja2dyb3VuZDogIzdhMDQwMDtcclxuICAgIC8qIHRyYW5zaXRpb246IDFzIGFsbDsgKi9cclxuICAgIGNvbG9yOiB3aGl0ZTtcclxufVxyXG5cclxuLnNvZnR3YXJlLWZvb3RlciB7XHJcbiAgICBib3R0b206IDA7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIHBhZGRpbmctdG9wOiA1cHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogOHB4O1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwMGYyZTtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxufVxyXG5cclxuLnRvb2xiYXItdGl0bGUtc3R5bGUge1xyXG4gICAgZm9udC1zaXplOiAxOHB4O1xyXG59XHJcblxyXG4ubWF0LWRyYXdlci1jb250YWluZXIge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufSJdfQ== */"
+module.exports = ".navbar {\r\n    box-shadow: 0px 2px 3px 0px #323232;\r\n}\r\n\r\n.navbar-space {\r\n    width: 100%;\r\n    height: 60px;\r\n}\r\n\r\n.content-header {\r\n    width: 100%;\r\n    padding: 1rem 1.25rem;\r\n    background-color: #f2f2f2;\r\n    margin-bottom: 15px;\r\n}\r\n\r\n.side-bar-container {\r\n    height: calc(100vh - 99px);\r\n}\r\n\r\n.side-bar {\r\n    width: 250px;\r\n    padding-top: 10px;\r\n    padding-bottom: 10px;\r\n    /* background: transparent; */\r\n    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(19, 19, 19, 0.8) ), url('sidemenubg.jpeg') no-repeat center center;\r\n    border-right: 1px solid #323232;\r\n}\r\n\r\n.list-group-item {\r\n    background: transparent;\r\n    color: white;\r\n    /* border: 1px solid rgb(59, 59, 59); */\r\n    border: none;\r\n}\r\n\r\n.list-group-item:hover {\r\n    background: #7a0400;\r\n    /* transition: 1s all; */\r\n    color: white;\r\n}\r\n\r\n.software-footer {\r\n    bottom: 0;\r\n    width: 100%;\r\n    padding-top: 5px;\r\n    padding-bottom: 8px;\r\n    background-color: #000f2e;\r\n    color: white;\r\n}\r\n\r\n.toolbar-title-style {\r\n    font-size: 18px;\r\n}\r\n\r\n.mat-drawer-container {\r\n    background-color: white !important;\r\n}\r\n\r\n.btn-submenu:hover {\r\n    background: #7a0400;\r\n    border: none;\r\n} \r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc29mdHdhcmUvbGF5b3V0L2xheW91dC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksb0NBQW9DO0NBQ3ZDOztBQUVEO0lBQ0ksWUFBWTtJQUNaLGFBQWE7Q0FDaEI7O0FBRUQ7SUFDSSxZQUFZO0lBQ1osc0JBQXNCO0lBQ3RCLDBCQUEwQjtJQUMxQixvQkFBb0I7Q0FDdkI7O0FBRUQ7SUFDSSwyQkFBMkI7Q0FDOUI7O0FBRUQ7SUFDSSxhQUFhO0lBQ2Isa0JBQWtCO0lBQ2xCLHFCQUFxQjtJQUNyQiw4QkFBOEI7SUFDOUIseUhBQThJO0lBQzlJLGdDQUFnQztDQUNuQzs7QUFFRDtJQUNJLHdCQUF3QjtJQUN4QixhQUFhO0lBQ2Isd0NBQXdDO0lBQ3hDLGFBQWE7Q0FDaEI7O0FBRUQ7SUFDSSxvQkFBb0I7SUFDcEIseUJBQXlCO0lBQ3pCLGFBQWE7Q0FDaEI7O0FBRUQ7SUFDSSxVQUFVO0lBQ1YsWUFBWTtJQUNaLGlCQUFpQjtJQUNqQixvQkFBb0I7SUFDcEIsMEJBQTBCO0lBQzFCLGFBQWE7Q0FDaEI7O0FBRUQ7SUFDSSxnQkFBZ0I7Q0FDbkI7O0FBRUQ7SUFDSSxtQ0FBbUM7Q0FDdEM7O0FBR0Q7SUFDSSxvQkFBb0I7SUFDcEIsYUFBYTtDQUNoQiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2xheW91dC9sYXlvdXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5uYXZiYXIge1xyXG4gICAgYm94LXNoYWRvdzogMHB4IDJweCAzcHggMHB4ICMzMjMyMzI7XHJcbn1cclxuXHJcbi5uYXZiYXItc3BhY2Uge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDYwcHg7XHJcbn1cclxuXHJcbi5jb250ZW50LWhlYWRlciB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIHBhZGRpbmc6IDFyZW0gMS4yNXJlbTtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNmMmYyZjI7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAxNXB4O1xyXG59XHJcblxyXG4uc2lkZS1iYXItY29udGFpbmVyIHtcclxuICAgIGhlaWdodDogY2FsYygxMDB2aCAtIDk5cHgpO1xyXG59XHJcblxyXG4uc2lkZS1iYXIge1xyXG4gICAgd2lkdGg6IDI1MHB4O1xyXG4gICAgcGFkZGluZy10b3A6IDEwcHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTBweDtcclxuICAgIC8qIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50OyAqL1xyXG4gICAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KCByZ2JhKDAsIDAsIDAsIDAuNSksIHJnYmEoMTksIDE5LCAxOSwgMC44KSApLCB1cmwoLi4vLi4vLi4vYXNzZXRzL2ltZy9iZy9zaWRlbWVudWJnLmpwZWcpIG5vLXJlcGVhdCBjZW50ZXIgY2VudGVyO1xyXG4gICAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgIzMyMzIzMjtcclxufVxyXG5cclxuLmxpc3QtZ3JvdXAtaXRlbSB7XHJcbiAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIC8qIGJvcmRlcjogMXB4IHNvbGlkIHJnYig1OSwgNTksIDU5KTsgKi9cclxuICAgIGJvcmRlcjogbm9uZTtcclxufVxyXG5cclxuLmxpc3QtZ3JvdXAtaXRlbTpob3ZlciB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjN2EwNDAwO1xyXG4gICAgLyogdHJhbnNpdGlvbjogMXMgYWxsOyAqL1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG59XHJcblxyXG4uc29mdHdhcmUtZm9vdGVyIHtcclxuICAgIGJvdHRvbTogMDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgcGFkZGluZy10b3A6IDVweDtcclxuICAgIHBhZGRpbmctYm90dG9tOiA4cHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDAwZjJlO1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG59XHJcblxyXG4udG9vbGJhci10aXRsZS1zdHlsZSB7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbn1cclxuXHJcbi5tYXQtZHJhd2VyLWNvbnRhaW5lciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG59XHJcblxyXG5cclxuLmJ0bi1zdWJtZW51OmhvdmVyIHtcclxuICAgIGJhY2tncm91bmQ6ICM3YTA0MDA7XHJcbiAgICBib3JkZXI6IG5vbmU7XHJcbn0gIl19 */"
 
 /***/ }),
 
@@ -62401,7 +63294,7 @@ module.exports = ".navbar {\r\n    box-shadow: 0px 2px 3px 0px #323232;\r\n}\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar fixed-top navbar-expand-sm navbar-light bg-light\">\r\n    <a class=\"navbar-brand\" routerLink=\"/landing/home\">\r\n        <img src=\"../../../assets/logo/easyfislogo.png\" height=\"30\" alt=\"\">\r\n    </a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\r\n        aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n        <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n        <ul class=\"navbar-nav mr-auto\"></ul>\r\n        <ul class=\"navbar-nav\">\r\n            <li class=\"nav-item dropdown\">\r\n                <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\"\r\n                    aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                    {{ username }}\r\n                </a>\r\n                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n                    <a class=\"dropdown-item\" routerLink=\"#\" (click)=\"signOut()\">\r\n                        <i class=\"fa fa-power-off fa-fw\"></i> Sign Out\r\n                    </a>\r\n                </div>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</nav>\r\n<div class=\"navbar-space\"></div>\r\n<mat-drawer-container class=\"side-bar-container\">\r\n    <mat-drawer #sidenav mode=\"side\" class=\"side-bar\">\r\n        <div class=\"list-group list-group-flush\" id=\"list-tab\" role=\"tablist\">\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/sys/dashboard\">\r\n                <img src=\"../../../assets/img/icons/dashboard.png\" height=\"30\" alt=\"\"> &nbsp; Main Menu\r\n            </a>\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/trn/lead\">\r\n                <img src=\"../../../assets/img/icons/leads.png\" height=\"30\" alt=\"\"> &nbsp; Leads\r\n            </a>\r\n        </div>\r\n    </mat-drawer>\r\n    <mat-drawer-content>\r\n        <div class=\"container-fluid content-header\">\r\n            <!-- <button class=\"btn btn-info\" (click)=\"openSideBar()\">\r\n                <i class=\"fa fa-bars fa-fw\"></i>\r\n            </button>\r\n            &nbsp; -->\r\n            <img id=\"toolBarImage\" height=\"25\" />\r\n            &nbsp;\r\n            <span class=\"toolbar-title-style\">\r\n                {{ ToolbarTitle }}\r\n            </span>\r\n        </div>\r\n        <div class=\"container-fluid\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <br />\r\n    </mat-drawer-content>\r\n</mat-drawer-container>\r\n<div class=\"software-footer\">\r\n    <div class=\"container-fluid\">\r\n        <small><b>Easyfis CRM</b> V.1.02032019.1749.NOR</small>\r\n    </div>\r\n</div>"
+module.exports = "<nav class=\"navbar fixed-top navbar-expand-sm navbar-light bg-light\">\r\n    <a class=\"navbar-brand\" routerLink=\"/landing/home\">\r\n        <img src=\"../../../assets/logo/easyfislogo.png\" height=\"30\" alt=\"\">\r\n    </a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\"\r\n        aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n        <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n        <ul class=\"navbar-nav mr-auto\"></ul>\r\n        <ul class=\"navbar-nav\">\r\n            <li class=\"nav-item dropdown\">\r\n                <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\"\r\n                    aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                    {{ username }}\r\n                </a>\r\n                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n                    <a class=\"dropdown-item\" routerLink=\"#\" (click)=\"signOut()\">\r\n                        <i class=\"fa fa-power-off fa-fw\"></i> Sign Out\r\n                    </a>\r\n                </div>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</nav>\r\n<div class=\"navbar-space\"></div>\r\n<mat-drawer-container class=\"side-bar-container\">\r\n    <mat-drawer #sidenav mode=\"side\" class=\"side-bar\">\r\n        <div class=\"list-group list-group-flush\" id=\"list-tab\" role=\"tablist\">\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/sys/dashboard\" >\r\n                <img src=\"../../../assets/img/icons/dashboard.png\" height=\"30\" alt=\"\"> &nbsp; Main Menu\r\n            </a>\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/trn/lead\" >\r\n                <img src=\"../../../assets/img/icons/leads.png\" height=\"30\" alt=\"\"> &nbsp; Leads\r\n            </a>\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/trn/sales\">\r\n                <img src=\"../../../assets/img/icons/delivery.png\" height=\"30\" alt=\"\"> &nbsp; Sales Delivery\r\n            </a>\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/trn/support\">\r\n                <img src=\"../../../assets/img/icons/support.png\" height=\"30\" alt=\"\"> &nbsp; Support\r\n            </a>\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/trn/activity\">\r\n                <img src=\"../../../assets/img/icons/activity.png\" height=\"30\" alt=\"\"> &nbsp; Activity\r\n            </a>\r\n            <a class=\"list-group-item list-group-item-action\" id=\"list-home-list\" routerLink=\"/software/mst/user\" *ngIf=\"\">\r\n                <img src=\"../../../assets/img/icons/woman.png\" height=\"30\" alt=\"\"> &nbsp; User\r\n            </a>\r\n            <button mat-button [matMenuTriggerFor]=\"menu\" class=\"list-group-item list-group-item-action\">\r\n                <img src=\"../../../assets/img/icons/print.png\" height=\"30\" alt=\"\"> &nbsp; Report\r\n            </button>\r\n            <mat-menu #menu=\"matMenu\" xPosition=\"after\" width=\"1000\">\r\n                <button class=\"btn-submenu\" mat-menu-item routerLink=\"/software/report/lead\">\r\n                    <img src=\"../../../assets/img/icons/print.png\" height=\"30\" alt=\"\"> &nbsp; Lead Report\r\n                </button>\r\n                <button class=\"btn-submenu\" mat-menu-item routerLink=\"report/sales/delivery\">\r\n                    <img src=\"../../../assets/img/icons/print.png\" height=\"30\" alt=\"\"> &nbsp; Sales Delivery Report\r\n                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n                </button>\r\n                <button class=\"btn-submenu\" mat-menu-item routerLink=\"report/support\">\r\n                    <img src=\"../../../assets/img/icons/print.png\" height=\"30\" alt=\"\"> &nbsp; Support Report\r\n                </button>\r\n                <button class=\"btn-submenu\" mat-menu-item routerLink=\"report/activity\">\r\n                    <img src=\"../../../assets/img/icons/print.png\" height=\"30\" alt=\"\"> &nbsp; Activity Report\r\n                </button>\r\n            </mat-menu>\r\n            \r\n\r\n        </div>\r\n    </mat-drawer>\r\n    <mat-drawer-content>\r\n        <div class=\"container-fluid content-header\">\r\n            <button class=\"btn btn-info\" (click)=\"openSideBar()\">\r\n                <i class=\"fa fa-bars fa-fw\"></i>\r\n            </button>\r\n            &nbsp;\r\n            <img id=\"toolBarImage\" height=\"25\" />\r\n            &nbsp;\r\n            <span class=\"toolbar-title-style\">\r\n                {{ ToolbarTitle }}\r\n            </span>\r\n        </div>\r\n        <div class=\"container-fluid\">\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <br />\r\n    </mat-drawer-content>\r\n</mat-drawer-container>\r\n<div class=\"software-footer\">\r\n    <div class=\"container-fluid\">\r\n        <small><b>Easyfis CRM</b> V.1.02032019.1749.NOR</small>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -62445,6 +63338,46 @@ var LayoutComponent = /** @class */ (function () {
             else if (_this.router.url.split('/').slice(0, -1).join('/') == "/software/trn/lead/detail") {
                 _this.ToolbarTitle = "Lead Detail";
                 toolBarImage.setAttribute("src", "../../assets/img/icons/leads.png");
+            }
+            else if (_this.router.url == "/software/trn/sales") {
+                _this.ToolbarTitle = "Sales Delivery";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/delivery.png");
+            }
+            else if (_this.router.url.split('/').slice(0, -1).join('/') == "/software/trn/sales/detail") {
+                _this.ToolbarTitle = "Sales Delivery Detail";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/delivery.png");
+            }
+            else if (_this.router.url == "/software/trn/support") {
+                _this.ToolbarTitle = "Support";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/support.png");
+            }
+            else if (_this.router.url.split('/').slice(0, -1).join('/') == "/software/trn/support/detail") {
+                _this.ToolbarTitle = "Support Detail";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/support.png");
+            }
+            else if (_this.router.url == "/software/trn/activity") {
+                _this.ToolbarTitle = "Activity";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/activity.png");
+            }
+            else if (_this.router.url == "/software/report/lead") {
+                _this.ToolbarTitle = "Lead Report";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/print.png");
+            }
+            else if (_this.router.url == "/software/mst/user") {
+                _this.ToolbarTitle = "Users";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/woman.png");
+            }
+            else if (_this.router.url == "/software/report/sales/delivery") {
+                _this.ToolbarTitle = "Sales Delivery Report";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/print.png");
+            }
+            else if (_this.router.url == "/software/report/support") {
+                _this.ToolbarTitle = "Support Report";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/print.png");
+            }
+            else if (_this.router.url == "/software/report/activity") {
+                _this.ToolbarTitle = "Activity Report";
+                toolBarImage.setAttribute("src", "../../assets/img/icons/print.png");
             }
             else {
                 // this.ToolbarTitle = "Easyfis CRM";
@@ -62503,7 +63436,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div [hidden]=\"isLoadingSpinnerHidden\">\n  <br /><br /><br />\n  <mat-spinner style=\"margin: auto;\"></mat-spinner>\n</div>\n<div [hidden]=\"isContentHidden\">\n  <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\" style=\"margin-top: 10px; margin-bottom: 10px;\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link active\" id=\"lead-tab\" data-toggle=\"tab\" href=\"#lead\" role=\"tab\" aria-controls=\"lead\"\n        aria-selected=\"true\">Lead Detail</a>\n    </li>\n    <li class=\"nav-item\" [hidden]=\"isActivityTabHidden\">\n      <a class=\"nav-link\" id=\"activities-tab\" data-toggle=\"tab\" href=\"#activities\" role=\"tab\" aria-controls=\"activities\"\n        aria-selected=\"false\" (click)=\"listActivity()\">Activities</a>\n    </li>\n  </ul>\n\n  <div class=\"tab-content\" id=\"myTabContent\">\n    <div class=\"tab-pane fade show active\" id=\"lead\" role=\"tabpanel\" aria-labelledby=\"lead-tab\">\n      <div class=\"card card-default\">\n\n        <div class=\"card-header\">\n          <table border=\"0\" style=\"width: 100%; border: none;\">\n            <tr>\n              <td style=\"text-align: right;\">\n                <button class=\"btn btn-primary\" (click)=\"btnSaveLeadClick()\" style=\"margin-right: 5px;\" id=\"btnSaveLead\"\n                  disabled>\n                  <i class=\"fa fa-save fa-fw\"></i> Save\n                </button>\n                <button class=\"btn btn-primary\" (click)=\"btnLockLeadClick()\" style=\"margin-right: 5px;\" id=\"btnLockLead\"\n                  disabled>\n                  <i class=\"fa fa-lock fa-fw\"></i> Lock\n                </button>\n                <button class=\"btn btn-primary\" (click)=\"btnUnlockLeadClick()\" style=\"margin-right: 5px;\" id=\"btnUnlockLead\"\n                  disabled>\n                  <i class=\"fa fa-unlock fa-fw\"></i> Unlock\n                </button>\n                <button class=\"btn btn-danger\" routerLink=\"/software/trn/lead\" id=\"btnCloseLead\">\n                  <i class=\"fa fa-close fa-fw\"></i> Close\n                </button>\n              </td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-lg-6\">\n              <div class=\"form-group row\">\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD No.</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [(ngModel)]=\"leadDetailModel.LDNumber\" placeholder=\"LD Number...\"\n                    disabled>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD Date</label>\n                <div class=\"col-sm-8\">\n                  <wj-input-date #cboShopOrderDate [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.LDDate\" format=\"MMMM dd, yyyy\"\n                    style=\"width: 100%; padding: 3px;\">\n                  </wj-input-date>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Name</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Name\"\n                    placeholder=\"Name...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Address</label>\n                <div class=\"col-sm-8\">\n                  <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Address\"\n                    placeholder=\"Remarks...\" rows=\"5\">\n                    </textarea>\n                </div>\n                <br /><br /><br /><br /><br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Person</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPerson\"\n                    placeholder=\"Contact Person...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Position</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPosition\"\n                    placeholder=\"Contact Position...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Email</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactEmail\"\n                    placeholder=\"Contact Email...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Phone No.</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPhoneNumber\"\n                    placeholder=\"Contact Phone Number...\">\n                </div>\n                <br /><br />\n              </div>\n            </div>\n            <div class=\"col-lg-6\">\n              <div class=\"form-group row\">\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Remarks</label>\n                <div class=\"col-sm-8\">\n                  <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Remarks\"\n                    placeholder=\"Remarks...\" rows=\"5\">\n                  </textarea>\n                </div>\n                <br /><br /><br /><br /><br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Referred By</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ReferredBy\"\n                    placeholder=\"Referred By...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Assigned To:</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboLeadAssignedToUser [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.AssignedToUserId\"\n                    [itemsSource]=\"cboLeadAssignedToUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                  </wj-combo-box>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Status</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboLeadStatus [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Status\" [itemsSource]=\"cboLeadStatusObservableArray\"\n                    [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                    style=\"width: 100%; padding: 3px;\">\n                  </wj-combo-box>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"card card-default\" style=\"margin-top: 10px;\">\n        <div class=\"card-header\">\n          User stamp\n        </div>\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n              <p>Created by:</p>\n              <div style=\"padding-left: 10px;\">\n                <i class=\"fa fa-key\"></i>&nbsp;\n                <label id=\"createdBy\">\n                  {{\n                  leadDetailModel != null ?\n                  leadDetailModel.CreatedByUser : 'NA'\n                  }}\n                </label>\n                <br />\n                <small>\n                  <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                  <span id=\"createdDate\">\n                    {{\n                    leadDetailModel != null ?\n                    leadDetailModel.CreatedDateTime : 'mm/dd/yyyy'\n                    }}\n                  </span>\n                </small>\n              </div>\n              <br />\n            </div>\n            <div class=\"col-md-6\">\n              <p>Updated by:</p>\n              <div style=\"padding-left: 10px;\">\n                <i class=\"fa fa-key\"></i>&nbsp;\n                <label id=\"updatedBy\">\n                  {{\n                  leadDetailModel != null ?\n                  leadDetailModel.UpdatedByUser : 'NA'\n                  }}\n                </label>\n                <br />\n                <small>\n                  <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                  <span id=\"updatedDate\">\n                    {{\n                    leadDetailModel != null ?\n                    leadDetailModel.UpdatedDateTime : 'mm/dd/yyyy'\n                    }}\n                  </span>\n                </small>\n              </div>\n              <br />\n            </div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n    <div class=\"tab-pane fade\" id=\"activities\" role=\"tabpanel\" aria-labelledby=\"activities-tab\" [hidden]=\"isActivityTabHidden\">\n      <div class=\"card card-default\">\n\n        <div class=\"card-header\">\n          <table border=\"0\" style=\"width: 100%; border: none;\">\n            <tr>\n              <td>\n                <div class=\"input-group\">\n                  <div class=\"input-group-prepend\">\n                    <div class=\"input-group-text\">\n                      <b>\n                        <i class=\"fa fa-table\"></i>\n                      </b>\n                    </div>\n                  </div>\n                  <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\" (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n                    style=\"width: 140px;\">\n                  </wj-combo-box>\n                </div>\n              </td>\n              <td style=\"text-align: right;\">\n                <button class=\"btn btn-primary\" (click)=\"btnAddActivityClick(activityModalTemplate)\" style=\"margin-right: 5px;\"\n                  id=\"btnAddActivity\">\n                  <i class=\"fa fa-plus fa-fw\"></i> Add\n                </button>\n                <button class=\"btn btn-danger\" routerLink=\"/software/trn/lead\" id=\"btnCloseActivity\">\n                  <i class=\"fa fa-close fa-fw\"></i> Close\n                </button>\n              </td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"card-body\">\n          <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n          <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listActivityCollectionView\" [selectionMode]=\"3\"\n            [frozenColumns]=\"2\">\n            <wj-flex-grid-filter></wj-flex-grid-filter>\n            <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n              <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditActivityClick(activityModalTemplate)\"\n                  id=\"btnEditActivity\">\n                  <i class=\"fa fa-edit fa-fw\"></i> Edit\n                </button>\n              </ng-template>\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n              <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\" (click)=\"btnDeleteActivityClick(activityDeleteModalTemplate)\"\n                  id=\"btnDeleteActivity\">\n                  <i class=\"fa fa-trash fa-fw\"></i> Delete\n                </button>\n              </ng-template>\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'No.'\" [binding]=\"'ACNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'ACDate'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'User'\" [binding]=\"'User'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'CRM Status'\" [binding]=\"'CRMStatus'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Activity'\" [binding]=\"'Activity'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n          </wj-flex-grid>\n        </div>\n\n        <div class=\"card-footer\">\n          <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n              <i class=\"fa fa-fast-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n              <i class=\"fa fa-step-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n              {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n              <i class=\"fa fa-step-forward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n              <i class=\"fa fa-fast-forward\"></i>\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <ng-template #activityModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        {{ activityModalHeaderTitle }}\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      <div [hidden]=\"isActivityLoadingSpinnerHidden\">\n        <br /><br />\n        <mat-spinner style=\"margin: auto;\"></mat-spinner>\n        <br /><br />\n      </div>\n      <div [hidden]=\"isActivityContentHidden\">\n        <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link active\" id=\"activity-detail-tab\" data-toggle=\"tab\" href=\"#activity-detail\" role=\"tab\"\n              aria-controls=\"activity-detail\" aria-selected=\"true\">Detail</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" id=\"activity-activity-tab\" data-toggle=\"tab\" href=\"#activity-activity\" role=\"tab\"\n              aria-controls=\"activity-activity\" aria-selected=\"false\">Activity</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" id=\"activity-cost-tab\" data-toggle=\"tab\" href=\"#activity-cost\" role=\"tab\" aria-controls=\"activity-cost\"\n              aria-selected=\"false\">Cost</a>\n          </li>\n        </ul>\n\n        <br />\n\n        <div class=\"tab-content\" id=\"myTabContent\">\n          <div class=\"tab-pane fade show active\" id=\"activity-detail\" role=\"tabpanel\" aria-labelledby=\"activity-detail-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\" [hidden]=\"isActivityNumberHidden\">No.</label>\n              <div class=\"col-sm-9\" [hidden]=\"isActivityNumberHidden\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Number...\" [(ngModel)]=\"leadDetailActivityModel.ACNumber\"\n                  disabled>\n              </div>\n              <div [hidden]=\"isActivityNumberHidden\">\n                <br /><br />\n              </div>\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">CRM</label>\n              <div class=\"col-sm-9\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"CRM Status...\" [(ngModel)]=\"leadDetailActivityModel.CRMStatus\"\n                  disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Date</label>\n              <div class=\"col-sm-9\">\n                <wj-input-date #cboActivityDate format=\"MMMM dd, yyyy\" [(ngModel)]=\"leadDetailActivityModel.ACDate\"\n                  style=\"width: 100%; padding: 3px;\">\n                </wj-input-date>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Functional</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityFunctionalUser [(ngModel)]=\"leadDetailActivityModel.FunctionalUserId\"\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Technical</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityTechnicalUser [(ngModel)]=\"leadDetailActivityModel.TechnicalUserId\"\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Start</label>\n              <div class=\"col-sm-9\">\n                <table style=\"width: 100%;\">\n                  <tr>\n                    <td style=\"width: 60%\">\n                      <wj-input-date #cboActivityStartDate [(ngModel)]=\"leadDetailActivityModel.StartDate\" format=\"MMMM dd, yyyy\"></wj-input-date>\n                    </td>\n                    <td style=\"width: 1%\"></td>\n                    <td style=\"width: 39%\">\n                      <wj-input-time #cboActivityStartTime [(ngModel)]=\"leadDetailActivityModel.StartTime\" format=\"h:mm tt\"\n                        [step]=\"1\"></wj-input-time>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">End</label>\n              <div class=\"col-sm-9\">\n                <table style=\"width: 100%;\">\n                  <tr>\n                    <td style=\"width: 60%\">\n                      <wj-input-date #cboActivityEndDate [(ngModel)]=\"leadDetailActivityModel.EndDate\" format=\"MMMM dd, yyyy\"></wj-input-date>\n                    </td>\n                    <td style=\"width: 1%\"></td>\n                    <td style=\"width: 39%\">\n                      <wj-input-time #cboActivityEndTime [(ngModel)]=\"leadDetailActivityModel.EndTime\" format=\"h:mm tt\"\n                        [step]=\"1\"></wj-input-time>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Status</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityStatus [(ngModel)]=\"leadDetailActivityModel.Status\" [itemsSource]=\"cboListActivityStatusObservableArray\"\n                  [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n            </div>\n          </div>\n          <div class=\"tab-pane fade\" id=\"activity-activity\" role=\"tabpanel\" aria-labelledby=\"activity-activity-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">User</label>\n              <div class=\"col-sm-9\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"User...\" [(ngModel)]=\"leadDetailActivityModel.User\"\n                  disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Activity</label>\n              <div class=\"col-sm-9\">\n                <textarea [(ngModel)]=\"leadDetailActivityModel.Activity\" type=\"text\" class=\"form-control\" style=\"resize: vertical\"\n                  placeholder=\"Activity...\" rows=\"10\"></textarea>\n              </div>\n            </div>\n          </div>\n          <div class=\"tab-pane fade\" id=\"activity-cost\" role=\"tabpanel\" aria-labelledby=\"activity-cost-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Transpo.</label>\n              <div class=\"col-sm-9\">\n                <wj-input-number [(ngModel)]=\"leadDetailActivityModel.TransportationCost\" #numActivityTranspoCost style=\"width: 100%; padding: 3px;\"></wj-input-number>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">On-site</label>\n              <div class=\"col-sm-9\">\n                <wj-input-number [(ngModel)]=\"leadDetailActivityModel.OnSiteCost\" #numActivityOnsiteCost style=\"width: 100%; padding: 3px;\"></wj-input-number>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button [hidden]=\"isActivityContentHidden\" type=\"button\" class=\"btn btn-primary\" style=\"margin-right: 5px;\"\n        (click)=\"btnSaveActivityClick()\" id=\"btnSaveActivity\">\n        <i class=\"fa fa-save\"></i> Save\n      </button>\n      <button type=\"button\" class=\"btn btn-danger\" (click)=\"activitiyModalRef.hide()\" id=\"btnSaveActivityClickCloseModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n\n  <ng-template #activityDeleteModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        Delete\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      Are you sure you want to delete this activity?\n      <br /> <br />\n\n      AC Number:\n      <b>\n        {{\n        listActivityCollectionView.items.length > 0 ?\n        listActivityCollectionView.currentItem.ACNumber : 'NA'\n        }}\n      </b>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteAcitivityClick()\"\n        id=\"btnConfirmDeleteAcitivity\">\n        <i class=\"fa fa-trash\"></i> Delete\n      </button>\n      <button type=\"button\" class=\"btn\" (click)=\"deleteActivitiyModalRef.hide()\" id=\"btnCloseConfirmDeleteAcitivityModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n</div>"
+module.exports = "<div [hidden]=\"isLoadingSpinnerHidden\">\r\n  <br /><br /><br />\r\n  <mat-spinner style=\"margin: auto;\"></mat-spinner>\r\n</div>\r\n<div [hidden]=\"isContentHidden\">\r\n  <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\" style=\"margin-top: 10px; margin-bottom: 10px;\">\r\n    <li class=\"nav-item\">\r\n      <a class=\"nav-link active\" id=\"lead-tab\" data-toggle=\"tab\" href=\"#lead\" role=\"tab\" aria-controls=\"lead\"\r\n        aria-selected=\"true\">Lead Detail</a>\r\n    </li>\r\n    <li class=\"nav-item\" [hidden]=\"isActivityTabHidden\">\r\n      <a class=\"nav-link\" id=\"activities-tab\" data-toggle=\"tab\" href=\"#activities\" role=\"tab\" aria-controls=\"activities\"\r\n        aria-selected=\"false\" (click)=\"listActivity()\">Activities</a>\r\n    </li>\r\n  </ul>\r\n\r\n  <div class=\"tab-content\" id=\"myTabContent\">\r\n    <div class=\"tab-pane fade show active\" id=\"lead\" role=\"tabpanel\" aria-labelledby=\"lead-tab\">\r\n      <div class=\"card card-default\">\r\n\r\n        <div class=\"card-header\">\r\n          <table border=\"0\" style=\"width: 100%; border: none;\">\r\n            <tr>\r\n              <td style=\"text-align: right;\">\r\n                <button class=\"btn btn-primary\" (click)=\"btnSaveLeadClick()\" style=\"margin-right: 5px;\" id=\"btnSaveLead\"\r\n                  disabled>\r\n                  <i class=\"fa fa-save fa-fw\"></i> Save\r\n                </button>\r\n                <button class=\"btn btn-primary\" (click)=\"btnLockLeadClick()\" style=\"margin-right: 5px;\" id=\"btnLockLead\"\r\n                  disabled>\r\n                  <i class=\"fa fa-lock fa-fw\"></i> Lock\r\n                </button>\r\n                <button class=\"btn btn-primary\" (click)=\"btnUnlockLeadClick()\" style=\"margin-right: 5px;\" id=\"btnUnlockLead\"\r\n                  disabled>\r\n                  <i class=\"fa fa-unlock fa-fw\"></i> Unlock\r\n                </button>\r\n                <button class=\"btn btn-danger\" routerLink=\"/software/sys/dashboard\" id=\"btnCloseLead\">\r\n                  <i class=\"fa fa-close fa-fw\"></i> Close\r\n                </button>\r\n              </td>\r\n            </tr>\r\n          </table>\r\n        </div>\r\n\r\n        <div class=\"card-body\">\r\n          <div class=\"row\">\r\n            <div class=\"col-lg-6\">\r\n              <div class=\"form-group row\">\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD No.</label>\r\n                <div class=\"col-sm-8\">\r\n                  <input type=\"text\" class=\"form-control\" [(ngModel)]=\"leadDetailModel.LDNumber\" placeholder=\"LD Number...\"\r\n                  [disabled]=\"isLocked\">\r\n                </div>\r\n                <br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD Date</label>\r\n                <div class=\"col-sm-8\">\r\n                  <wj-input-date #cboShopOrderDate [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.LDDate\" format=\"MMMM dd, yyyy\"\r\n                    style=\"width: 100%; padding: 3px;\">\r\n                  </wj-input-date>\r\n                </div>\r\n                <br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Name</label>\r\n                <div class=\"col-sm-8\">\r\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Name\"\r\n                    placeholder=\"Name...\">\r\n                </div>\r\n                <br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Address</label>\r\n                <div class=\"col-sm-8\">\r\n                  <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Address\"\r\n                    placeholder=\"Remarks...\" rows=\"5\">\r\n                    </textarea>\r\n                </div>\r\n                <br /><br /><br /><br /><br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Person</label>\r\n                <div class=\"col-sm-8\">\r\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPerson\"\r\n                    placeholder=\"Contact Person...\">\r\n                </div>\r\n                <br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Position</label>\r\n                <div class=\"col-sm-8\">\r\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPosition\"\r\n                    placeholder=\"Contact Position...\">\r\n                </div>\r\n                <br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Email</label>\r\n                <div class=\"col-sm-8\">\r\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactEmail\"\r\n                    placeholder=\"Contact Email...\">\r\n                </div>\r\n                <br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Phone No.</label>\r\n                <div class=\"col-sm-8\">\r\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ContactPhoneNumber\"\r\n                    placeholder=\"Contact Phone Number...\">\r\n                </div>\r\n                <br /><br />\r\n              </div>\r\n            </div>\r\n            <div class=\"col-lg-6\">\r\n              <div class=\"form-group row\">\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Remarks</label>\r\n                <div class=\"col-sm-8\">\r\n                  <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Remarks\"\r\n                    placeholder=\"Remarks...\" rows=\"5\">\r\n                  </textarea>\r\n                </div>\r\n                <br /><br /><br /><br /><br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Referred By</label>\r\n                <div class=\"col-sm-8\">\r\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.ReferredBy\"\r\n                    placeholder=\"Referred By...\">\r\n                </div>\r\n                <br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Assigned To:</label>\r\n                <div class=\"col-sm-8\">\r\n                  <wj-combo-box #cboLeadAssignedToUser [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.AssignedToUserId\"\r\n                    [itemsSource]=\"cboLeadAssignedToUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\r\n                    [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\r\n                  </wj-combo-box>\r\n                </div>\r\n                <br /><br />\r\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Status</label>\r\n                <div class=\"col-sm-8\">\r\n                  <wj-combo-box #cboLeadStatus [disabled]=\"isLocked\" [(ngModel)]=\"leadDetailModel.Status\" [itemsSource]=\"cboLeadStatusObservableArray\"\r\n                    [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\r\n                    style=\"width: 100%; padding: 3px;\">\r\n                  </wj-combo-box>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"card card-default\" style=\"margin-top: 10px;\">\r\n        <div class=\"card-header\">\r\n          User stamp\r\n        </div>\r\n        <div class=\"card-body\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <p>Created by:</p>\r\n              <div style=\"padding-left: 10px;\">\r\n                <i class=\"fa fa-key\"></i>&nbsp;\r\n                <label id=\"createdBy\">\r\n                  {{\r\n                  leadDetailModel != null ?\r\n                  leadDetailModel.CreatedByUser : 'NA'\r\n                  }}\r\n                </label>\r\n                <br />\r\n                <small>\r\n                  <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\r\n                  <span id=\"createdDate\">\r\n                    {{\r\n                    leadDetailModel != null ?\r\n                    leadDetailModel.CreatedDateTime : 'mm/dd/yyyy'\r\n                    }}\r\n                  </span>\r\n                </small>\r\n              </div>\r\n              <br />\r\n            </div>\r\n            <div class=\"col-md-6\">\r\n              <p>Updated by:</p>\r\n              <div style=\"padding-left: 10px;\">\r\n                <i class=\"fa fa-key\"></i>&nbsp;\r\n                <label id=\"updatedBy\">\r\n                  {{\r\n                  leadDetailModel != null ?\r\n                  leadDetailModel.UpdatedByUser : 'NA'\r\n                  }}\r\n                </label>\r\n                <br />\r\n                <small>\r\n                  <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\r\n                  <span id=\"updatedDate\">\r\n                    {{\r\n                    leadDetailModel != null ?\r\n                    leadDetailModel.UpdatedDateTime : 'mm/dd/yyyy'\r\n                    }}\r\n                  </span>\r\n                </small>\r\n              </div>\r\n              <br />\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n    <div class=\"tab-pane fade\" id=\"activities\" role=\"tabpanel\" aria-labelledby=\"activities-tab\" [hidden]=\"isActivityTabHidden\">\r\n      <div class=\"card card-default\">\r\n\r\n        <div class=\"card-header\">\r\n          <table border=\"0\" style=\"width: 100%; border: none;\">\r\n            <tr>\r\n              <td>\r\n                <div class=\"input-group\">\r\n                  <div class=\"input-group-prepend\">\r\n                    <div class=\"input-group-text\">\r\n                      <b>\r\n                        <i class=\"fa fa-table\"></i>\r\n                      </b>\r\n                    </div>\r\n                  </div>\r\n                  <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\r\n                    [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\" (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\r\n                    style=\"width: 140px;\">\r\n                  </wj-combo-box>\r\n                </div>\r\n              </td>\r\n              <td style=\"text-align: right;\">\r\n                <button class=\"btn btn-primary\" (click)=\"btnAddActivityClick(activityModalTemplate)\" style=\"margin-right: 5px;\"\r\n                  id=\"btnAddActivity\">\r\n                  <i class=\"fa fa-plus fa-fw\"></i> Add\r\n                </button>\r\n                <button class=\"btn btn-danger\" routerLink=\"/software/trn/lead\" id=\"btnCloseActivity\">\r\n                  <i class=\"fa fa-close fa-fw\"></i> Close\r\n                </button>\r\n              </td>\r\n            </tr>\r\n          </table>\r\n        </div>\r\n\r\n        <div class=\"card-body\">\r\n          <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\r\n          <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listActivityCollectionView\" [selectionMode]=\"3\"\r\n            [frozenColumns]=\"2\">\r\n            <wj-flex-grid-filter></wj-flex-grid-filter>\r\n            <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\r\n              <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\r\n                <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditActivityClick(activityModalTemplate)\"\r\n                  id=\"btnEditActivity\">\r\n                  <i class=\"fa fa-edit fa-fw\"></i> Edit\r\n                </button>\r\n              </ng-template>\r\n            </wj-flex-grid-column>\r\n            <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\r\n              <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\r\n                <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\" (click)=\"btnDeleteActivityClick(activityDeleteModalTemplate)\"\r\n                  id=\"btnDeleteActivity\">\r\n                  <i class=\"fa fa-trash fa-fw\"></i> Delete\r\n                </button>\r\n              </ng-template>\r\n            </wj-flex-grid-column>\r\n            <wj-flex-grid-column [header]=\"'No.'\" [binding]=\"'ACNumber'\" [isReadOnly]=\"true\" [width]=\"110\"></wj-flex-grid-column>\r\n            <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'ACDate'\" [isReadOnly]=\"true\" [width]=\"110\"></wj-flex-grid-column>\r\n            <wj-flex-grid-column [header]=\"'User'\" [binding]=\"'User'\" [isReadOnly]=\"true\" [width]=\"'2*'\"></wj-flex-grid-column>\r\n            <wj-flex-grid-column [header]=\"'CRM Status'\" [binding]=\"'CRMStatus'\" [isReadOnly]=\"true\" [width]=\"'2*'\"></wj-flex-grid-column>\r\n            <wj-flex-grid-column [header]=\"'Activity'\" [binding]=\"'Activity'\" [isReadOnly]=\"true\" [width]=\"'3*'\"></wj-flex-grid-column>\r\n            <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'2*'\"></wj-flex-grid-column>\r\n          </wj-flex-grid>\r\n        </div>\r\n\r\n        <div class=\"card-footer\">\r\n          <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\r\n              <i class=\"fa fa-fast-backward\"></i>\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\r\n              <i class=\"fa fa-step-backward\"></i>\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\r\n              {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\r\n              <i class=\"fa fa-step-forward\"></i>\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\r\n              <i class=\"fa fa-fast-forward\"></i>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <ng-template #activityModalTemplate>\r\n    <div class=\"modal-header\">\r\n      <h4 class=\"modal-title\">\r\n        {{ activityModalHeaderTitle }}\r\n      </h4>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n      <div [hidden]=\"isActivityLoadingSpinnerHidden\">\r\n        <br /><br />\r\n        <mat-spinner style=\"margin: auto;\"></mat-spinner>\r\n        <br /><br />\r\n      </div>\r\n      <div [hidden]=\"isActivityContentHidden\">\r\n        <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link active\" id=\"activity-detail-tab\" data-toggle=\"tab\" href=\"#activity-detail\" role=\"tab\"\r\n              aria-controls=\"activity-detail\" aria-selected=\"true\">Detail</a>\r\n          </li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" id=\"activity-activity-tab\" data-toggle=\"tab\" href=\"#activity-activity\" role=\"tab\"\r\n              aria-controls=\"activity-activity\" aria-selected=\"false\">Activity</a>\r\n          </li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" id=\"activity-cost-tab\" data-toggle=\"tab\" href=\"#activity-cost\" role=\"tab\" aria-controls=\"activity-cost\"\r\n              aria-selected=\"false\">Cost</a>\r\n          </li>\r\n        </ul>\r\n\r\n        <br />\r\n\r\n        <div class=\"tab-content\" id=\"myTabContent\">\r\n          <div class=\"tab-pane fade show active\" id=\"activity-detail\" role=\"tabpanel\" aria-labelledby=\"activity-detail-tab\">\r\n            <div class=\"form-group row\">\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\" [hidden]=\"isActivityNumberHidden\">No.</label>\r\n              <div class=\"col-sm-9\" [hidden]=\"isActivityNumberHidden\">\r\n                <input type=\"text\" class=\"form-control\" placeholder=\"Number...\" [(ngModel)]=\"leadDetailActivityModel.ACNumber\"\r\n                  disabled>\r\n              </div>\r\n              <div [hidden]=\"isActivityNumberHidden\">\r\n                <br /><br />\r\n              </div>\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">CRM</label>\r\n              <div class=\"col-sm-9\">\r\n                <input type=\"text\" class=\"form-control\" placeholder=\"CRM Status...\" [(ngModel)]=\"leadDetailActivityModel.CRMStatus\"\r\n                  disabled>\r\n              </div>\r\n              <br /><br />\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Date</label>\r\n              <div class=\"col-sm-9\">\r\n                <wj-input-date #cboActivityDate format=\"MMMM dd, yyyy\" [(ngModel)]=\"leadDetailActivityModel.ACDate\"\r\n                  style=\"width: 100%; padding: 3px;\">\r\n                </wj-input-date>\r\n              </div>\r\n              <br /><br />\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Functional</label>\r\n              <div class=\"col-sm-9\">\r\n                <wj-combo-box #cboActivityFunctionalUser [(ngModel)]=\"leadDetailActivityModel.FunctionalUserId\"\r\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\r\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\r\n                </wj-combo-box>\r\n              </div>\r\n              <br /><br />\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Technical</label>\r\n              <div class=\"col-sm-9\">\r\n                <wj-combo-box #cboActivityTechnicalUser [(ngModel)]=\"leadDetailActivityModel.TechnicalUserId\"\r\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\r\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\r\n                </wj-combo-box>\r\n              </div>\r\n              <br /><br />\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Start</label>\r\n              <div class=\"col-sm-9\">\r\n                <table style=\"width: 100%;\">\r\n                  <tr>\r\n                    <td style=\"width: 60%\">\r\n                      <wj-input-date #cboActivityStartDate [(ngModel)]=\"leadDetailActivityModel.StartDate\" format=\"MMMM dd, yyyy\"></wj-input-date>\r\n                    </td>\r\n                    <td style=\"width: 1%\"></td>\r\n                    <td style=\"width: 39%\">\r\n                      <wj-input-time #cboActivityStartTime [(ngModel)]=\"leadDetailActivityModel.StartTime\" format=\"h:mm tt\"\r\n                        [step]=\"1\"></wj-input-time>\r\n                    </td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n              <br /><br />\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">End</label>\r\n              <div class=\"col-sm-9\">\r\n                <table style=\"width: 100%;\">\r\n                  <tr>\r\n                    <td style=\"width: 60%\">\r\n                      <wj-input-date #cboActivityEndDate [(ngModel)]=\"leadDetailActivityModel.EndDate\" format=\"MMMM dd, yyyy\"></wj-input-date>\r\n                    </td>\r\n                    <td style=\"width: 1%\"></td>\r\n                    <td style=\"width: 39%\">\r\n                      <wj-input-time #cboActivityEndTime [(ngModel)]=\"leadDetailActivityModel.EndTime\" format=\"h:mm tt\"\r\n                        [step]=\"1\"></wj-input-time>\r\n                    </td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n              <br /><br />\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Status</label>\r\n              <div class=\"col-sm-9\">\r\n                <wj-combo-box #cboActivityStatus [(ngModel)]=\"leadDetailActivityModel.Status\" [itemsSource]=\"cboListActivityStatusObservableArray\"\r\n                  [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\r\n                  style=\"width: 100%; padding: 3px;\">\r\n                </wj-combo-box>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"tab-pane fade\" id=\"activity-activity\" role=\"tabpanel\" aria-labelledby=\"activity-activity-tab\">\r\n            <div class=\"form-group row\">\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">User</label>\r\n              <div class=\"col-sm-9\">\r\n                <input type=\"text\" class=\"form-control\" placeholder=\"User...\" [(ngModel)]=\"leadDetailActivityModel.User\"\r\n                  disabled>\r\n              </div>\r\n              <br /><br />\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Activity</label>\r\n              <div class=\"col-sm-9\">\r\n                <textarea [(ngModel)]=\"leadDetailActivityModel.Activity\" type=\"text\" class=\"form-control\" style=\"resize: vertical\"\r\n                  placeholder=\"Activity...\" rows=\"10\"></textarea>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"tab-pane fade\" id=\"activity-cost\" role=\"tabpanel\" aria-labelledby=\"activity-cost-tab\">\r\n            <div class=\"form-group row\">\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Transpo.</label>\r\n              <div class=\"col-sm-9\">\r\n                <wj-input-number [(ngModel)]=\"leadDetailActivityModel.TransportationCost\" #numActivityTranspoCost style=\"width: 100%; padding: 3px;\"></wj-input-number>\r\n              </div>\r\n              <br /><br />\r\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">On-site</label>\r\n              <div class=\"col-sm-9\">\r\n                <wj-input-number [(ngModel)]=\"leadDetailActivityModel.OnSiteCost\" #numActivityOnsiteCost style=\"width: 100%; padding: 3px;\"></wj-input-number>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n      <button [hidden]=\"isActivityContentHidden\" type=\"button\" class=\"btn btn-primary\" style=\"margin-right: 5px;\"\r\n        (click)=\"btnSaveActivityClick()\" id=\"btnSaveActivity\">\r\n        <i class=\"fa fa-save\"></i> Save\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-danger\" (click)=\"activitiyModalRef.hide()\" id=\"btnSaveActivityClickCloseModal\">\r\n        <i class=\"fa fa-close\"></i> Cancel\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #activityDeleteModalTemplate>\r\n    <div class=\"modal-header\">\r\n      <h4 class=\"modal-title\">\r\n        Delete\r\n      </h4>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n      Are you sure you want to delete this activity?\r\n      <br /> <br />\r\n\r\n      AC Number:\r\n      <b>\r\n        {{\r\n        listActivityCollectionView.items.length > 0 ?\r\n        listActivityCollectionView.currentItem.ACNumber : 'NA'\r\n        }}\r\n      </b>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n      <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteAcitivityClick()\"\r\n        id=\"btnConfirmDeleteAcitivity\">\r\n        <i class=\"fa fa-trash\"></i> Delete\r\n      </button>\r\n      <button type=\"button\" class=\"btn\" (click)=\"deleteActivitiyModalRef.hide()\" id=\"btnCloseConfirmDeleteAcitivityModal\">\r\n        <i class=\"fa fa-close\"></i> Cancel\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
 
 /***/ }),
 
@@ -62559,6 +63492,7 @@ var LeadDetailComponent = /** @class */ (function () {
             Remarks: "",
             AssignedToUserId: 0,
             AssignedToUser: "",
+            LastActivity: "",
             Status: "",
             IsLocked: false,
             CreatedByUserId: 0,
@@ -62602,7 +63536,7 @@ var LeadDetailComponent = /** @class */ (function () {
             TransportationCost: 0,
             OnSiteCost: 0,
             LDId: null,
-            SIId: null,
+            SDId: null,
             SPId: null,
             Status: "",
             IsLocked: false,
@@ -62938,7 +63872,7 @@ var LeadDetailComponent = /** @class */ (function () {
                 TransportationCost: 0,
                 OnSiteCost: 0,
                 LDId: LDId,
-                SIId: null,
+                SDId: null,
                 SPId: null,
                 Status: "",
                 IsLocked: false,
@@ -62971,7 +63905,7 @@ var LeadDetailComponent = /** @class */ (function () {
                 TransportationCost: currentActivity.TransportationCost,
                 OnSiteCost: currentActivity.OnSiteCost,
                 LDId: currentActivity.LDId,
-                SIId: currentActivity.SIId,
+                SDId: currentActivity.SDId,
                 SPId: currentActivity.SPId,
                 Status: currentActivity.Status,
                 IsLocked: currentActivity.IsLocked,
@@ -62993,6 +63927,8 @@ var LeadDetailComponent = /** @class */ (function () {
         this.isAddClicked = true;
         this.activityModalHeaderTitle = "Add Activity";
         this.isActivityNumberHidden = true;
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
         this.listActivityUsers();
     };
     LeadDetailComponent.prototype.btnEditActivityClick = function (activityModalTemplate) {
@@ -63004,6 +63940,8 @@ var LeadDetailComponent = /** @class */ (function () {
         this.isAddClicked = false;
         this.activityModalHeaderTitle = "Edit Activity";
         this.isActivityNumberHidden = false;
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
         this.listActivityUsers();
     };
     LeadDetailComponent.prototype.btnSaveActivityClick = function () {
@@ -63226,6 +64164,7 @@ var LeadDetailService = /** @class */ (function () {
                     Remarks: results["Remarks"],
                     AssignedToUserId: results["AssignedToUserId"],
                     AssignedToUser: results["AssignedToUser"],
+                    LastActivity: results["LastActivity"],
                     Status: results["Status"],
                     IsLocked: results["IsLocked"],
                     CreatedByUserId: results["CreatedByUserId"],
@@ -63331,8 +64270,9 @@ var LeadDetailService = /** @class */ (function () {
                         TransportationCost: results[i].TransportationCost,
                         OnSiteCost: results[i].OnSiteCost,
                         LDId: results[i].LDId,
-                        SIId: results[i].SIId,
+                        SDId: results[i].SIId,
                         SPId: results[i].SPId,
+                        LastActivity: results[i].LastActivity,
                         Status: results[i].Status,
                         IsLocked: results[i].IsLocked,
                         CreatedByUserId: results[i].CreatedByUserId,
@@ -63410,7 +64350,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\" (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnAddLeadClick()\" style=\"margin-right: 5px;\" id=\"btnAddLead\">\n            <i class=\"fa fa-plus fa-fw\"></i> Add\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software\" id=\"btnCloseLead\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  <div class=\"card-body\">\n\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboLeadStartDateFilter [(ngModel)]=\"leadStartDateFilterData\" [ngModelOptions]=\"{standalone: true}\"\n                  (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\" style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboLeadEndDateFilter [(ngModel)]=\"leadEndDateFilterData\" [ngModelOptions]=\"{standalone: true}\"\n                  (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\" style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboLeadStatus [itemsSource]=\"cboLeadStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboLeadStatusSelectedIndexChanged(cboLeadStatus.selectedValue)\" style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listLeadFlexGrid [itemsSource]=\"listLeadCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditLeadClick()\" id=\"btnEditLead\">\n            <i class=\"fa fa-edit fa-fw\"></i> Edit\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\" (click)=\"btnDeleteLeadClick(leadDeleteModalTemplate)\"\n            id=\"btnDeleteLead\">\n            <i class=\"fa fa-trash fa-fw\"></i> Delete\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'LD No.'\" [binding]=\"'LDNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'LD Date'\" [binding]=\"'LDDate'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'Name'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact No.'\" [binding]=\"'ContactPhoneNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Referred By'\" [binding]=\"'ReferredBy'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Remarks'\" [binding]=\"'Remarks'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"'0.5*'\"></wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listLeadCollectionView.pageIndex + 1 }} / {{ listLeadCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n\n<div class=\"card card-default\" style=\"margin-top: 10px;\">\n  <div class=\"card-header\">\n    User stamp\n  </div>\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-6\">\n        <p>Created by:</p>\n        <div style=\"padding-left: 10px;\">\n          <i class=\"fa fa-key\"></i>&nbsp;\n          <label id=\"createdBy\">\n            {{\n            listLeadCollectionView.items.length > 0 ?\n            listLeadCollectionView.currentItem.CreatedByUser : 'NA'\n            }}\n          </label>\n          <br />\n          <small>\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n            <span id=\"createdDate\">\n              {{\n              listLeadCollectionView.items.length > 0 ?\n              listLeadCollectionView.currentItem.CreatedDateTime : 'mm/dd/yyyy'\n              }}\n            </span>\n          </small>\n        </div>\n        <br />\n      </div>\n      <div class=\"col-md-6\">\n        <p>Updated by:</p>\n        <div style=\"padding-left: 10px;\">\n          <i class=\"fa fa-key\"></i>&nbsp;\n          <label id=\"updatedBy\">\n            {{\n            listLeadCollectionView.items.length > 0 ?\n            listLeadCollectionView.currentItem.UpdatedByUser : 'NA'\n            }}\n          </label>\n          <br />\n          <small>\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n            <span id=\"updatedDate\">\n              {{\n              listLeadCollectionView.items.length > 0 ?\n              listLeadCollectionView.currentItem.UpdatedDateTime : 'mm/dd/yyyy'\n              }}\n            </span>\n          </small>\n        </div>\n        <br />\n      </div>\n    </div>\n  </div>\n</div>\n\n<ng-template #leadDeleteModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      Delete\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    Are you sure you want to delete this lead?\n    <br /> <br />\n    LD Number:\n    <b>\n      {{\n      listLeadCollectionView.items.length > 0 ?\n      listLeadCollectionView.currentItem.LDNumber : 'NA'\n      }}\n    </b>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteLeadClick()\" id=\"btnConfirmDeleteLead\">\n      <i class=\"fa fa-trash\"></i> Delete\n    </button>\n    <button type=\"button\" class=\"btn\" (click)=\"leadDeleteModalRef.hide()\" id=\"btnCloseConfirmDeleteLeadModal\">\n      <i class=\"fa fa-close\"></i> Cancel\n    </button>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"card card-default\">\r\n\r\n  <div class=\"card-header\">\r\n    <table border=\"0\" style=\"width: 100%; border: none;\">\r\n      <tr>\r\n        <td>\r\n          <div class=\"input-group\">\r\n            <div class=\"input-group-prepend\">\r\n              <div class=\"input-group-text\">\r\n                <b>\r\n                  <i class=\"fa fa-table\"></i>\r\n                </b>\r\n              </div>\r\n            </div>\r\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\r\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\r\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\r\n              style=\"width: 140px;\">\r\n            </wj-combo-box>\r\n          </div>\r\n        </td>\r\n        <td style=\"text-align: right;\">\r\n          <button class=\"btn btn-primary\" (click)=\"btnAddLeadClick()\" style=\"margin-right: 5px;\" id=\"btnAddLead\">\r\n            <i class=\"fa fa-plus fa-fw\"></i> Add\r\n          </button>\r\n          <button class=\"btn btn-danger\" routerLink=\"/software\" id=\"btnCloseLead\">\r\n            <i class=\"fa fa-close fa-fw\"></i> Close\r\n          </button>\r\n        </td>\r\n      </tr>\r\n    </table>\r\n  </div>\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-8\">\r\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\r\n          <tr>\r\n            <td>\r\n              <div class=\"form-group\">\r\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\r\n                  Start Date</span>\r\n                <wj-input-date #cboLeadStartDateFilter [(ngModel)]=\"leadStartDateFilterData\"\r\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\"\r\n                  style=\"width: 100%;\">\r\n                </wj-input-date>\r\n              </div>\r\n            </td>\r\n            <td>\r\n              <div class=\"form-group\">\r\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\r\n                  End Date</span>\r\n                <wj-input-date #cboLeadEndDateFilter [(ngModel)]=\"leadEndDateFilterData\"\r\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\"\r\n                  style=\"width: 100%;\">\r\n                </wj-input-date>\r\n              </div>\r\n            </td>\r\n            <td>\r\n              <div class=\"form-group\">\r\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\r\n                  Status</span>\r\n                <wj-combo-box #cboLeadStatus [itemsSource]=\"cboLeadStatusObservableArray\" [isEditable]=\"false\"\r\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\r\n                  (selectedIndexChanged)=\"cboLeadStatusSelectedIndexChanged(cboLeadStatus.selectedValue)\"\r\n                  style=\"width: 100%;\">\r\n                </wj-combo-box>\r\n              </div>\r\n            </td>\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      <div class=\"col-md-4\"></div>\r\n    </div>\r\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\r\n    <wj-flex-grid #listLeadFlexGrid [itemsSource]=\"listLeadCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\r\n      <wj-flex-grid-filter></wj-flex-grid-filter>\r\n      <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\r\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\r\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditLeadClick()\" id=\"btnEditLead\">\r\n            <i class=\"fa fa-edit fa-fw\"></i> Edit\r\n          </button>\r\n        </ng-template>\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\r\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\r\n          <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\r\n            (click)=\"btnDeleteLeadClick(leadDeleteModalTemplate)\" id=\"btnDeleteLead\">\r\n            <i class=\"fa fa-trash fa-fw\"></i> Delete\r\n          </button>\r\n        </ng-template>\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'LD No.'\" [binding]=\"'LDNumber'\" [isReadOnly]=\"true\" [width]=\"110\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'LD Date'\" [binding]=\"'LDDate'\" [isReadOnly]=\"true\" [width]=\"110\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'Name'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Created By'\" [binding]=\"'CreatedByUser'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Last Activity'\" [binding]=\"'LastActivity'\" [isReadOnly]=\"true\" [width]=\"'2.5*'\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Last Act. Date'\" [binding]=\"'LastActivityDate'\" [isReadOnly]=\"true\"\r\n        [width]=\"'2*'\"></wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"'0.8*'\">\r\n      </wj-flex-grid-column>\r\n    </wj-flex-grid>\r\n  </div>\r\n\r\n  <div class=\"card-footer\">\r\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\r\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToFirstPage()\">\r\n        <i class=\"fa fa-fast-backward\"></i>\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToPreviousPage()\">\r\n        <i class=\"fa fa-step-backward\"></i>\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\r\n        {{ listLeadCollectionView.pageIndex + 1 }} / {{ listLeadCollectionView.pageCount }}\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToNextPage()\">\r\n        <i class=\"fa fa-step-forward\"></i>\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToLastPage()\">\r\n        <i class=\"fa fa-fast-forward\"></i>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"card card-default\" style=\"margin-top: 10px;\">\r\n  <div class=\"card-header\">\r\n    User stamp\r\n  </div>\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-6\">\r\n        <p>Created by:</p>\r\n        <div style=\"padding-left: 10px;\">\r\n          <i class=\"fa fa-key\"></i>&nbsp;\r\n          <label id=\"createdBy\">\r\n            {{\r\n            listLeadCollectionView.items.length > 0 ?\r\n            listLeadCollectionView.currentItem.CreatedByUser : 'NA'\r\n            }}\r\n          </label>\r\n          <br />\r\n          <small>\r\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\r\n            <span id=\"createdDate\">\r\n              {{\r\n              listLeadCollectionView.items.length > 0 ?\r\n              listLeadCollectionView.currentItem.CreatedDateTime : 'mm/dd/yyyy'\r\n              }}\r\n            </span>\r\n          </small>\r\n        </div>\r\n        <br />\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <p>Updated by:</p>\r\n        <div style=\"padding-left: 10px;\">\r\n          <i class=\"fa fa-key\"></i>&nbsp;\r\n          <label id=\"updatedBy\">\r\n            {{\r\n            listLeadCollectionView.items.length > 0 ?\r\n            listLeadCollectionView.currentItem.UpdatedByUser : 'NA'\r\n            }}\r\n          </label>\r\n          <br />\r\n          <small>\r\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\r\n            <span id=\"updatedDate\">\r\n              {{\r\n              listLeadCollectionView.items.length > 0 ?\r\n              listLeadCollectionView.currentItem.UpdatedDateTime : 'mm/dd/yyyy'\r\n              }}\r\n            </span>\r\n          </small>\r\n        </div>\r\n        <br />\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #leadDeleteModalTemplate>\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">\r\n      Delete\r\n    </h4>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    Are you sure you want to delete this lead?\r\n    <br /> <br />\r\n    LD Number:\r\n    <b>\r\n      {{\r\n      listLeadCollectionView.items.length > 0 ?\r\n      listLeadCollectionView.currentItem.LDNumber : 'NA'\r\n      }}\r\n    </b>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteLeadClick()\"\r\n      id=\"btnConfirmDeleteLead\">\r\n      <i class=\"fa fa-trash\"></i> Delete\r\n    </button>\r\n    <button type=\"button\" class=\"btn\" (click)=\"leadDeleteModalRef.hide()\" id=\"btnCloseConfirmDeleteLeadModal\">\r\n      <i class=\"fa fa-close\"></i> Cancel\r\n    </button>\r\n  </div>\r\n</ng-template>"
 
 /***/ }),
 
@@ -63746,6 +64686,8 @@ var LeadService = /** @class */ (function () {
                         Remarks: results[i].Remarks,
                         AssignedToUserId: results[i].AssignedToUserId,
                         AssignedToUser: results[i].AssignedToUser,
+                        LastActivity: results[i].LastActivity,
+                        LastActivityDate: results[i].LastActivityDate,
                         Status: results[i].Status,
                         IsLocked: results[i].IsLocked,
                         CreatedByUserId: results[i].CreatedByUserId,
@@ -63794,6 +64736,2937 @@ var LeadService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/software/report/activity-report/activity-report.component.css":
+/*!*******************************************************************************!*\
+  !*** ./src/app/software/report/activity-report/activity-report.component.css ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3JlcG9ydC9hY3Rpdml0eS1yZXBvcnQvYWN0aXZpdHktcmVwb3J0LmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/report/activity-report/activity-report.component.html":
+/*!********************************************************************************!*\
+  !*** ./src/app/software/report/activity-report/activity-report.component.html ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnCSVReportClick()\" style=\"margin-right: 5px;\" id=\"btnPrint\">\n            <i class=\"fa fa-file-excel-o fa-fw\"></i> CSV\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software\" id=\"btnCloseActivity\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboActivityStartDateFilter [(ngModel)]=\"ActivityStartDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboActivityEndDateFilter [(ngModel)]=\"ActivityEndDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Document</span>\n                <wj-combo-box #cboActivityDocument [itemsSource]=\"cboActivityDocumentObservableArray\"\n                  [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Category'\"\n                  [selectedValuePath]=\"'Category'\"\n                  (selectedIndexChanged)=\"cboDocumentSelectedIndexChanged(cboActivityDocument.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboActivityStatus [itemsSource]=\"cboActivityStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboActivityStatusSelectedIndexChanged(cboActivityStatus.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listActivityCollectionView\" [selectionMode]=\"3\"\n      [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"'Document'\" [binding]=\"'Document'\" [isReadOnly]=\"true\" [width]=\"110\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'ACNumber'\" [binding]=\"'ACNumber'\" [isReadOnly]=\"true\" [width]=\"110\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'ACDate'\" [binding]=\"'ACDate'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'User'\" [binding]=\"'User'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Functional'\" [binding]=\"'Functional'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Technical'\" [binding]=\"'Technical'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'CRMStatus'\" [binding]=\"'CRMStatus'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Activity'\" [binding]=\"'Activity'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'StartDateTime'\" [binding]=\"'StartDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'EndDateTime'\" [binding]=\"'EndDateTime'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'TransportationCost'\" [binding]=\"'TransportationCost'\" [isReadOnly]=\"true\"\n        [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'OnSiteCost'\" [binding]=\"'OnSiteCost'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"30\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Created By'\" [binding]=\"'CreatedByUser'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Created Date'\" [binding]=\"'CreatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'UpdatedByUser'\" [binding]=\"'UpdatedByUser'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Updated Date'\" [binding]=\"'UpdatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/software/report/activity-report/activity-report.component.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/software/report/activity-report/activity-report.component.ts ***!
+  \******************************************************************************/
+/*! exports provided: ActivityReportComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActivityReportComponent", function() { return ActivityReportComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _activity_report_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./activity-report.service */ "./src/app/software/report/activity-report/activity-report.service.ts");
+
+
+
+
+
+
+
+
+var ActivityReportComponent = /** @class */ (function () {
+    function ActivityReportComponent(activityReportService, modalService, toastr, router) {
+        this.activityReportService = activityReportService;
+        this.modalService = modalService;
+        this.toastr = toastr;
+        this.router = router;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.ActivityStartDateFilterData = new Date();
+        this.ActivityEndDateFilterData = new Date();
+        this.cboActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboActivityStatusSelectedValue = "Open";
+        this.cboActivityDocumentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboActivityDocumentSelectedValue = "Open";
+        this.listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listActivityObservableArray);
+        this.listActivityPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+    }
+    ActivityReportComponent.prototype.ngOnInit = function () {
+        this.createCboShowNumberOfRows();
+        this.createCboActivityDocument();
+        this.createCboActivityStatus();
+    };
+    ActivityReportComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    ActivityReportComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.listActivityCollectionView.pageSize = this.listActivityPageIndex;
+        this.listActivityCollectionView.refresh();
+        this.listActivityCollectionView.refresh();
+    };
+    ActivityReportComponent.prototype.cboStartDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivity();
+            }, 100);
+        }
+    };
+    ActivityReportComponent.prototype.cboEndDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivity();
+            }, 100);
+        }
+    };
+    ActivityReportComponent.prototype.cboDocumentSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboActivityDocumentSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.createCboActivityStatus();
+            }, 100);
+        }
+    };
+    ActivityReportComponent.prototype.createCboActivityDocument = function () {
+        var _this = this;
+        this.activityReportService.listDocument();
+        this.cboListDocumentSub = this.activityReportService.listDocumentObservable.subscribe(function (data) {
+            var documentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    documentObservableArray.push({
+                        Id: data[i].Id,
+                        Category: data[i].Category
+                    });
+                }
+            }
+            _this.cboActivityDocumentObservableArray = documentObservableArray;
+            if (_this.cboActivityDocumentObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listActivity();
+                }, 100);
+            }
+            if (_this.cboListDocumentSub != null)
+                _this.cboListDocumentSub.unsubscribe();
+        });
+    };
+    ActivityReportComponent.prototype.createCboActivityStatus = function () {
+        var _this = this;
+        this.activityReportService.listStatus(this.cboActivityDocumentSelectedValue);
+        this.cboListStatusSub = this.activityReportService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboActivityStatusObservableArray = statusObservableArray;
+            if (_this.cboActivityStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listActivity();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
+    };
+    ActivityReportComponent.prototype.cboActivityStatusSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboActivityStatusSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivity();
+            }, 100);
+        }
+    };
+    ActivityReportComponent.prototype.listActivity = function () {
+        var _this = this;
+        this.listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listActivityObservableArray);
+        this.listActivityCollectionView.pageSize = 15;
+        this.listActivityCollectionView.trackChanges = true;
+        this.listActivityCollectionView.refresh();
+        this.listActivityFlexGrid.refresh();
+        var startDate = [this.ActivityStartDateFilterData.getFullYear(), this.ActivityStartDateFilterData.getMonth() + 1, this.ActivityStartDateFilterData.getDate()].join('-');
+        var endDate = [this.ActivityEndDateFilterData.getFullYear(), this.ActivityEndDateFilterData.getMonth() + 1, this.ActivityEndDateFilterData.getDate()].join('-');
+        this.isProgressBarHidden = false;
+        this.activityReportService.listActivity(startDate, endDate, this.cboActivityDocumentSelectedValue, this.cboActivityStatusSelectedValue);
+        this.listActivitySub = this.activityReportService.listActivityObservable.subscribe(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                _this.listActivityObservableArray = data;
+                _this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listActivityObservableArray);
+                _this.listActivityCollectionView.pageSize = _this.listActivityPageIndex;
+                _this.listActivityCollectionView.trackChanges = true;
+                _this.listActivityCollectionView.refresh();
+                _this.listActivityFlexGrid.refresh();
+            }
+            _this.isDataLoaded = true;
+            _this.isProgressBarHidden = true;
+            if (_this.listActivitySub != null)
+                _this.listActivitySub.unsubscribe();
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listActivityFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], ActivityReportComponent.prototype, "listActivityFlexGrid", void 0);
+    ActivityReportComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-activity-report',
+            template: __webpack_require__(/*! ./activity-report.component.html */ "./src/app/software/report/activity-report/activity-report.component.html"),
+            styles: [__webpack_require__(/*! ./activity-report.component.css */ "./src/app/software/report/activity-report/activity-report.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_activity_report_service__WEBPACK_IMPORTED_MODULE_7__["ActivityReportService"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], ActivityReportComponent);
+    return ActivityReportComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/report/activity-report/activity-report.service.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/software/report/activity-report/activity-report.service.ts ***!
+  \****************************************************************************/
+/*! exports provided: ActivityReportService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActivityReportService", function() { return ActivityReportService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_app_app_settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/app-settings */ "./src/app/app-settings.ts");
+
+
+
+
+
+
+var ActivityReportService = /** @class */ (function () {
+    function ActivityReportService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.listDocumentSubject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.listDocumentObservable = this.listDocumentSubject.asObservable();
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
+        this.listActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.listActivityObservable = this.listActivitySubject.asObservable();
+    }
+    ActivityReportService.prototype.listDocument = function () {
+        var _this = this;
+        var listDocumentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listDocumentSubject.next(listDocumentObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/report/list/document", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listDocumentObservableArray.push({
+                        Id: results[i].Id,
+                        Category: results[i].Category
+                    });
+                }
+            }
+            _this.listDocumentSubject.next(listDocumentObservableArray);
+        });
+    };
+    ActivityReportService.prototype.listStatus = function (document) {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/report/list/status/" + document, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
+        });
+    };
+    ActivityReportService.prototype.listActivity = function (startDate, endDate, document, status) {
+        var _this = this;
+        var listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivitySubject.next(listActivityObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/report/activity/list/" + startDate + "/" + endDate + "/" + document + "/" + status, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityObservableArray.push({
+                        Id: results[i].Id,
+                        Document: results[i].Document,
+                        ACNumber: results[i].ACNumber,
+                        ACDate: results[i].ACDate,
+                        User: results[i].User,
+                        Functional: results[i].Functional,
+                        Technical: results[i].Technical,
+                        CRMStatus: results[i].CRMStatus,
+                        Activity: results[i].Activity,
+                        StartDateTime: results[i].StartDateTime,
+                        EndDateTime: results[i].EndDateTime,
+                        TransportationCost: results[i].TransportationCost,
+                        OnSiteCost: results[i].OnSiteCost,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime
+                    });
+                }
+            }
+            _this.listActivitySubject.next(listActivityObservableArray);
+        });
+    };
+    ActivityReportService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_app_settings__WEBPACK_IMPORTED_MODULE_5__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], ActivityReportService);
+    return ActivityReportService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/report/lead-report/lead-report.component.css":
+/*!***********************************************************************!*\
+  !*** ./src/app/software/report/lead-report/lead-report.component.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3JlcG9ydC9sZWFkLXJlcG9ydC9sZWFkLXJlcG9ydC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/report/lead-report/lead-report.component.html":
+/*!************************************************************************!*\
+  !*** ./src/app/software/report/lead-report/lead-report.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnCSVReportClick()\" style=\"margin-right: 5px;\" id=\"btnPrint\">\n            <i class=\"fa fa-file-excel-o fa-fw\"></i> CSV\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software\" id=\"btnCloseLead\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboLeadStartDateFilter [(ngModel)]=\"leadStartDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboLeadEndDateFilter [(ngModel)]=\"leadEndDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboLeadStatus [itemsSource]=\"cboLeadStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboLeadStatusSelectedIndexChanged(cboLeadStatus.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listLeadFlexGrid [itemsSource]=\"listLeadCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"'LD No.'\" [binding]=\"'LDNumber'\" [isReadOnly]=\"true\" [width]=\"110\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'LD Date'\" [binding]=\"'LDDate'\" [isReadOnly]=\"true\" [width]=\"110\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'Name'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Address'\" [binding]=\"'Address'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Person'\" [binding]=\"'ContactPerson'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Position'\" [binding]=\"'ContactPosition'\" [isReadOnly]=\"true\"\n        [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Email'\" [binding]=\"'ContactEmail'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Phone No.'\" [binding]=\"'ContactPhoneNumber'\" [isReadOnly]=\"true\"\n        [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Referred By'\" [binding]=\"'ReferredBy'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Remarks'\" [binding]=\"'Remarks'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Last Activity'\" [binding]=\"'LastActivity'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Last Act. Date'\" [binding]=\"'LastActivityDate'\" [isReadOnly]=\"true\"\n        [width]=\"150\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Created By'\" [binding]=\"'CreatedByUser'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Created Date'\" [binding]=\"'CreatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'UpdatedByUser'\" [binding]=\"'UpdatedByUser'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Updated Date'\" [binding]=\"'UpdatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"30\">\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listLeadCollectionView.pageIndex + 1 }} / {{ listLeadCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listLeadCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/software/report/lead-report/lead-report.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/software/report/lead-report/lead-report.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: LeadReportComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LeadReportComponent", function() { return LeadReportComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _lead_report_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./lead-report.service */ "./src/app/software/report/lead-report/lead-report.service.ts");
+
+
+
+
+
+
+
+
+var LeadReportComponent = /** @class */ (function () {
+    function LeadReportComponent(leadReportService, modalService, toastr, router) {
+        this.leadReportService = leadReportService;
+        this.modalService = modalService;
+        this.toastr = toastr;
+        this.router = router;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.leadStartDateFilterData = new Date();
+        this.leadEndDateFilterData = new Date();
+        this.cboLeadStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboLeadStatusSelectedValue = "Open";
+        this.listLeadObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listLeadCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listLeadObservableArray);
+        this.listLeadPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+    }
+    LeadReportComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    LeadReportComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listLeadPageIndex = selectedValue;
+        this.listLeadCollectionView.pageSize = this.listLeadPageIndex;
+        this.listLeadCollectionView.refresh();
+        this.listLeadCollectionView.refresh();
+    };
+    LeadReportComponent.prototype.cboStartDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listLead();
+            }, 100);
+        }
+    };
+    LeadReportComponent.prototype.cboEndDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listLead();
+            }, 100);
+        }
+    };
+    LeadReportComponent.prototype.createCboLeadStatus = function () {
+        var _this = this;
+        this.leadReportService.listStatus();
+        this.cboListStatusSub = this.leadReportService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboLeadStatusObservableArray = statusObservableArray;
+            if (_this.cboLeadStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listLead();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
+    };
+    LeadReportComponent.prototype.cboLeadStatusSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboLeadStatusSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listLead();
+            }, 100);
+        }
+    };
+    LeadReportComponent.prototype.listLead = function () {
+        var _this = this;
+        this.listLeadObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listLeadCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listLeadObservableArray);
+        this.listLeadCollectionView.pageSize = 15;
+        this.listLeadCollectionView.trackChanges = true;
+        this.listLeadCollectionView.refresh();
+        this.listLeadFlexGrid.refresh();
+        var startDate = [this.leadStartDateFilterData.getFullYear(), this.leadStartDateFilterData.getMonth() + 1, this.leadStartDateFilterData.getDate()].join('-');
+        var endDate = [this.leadEndDateFilterData.getFullYear(), this.leadEndDateFilterData.getMonth() + 1, this.leadEndDateFilterData.getDate()].join('-');
+        this.isProgressBarHidden = false;
+        this.leadReportService.listLead(startDate, endDate, this.cboLeadStatusSelectedValue);
+        this.listLeadSub = this.leadReportService.listLeadObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listLeadObservableArray = data;
+                _this.listLeadCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listLeadObservableArray);
+                _this.listLeadCollectionView.pageSize = _this.listLeadPageIndex;
+                _this.listLeadCollectionView.trackChanges = true;
+                _this.listLeadCollectionView.refresh();
+                _this.listLeadFlexGrid.refresh();
+            }
+            _this.isDataLoaded = true;
+            _this.isProgressBarHidden = true;
+            if (_this.listLeadSub != null)
+                _this.listLeadSub.unsubscribe();
+        });
+    };
+    LeadReportComponent.prototype.ngOnInit = function () {
+        this.createCboShowNumberOfRows();
+        this.createCboLeadStatus();
+    };
+    LeadReportComponent.prototype.btnCSVReportClick = function () {
+        var fileName = "";
+        fileName = "report-lead.csv";
+        var csvData = this.generateCSV();
+        var csvURL = window.URL.createObjectURL(csvData);
+        var tempLink = document.createElement('a');
+        tempLink.href = csvURL;
+        tempLink.setAttribute('download', fileName);
+        tempLink.click();
+    };
+    LeadReportComponent.prototype.generateCSV = function () {
+        var data = "";
+        var collection;
+        var fileName = "";
+        data = 'Lead Summary Report' + '\r\n\n';
+        collection = this.listLeadCollectionView;
+        fileName = "report-soldUnit.csv";
+        if (data != "") {
+            var label = '';
+            for (var s in collection.items[0]) {
+                label += s + ',';
+            }
+            label = label.slice(0, -1);
+            data += label + '\r\n';
+            collection.moveToFirstPage();
+            for (var p = 0; p < collection.pageCount; p++) {
+                for (var i = 0; i < collection.items.length; i++) {
+                    var row = '';
+                    for (var s in collection.items[i]) {
+                        row += '"' + collection.items[i][s] + '",';
+                    }
+                    row.slice(0, row.length - 1);
+                    data += row + '\r\n';
+                }
+                collection.moveToNextPage();
+            }
+        }
+        return new Blob([data], { type: 'text/csv;charset=utf-8;' });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listLeadFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], LeadReportComponent.prototype, "listLeadFlexGrid", void 0);
+    LeadReportComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-lead-report',
+            template: __webpack_require__(/*! ./lead-report.component.html */ "./src/app/software/report/lead-report/lead-report.component.html"),
+            styles: [__webpack_require__(/*! ./lead-report.component.css */ "./src/app/software/report/lead-report/lead-report.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_lead_report_service__WEBPACK_IMPORTED_MODULE_7__["LeadReportService"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], LeadReportComponent);
+    return LeadReportComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/report/lead-report/lead-report.service.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/software/report/lead-report/lead-report.service.ts ***!
+  \********************************************************************/
+/*! exports provided: LeadReportService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LeadReportService", function() { return LeadReportService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_app_app_settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/app-settings */ "./src/app/app-settings.ts");
+
+
+
+
+
+
+var LeadReportService = /** @class */ (function () {
+    function LeadReportService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
+        this.listLeadSubject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.listLeadObservable = this.listLeadSubject.asObservable();
+    }
+    LeadReportService.prototype.listStatus = function () {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/lead/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
+        });
+    };
+    LeadReportService.prototype.listLead = function (startDate, endDate, status) {
+        var _this = this;
+        var listLeadObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listLeadSubject.next(listLeadObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/report/lead/list/" + startDate + "/" + endDate + "/" + status, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listLeadObservableArray.push({
+                        Id: results[i].Id,
+                        LDNumber: results[i].LDNumber,
+                        LDDate: results[i].LDDate,
+                        Name: results[i].Name,
+                        Address: results[i].Address,
+                        ContactPerson: results[i].ContactPerson,
+                        ContactPosition: results[i].ContactPosition,
+                        ContactEmail: results[i].ContactEmail,
+                        ContactPhoneNumber: results[i].ContactPhoneNumber,
+                        ReferredBy: results[i].ReferredBy,
+                        Remarks: results[i].Remarks,
+                        AssignedToUserId: results[i].AssignedToUserId,
+                        AssignedToUser: results[i].AssignedToUser,
+                        LastActivity: results[i].LastActivity,
+                        LastActivityDate: results[i].LastActivityDate,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listLeadSubject.next(listLeadObservableArray);
+        });
+    };
+    LeadReportService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_app_settings__WEBPACK_IMPORTED_MODULE_5__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], LeadReportService);
+    return LeadReportService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/report/salesdelivery-report/salesdelivery-report.component.css":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/software/report/salesdelivery-report/salesdelivery-report.component.css ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3JlcG9ydC9zYWxlc2RlbGl2ZXJ5LXJlcG9ydC9zYWxlc2RlbGl2ZXJ5LXJlcG9ydC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/report/salesdelivery-report/salesdelivery-report.component.html":
+/*!******************************************************************************************!*\
+  !*** ./src/app/software/report/salesdelivery-report/salesdelivery-report.component.html ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnCSVReportClick()\" style=\"margin-right: 5px;\" id=\"btnPrint\">\n            <i class=\"fa fa-file-excel-o fa-fw\"></i> CSV\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software/sys/dashboard\" id=\"btnCloseActivity\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboSalesStartDateFilter [(ngModel)]=\"salesStartDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboSalesEndDateFilter [(ngModel)]=\"salesEndDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboSalesStatus [itemsSource]=\"cboSalesStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboSalesStatusSelectedIndexChanged(cboSalesStatus.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listSalesFlexGrid [itemsSource]=\"listSalesCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'Id'\" [binding]=\"'Id'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'SD No.'\" [binding]=\"'SDNumber'\" [isReadOnly]=\"true\" [width]=\"100\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'SDDate'\" [isReadOnly]=\"true\" [width]=\"100\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Renewal Date'\" [binding]=\"'RenewalDate'\" [isReadOnly]=\"true\" [width]=\"100\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'CustomerId'\" [binding]=\"'CustomerId'\" [isReadOnly]=\"true\"\n        [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Customer'\" [binding]=\"'Customer'\" [isReadOnly]=\"true\" [width]=\"175\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'SIId'\" [binding]=\"'SIId'\" [isReadOnly]=\"true\" [width]=\"120\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Product Description'\" [binding]=\"'ProductDescription'\" [isReadOnly]=\"true\"\n        [width]=\"225\"></wj-flex-grid-column>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'LDId'\" [binding]=\"'LDId'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'LD No.'\" [binding]=\"'LDNumber'\" [isReadOnly]=\"true\" [width]=\"100\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Person'\" [binding]=\"'ContactPerson'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Position'\" [binding]=\"'ContactPosition'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Email'\" [binding]=\"'ContactEmail'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact PhoneNumber'\" [binding]=\"'ContactPhoneNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Particulars'\" [binding]=\"'Particulars'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'AssignedToUserId'\" [binding]=\"'AssignedToUserId'\"\n        [isReadOnly]=\"true\" [width]=\"175\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"170\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"50\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'CreatedByUserId'\" [binding]=\"'CreatedByUserId'\" [isReadOnly]=\"true\"\n        [width]=\"150\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Created By'\" [binding]=\"'CreatedByUser'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Created Date'\" [binding]=\"'CreatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'UpdatedByUserId'\" [binding]=\"'UpdatedByUserId'\" [isReadOnly]=\"true\"\n        [width]=\"150\"></wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Updated By'\" [binding]=\"'UpdatedByUser'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Updated Date'\" [binding]=\"'UpdatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSalesCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSalesCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listSalesCollectionView.pageIndex + 1 }} / {{ listSalesCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSalesCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSalesCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/software/report/salesdelivery-report/salesdelivery-report.component.ts":
+/*!****************************************************************************************!*\
+  !*** ./src/app/software/report/salesdelivery-report/salesdelivery-report.component.ts ***!
+  \****************************************************************************************/
+/*! exports provided: SalesdeliveryReportComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SalesdeliveryReportComponent", function() { return SalesdeliveryReportComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _salesdelivery_report_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./salesdelivery-report.service */ "./src/app/software/report/salesdelivery-report/salesdelivery-report.service.ts");
+
+
+
+
+
+
+
+
+var SalesdeliveryReportComponent = /** @class */ (function () {
+    function SalesdeliveryReportComponent(salesDeliveryReportService, toastr, activatedRoute, router, modalService) {
+        this.salesDeliveryReportService = salesDeliveryReportService;
+        this.toastr = toastr;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.modalService = modalService;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.salesStartDateFilterData = new Date();
+        this.salesEndDateFilterData = new Date();
+        this.cboSalesStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboSalesStatusSelectedValue = "Open";
+        this.listSalesObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSalesCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSalesObservableArray);
+        this.listActivityPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+    }
+    SalesdeliveryReportComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    SalesdeliveryReportComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.listSalesCollectionView.pageSize = this.listActivityPageIndex;
+        this.listSalesCollectionView.refresh();
+        this.listSalesCollectionView.refresh();
+    };
+    SalesdeliveryReportComponent.prototype.createCboSalesDeliveryStatus = function () {
+        var _this = this;
+        this.salesDeliveryReportService.listStatus();
+        this.cboListStatusSub = this.salesDeliveryReportService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboSalesStatusObservableArray = statusObservableArray;
+            if (_this.cboSalesStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listSales();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
+    };
+    SalesdeliveryReportComponent.prototype.cboStartDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSales();
+            }, 100);
+        }
+    };
+    SalesdeliveryReportComponent.prototype.cboEndDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSales();
+            }, 100);
+        }
+    };
+    SalesdeliveryReportComponent.prototype.cboSalesStatusSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboSalesStatusSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSales();
+            }, 100);
+        }
+    };
+    SalesdeliveryReportComponent.prototype.listSales = function () {
+        var _this = this;
+        this.listSalesObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSalesCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSalesObservableArray);
+        this.listSalesCollectionView.pageSize = 15;
+        this.listSalesCollectionView.trackChanges = true;
+        this.listSalesCollectionView.refresh();
+        this.listSalesFlexGrid.refresh();
+        var startDate = [this.salesStartDateFilterData.getFullYear(), this.salesStartDateFilterData.getMonth() + 1, this.salesStartDateFilterData.getDate()].join('-');
+        var endDate = [this.salesEndDateFilterData.getFullYear(), this.salesEndDateFilterData.getMonth() + 1, this.salesEndDateFilterData.getDate()].join('-');
+        this.isProgressBarHidden = false;
+        this.salesDeliveryReportService.listSalesDelivery(startDate, endDate, this.cboSalesStatusSelectedValue);
+        this.listSalesDeliverySub = this.salesDeliveryReportService.listSalesObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listSalesObservableArray = data;
+                _this.listSalesCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listSalesObservableArray);
+                _this.listSalesCollectionView.pageSize = _this.listActivityPageIndex;
+                _this.listSalesCollectionView.trackChanges = true;
+                _this.listSalesCollectionView.refresh();
+                _this.listSalesFlexGrid.refresh();
+            }
+            _this.isDataLoaded = true;
+            _this.isProgressBarHidden = true;
+            if (_this.listSalesDeliverySub != null)
+                _this.listSalesDeliverySub.unsubscribe();
+        });
+    };
+    SalesdeliveryReportComponent.prototype.btnCSVReportClick = function () {
+        var fileName = "";
+        fileName = "report-sales-delivery.csv";
+        var csvData = this.generateCSV();
+        var csvURL = window.URL.createObjectURL(csvData);
+        var tempLink = document.createElement('a');
+        tempLink.href = csvURL;
+        tempLink.setAttribute('download', fileName);
+        tempLink.click();
+    };
+    SalesdeliveryReportComponent.prototype.generateCSV = function () {
+        var data = "";
+        var collection;
+        var fileName = "";
+        data = 'Sales Delivery Summary Report' + '\r\n\n';
+        collection = this.listSalesCollectionView;
+        fileName = "report-soldUnit.csv";
+        if (data != "") {
+            var label = '';
+            for (var s in collection.items[0]) {
+                label += s + ',';
+            }
+            label = label.slice(0, -1);
+            data += label + '\r\n';
+            collection.moveToFirstPage();
+            for (var p = 0; p < collection.pageCount; p++) {
+                for (var i = 0; i < collection.items.length; i++) {
+                    var row = '';
+                    for (var s in collection.items[i]) {
+                        row += '"' + collection.items[i][s] + '",';
+                    }
+                    row.slice(0, row.length - 1);
+                    data += row + '\r\n';
+                }
+                collection.moveToNextPage();
+            }
+        }
+        return new Blob([data], { type: 'text/csv;charset=utf-8;' });
+    };
+    SalesdeliveryReportComponent.prototype.ngOnInit = function () {
+        this.createCboShowNumberOfRows();
+        this.createCboSalesDeliveryStatus();
+        this.listSales();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listSalesFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], SalesdeliveryReportComponent.prototype, "listSalesFlexGrid", void 0);
+    SalesdeliveryReportComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-salesdelivery-report',
+            template: __webpack_require__(/*! ./salesdelivery-report.component.html */ "./src/app/software/report/salesdelivery-report/salesdelivery-report.component.html"),
+            styles: [__webpack_require__(/*! ./salesdelivery-report.component.css */ "./src/app/software/report/salesdelivery-report/salesdelivery-report.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_salesdelivery_report_service__WEBPACK_IMPORTED_MODULE_7__["SalesdeliveryReportService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]])
+    ], SalesdeliveryReportComponent);
+    return SalesdeliveryReportComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/report/salesdelivery-report/salesdelivery-report.service.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/app/software/report/salesdelivery-report/salesdelivery-report.service.ts ***!
+  \**************************************************************************************/
+/*! exports provided: SalesdeliveryReportService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SalesdeliveryReportService", function() { return SalesdeliveryReportService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var SalesdeliveryReportService = /** @class */ (function () {
+    function SalesdeliveryReportService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
+        this.listSalesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSalesObservable = this.listSalesSubject.asObservable();
+    }
+    SalesdeliveryReportService.prototype.listStatus = function () {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
+        });
+    };
+    SalesdeliveryReportService.prototype.listSalesDelivery = function (startDate, endDate, status) {
+        var _this = this;
+        var listSalesObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSalesSubject.next(listSalesObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/" + startDate + "/" + endDate + "/" + status, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listSalesObservableArray.push({
+                        Id: results[i].Id,
+                        SDNumber: results[i].SDNumber,
+                        SDDate: results[i].SDDate,
+                        RenewalDate: results[i].RenewalDate,
+                        CustomerId: results[i].CustomerId,
+                        Customer: results[i].Customer,
+                        SIId: results[i].ProductId,
+                        ProductDescription: results[i].ProductDescription,
+                        LDId: results[i].LDId,
+                        LDNumber: results[i].LDNumber,
+                        ContactPerson: results[i].ContactPerson,
+                        ContactPosition: results[i].ContactPosition,
+                        ContactEmail: results[i].ContactEmail,
+                        ContactPhoneNumber: results[i].ContactPhoneNumber,
+                        Particulars: results[i].Particulars,
+                        AssignedToUserId: results[i].AssignedToUserId,
+                        AssignedToUser: results[i].AssignedToUser,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listSalesSubject.next(listSalesObservableArray);
+        });
+    };
+    SalesdeliveryReportService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], SalesdeliveryReportService);
+    return SalesdeliveryReportService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/report/support-report/support-report.component.css":
+/*!*****************************************************************************!*\
+  !*** ./src/app/software/report/support-report/support-report.component.css ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3JlcG9ydC9zdXBwb3J0LXJlcG9ydC9zdXBwb3J0LXJlcG9ydC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/report/support-report/support-report.component.html":
+/*!******************************************************************************!*\
+  !*** ./src/app/software/report/support-report/support-report.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnCSVReportClick()\" style=\"margin-right: 5px;\" id=\"btnPrintSupport\">\n            <i class=\"fa fa-plus fa-fw\"></i> Print\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software/sys/dashboard\" id=\"btnCloseActivity\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboSupportStartDateFilter [(ngModel)]=\"supportStartDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboSupportEndDateFilter [(ngModel)]=\"supportEndDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboSupportStatus [itemsSource]=\"cboSupportStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboSupportStatusSelectedIndexChanged(cboSupportStatus.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listSupportFlexGrid [itemsSource]=\"listSupportCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"'SP No.'\" [binding]=\"'SPNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'SPDate'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Customer'\" [binding]=\"'Customer'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'SD No.'\" [binding]=\"'SDNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Person'\" [binding]=\"'ContactPerson'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Position'\" [binding]=\"'ContactPosition'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Email'\" [binding]=\"'ContactEmail'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Phone No.'\" [binding]=\"'ContactPhoneNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Last Activity'\" [binding]=\"'LastActivity'\" [isReadOnly]=\"true\" [width]=\"200\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Last Activity Date'\" [binding]=\"'LastActivityDate'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Created By'\" [binding]=\"'CreatedByUser'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Created Date'\" [binding]=\"'CreatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Updated By'\" [binding]=\"'UpdatedByUser'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Updated Date'\" [binding]=\"'UpdatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSupportCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSupportCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listSupportCollectionView.pageIndex + 1 }} / {{ listSupportCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSupportCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSupportCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/software/report/support-report/support-report.component.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/software/report/support-report/support-report.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: SupportReportComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupportReportComponent", function() { return SupportReportComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _support_report_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./support-report.service */ "./src/app/software/report/support-report/support-report.service.ts");
+
+
+
+
+
+
+
+
+var SupportReportComponent = /** @class */ (function () {
+    function SupportReportComponent(supportReportService, toastr, activatedRoute, router, modalService) {
+        this.supportReportService = supportReportService;
+        this.toastr = toastr;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.modalService = modalService;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.supportStartDateFilterData = new Date();
+        this.supportEndDateFilterData = new Date();
+        this.cboSupportStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboSupportStatusSelectedValue = "Open";
+        this.listSupportObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSupportCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSupportObservableArray);
+        this.listActivityPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+    }
+    SupportReportComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    SupportReportComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.listSupportCollectionView.pageSize = this.listActivityPageIndex;
+        this.listSupportCollectionView.refresh();
+        this.listSupportCollectionView.refresh();
+    };
+    SupportReportComponent.prototype.createCboSupportStatus = function () {
+        var _this = this;
+        this.supportReportService.listStatus();
+        this.cboListStatusSub = this.supportReportService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboSupportStatusObservableArray = statusObservableArray;
+            if (_this.cboSupportStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listSupport();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
+    };
+    SupportReportComponent.prototype.cboStartDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSupport();
+            }, 100);
+        }
+    };
+    SupportReportComponent.prototype.cboEndDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSupport();
+            }, 100);
+        }
+    };
+    SupportReportComponent.prototype.cboSupportStatusSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboSupportStatusSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSupport();
+            }, 100);
+        }
+    };
+    SupportReportComponent.prototype.listSupport = function () {
+        var _this = this;
+        this.listSupportObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSupportCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSupportObservableArray);
+        this.listSupportCollectionView.pageSize = 15;
+        this.listSupportCollectionView.trackChanges = true;
+        this.listSupportCollectionView.refresh();
+        this.listSupportFlexGrid.refresh();
+        var startDate = [this.supportStartDateFilterData.getFullYear(), this.supportStartDateFilterData.getMonth() + 1, this.supportStartDateFilterData.getDate()].join('-');
+        var endDate = [this.supportEndDateFilterData.getFullYear(), this.supportEndDateFilterData.getMonth() + 1, this.supportEndDateFilterData.getDate()].join('-');
+        this.isProgressBarHidden = false;
+        this.supportReportService.listSupport(startDate, endDate, this.cboSupportStatusSelectedValue);
+        this.listSupportSub = this.supportReportService.listSupportObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listSupportObservableArray = data;
+                _this.listSupportCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listSupportObservableArray);
+                _this.listSupportCollectionView.pageSize = _this.listActivityPageIndex;
+                _this.listSupportCollectionView.trackChanges = true;
+                _this.listSupportCollectionView.refresh();
+                _this.listSupportFlexGrid.refresh();
+            }
+            _this.isDataLoaded = true;
+            _this.isProgressBarHidden = true;
+            if (_this.listSupportSub != null)
+                _this.listSupportSub.unsubscribe();
+        });
+    };
+    SupportReportComponent.prototype.btnCSVReportClick = function () {
+        var fileName = "";
+        fileName = "report-support.csv";
+        var csvData = this.generateCSV();
+        var csvURL = window.URL.createObjectURL(csvData);
+        var tempLink = document.createElement('a');
+        tempLink.href = csvURL;
+        tempLink.setAttribute('download', fileName);
+        tempLink.click();
+    };
+    SupportReportComponent.prototype.generateCSV = function () {
+        var data = "";
+        var collection;
+        var fileName = "";
+        data = 'Support Summary Report' + '\r\n\n';
+        collection = this.listSupportCollectionView;
+        fileName = "report-soldUnit.csv";
+        if (data != "") {
+            var label = '';
+            for (var s in collection.items[0]) {
+                label += s + ',';
+            }
+            label = label.slice(0, -1);
+            data += label + '\r\n';
+            collection.moveToFirstPage();
+            for (var p = 0; p < collection.pageCount; p++) {
+                for (var i = 0; i < collection.items.length; i++) {
+                    var row = '';
+                    for (var s in collection.items[i]) {
+                        row += '"' + collection.items[i][s] + '",';
+                    }
+                    row.slice(0, row.length - 1);
+                    data += row + '\r\n';
+                }
+                collection.moveToNextPage();
+            }
+        }
+        return new Blob([data], { type: 'text/csv;charset=utf-8;' });
+    };
+    SupportReportComponent.prototype.ngOnInit = function () {
+        this.createCboShowNumberOfRows();
+        this.createCboSupportStatus();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listSupportFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], SupportReportComponent.prototype, "listSupportFlexGrid", void 0);
+    SupportReportComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-support-report',
+            template: __webpack_require__(/*! ./support-report.component.html */ "./src/app/software/report/support-report/support-report.component.html"),
+            styles: [__webpack_require__(/*! ./support-report.component.css */ "./src/app/software/report/support-report/support-report.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_support_report_service__WEBPACK_IMPORTED_MODULE_7__["SupportReportService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]])
+    ], SupportReportComponent);
+    return SupportReportComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/report/support-report/support-report.service.ts":
+/*!**************************************************************************!*\
+  !*** ./src/app/software/report/support-report/support-report.service.ts ***!
+  \**************************************************************************/
+/*! exports provided: SupportReportService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupportReportService", function() { return SupportReportService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var SupportReportService = /** @class */ (function () {
+    function SupportReportService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
+        this.listSupportSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSupportObservable = this.listSupportSubject.asObservable();
+    }
+    SupportReportService.prototype.listStatus = function () {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/support/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
+        });
+    };
+    SupportReportService.prototype.listSupport = function (startDate, endDate, status) {
+        var _this = this;
+        var listSupportObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSupportSubject.next(listSupportObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/report/support/list/" + startDate + "/" + endDate + "/" + status, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listSupportObservableArray.push({
+                        Id: results[i].Id,
+                        SPNumber: results[i].SPNumber,
+                        SPDate: results[i].SPDate,
+                        CustomerId: results[i].CustomerId,
+                        Customer: results[i].Customer,
+                        SDId: results[i].SDId,
+                        SDNumber: results[i].SDNumber,
+                        ContactPerson: results[i].ContactPerson,
+                        ContactPosition: results[i].ContactPosition,
+                        ContactEmail: results[i].ContactEmail,
+                        ContactPhoneNumber: results[i].ContactPhoneNumber,
+                        Issue: results[i].Issue,
+                        AssignedToUserId: results[i].AssignedToUserId,
+                        AssignedToUser: results[i].AssignedToUser,
+                        Status: results[i].Status,
+                        LastActivity: results[i].LastActivity,
+                        LastActivityDate: results[i].LastActivityDate,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listSupportSubject.next(listSupportObservableArray);
+        });
+    };
+    SupportReportService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], SupportReportService);
+    return SupportReportService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/sales-detail/sales-detail.component.css":
+/*!******************************************************************!*\
+  !*** ./src/app/software/sales-detail/sales-detail.component.css ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".float-right {\r\n    float: right;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc29mdHdhcmUvc2FsZXMtZGV0YWlsL3NhbGVzLWRldGFpbC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtDQUNoQiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NhbGVzLWRldGFpbC9zYWxlcy1kZXRhaWwuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5mbG9hdC1yaWdodCB7XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/sales-detail/sales-detail.component.html":
+/*!*******************************************************************!*\
+  !*** ./src/app/software/sales-detail/sales-detail.component.html ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div [hidden]=\"isLoadingSpinnerHidden\">\n  <mat-spinner style=\"margin: auto;\"></mat-spinner>\n</div>\n<div [hidden]=\"isContentHidden\">\n  <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\" style=\"margin-top: 10px; margin-bottom: 10px;\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link active\" id=\"sales-tab\" data-toggle=\"tab\" href=\"#salesDelivery\" role=\"tab\"\n        aria-controls=\"salesDelivery\" aria-selected=\"true\">Sales Delivery Detail</a>\n    </li>\n    <li class=\"nav-item\" [hidden]=\"isActivityTabHidden\">\n      <a class=\"nav-link\" id=\"activities-tab\" data-toggle=\"tab\" href=\"#activities\" role=\"tab\" aria-controls=\"activities\"\n        aria-selected=\"false\" (click)=\"listActivity()\">Activities</a>\n    </li>\n  </ul>\n\n  <div class=\"tab-content\" id=\"myTabContent\">\n    <div class=\"tab-pane fade show active\" id=\"salesDelivery\" role=\"tabpanel\" aria-labelledby=\"sales-tab\">\n      <div class=\"card card-default\">\n        <div class=\"card-header\">\n          <table border=\"0\" style=\"width: 100%; border: none;\">\n            <tr>\n              <td style=\"text-align: right;\">\n                <button class=\"btn btn-primary\" (click)=\"btnSaveSalesClick()\" style=\"margin-right: 5px;\"\n                  id=\"btnSaveSales\" disabled>\n                  <i class=\"fa fa-save fa-fw\"></i> Save\n                </button>\n                <button class=\"btn btn-primary\" (click)=\"btnLockSalesClick()\" style=\"margin-right: 5px;\"\n                  id=\"btnLockSales\" disabled>\n                  <i class=\"fa fa-lock fa-fw\"></i> Lock\n                </button>\n                <button class=\"btn btn-primary\" (click)=\"btnUnlockSalesClick()\" style=\"margin-right: 5px;\"\n                  id=\"btnUnlockSales\" disabled>\n                  <i class=\"fa fa-unlock fa-fw\"></i> Unlock\n                </button>\n                <button class=\"btn btn-danger\" routerLink=\"/software/trn/sales\" id=\"btnCloseSales\">\n                  <i class=\"fa fa-close fa-fw\"></i> Close\n                </button>\n              </td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-lg-6\">\n              <div class=\"form-group row\">\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SD No.</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [(ngModel)]=\"salesDeliveryDetailModel.SDNumber\"\n                    placeholder=\"SD Number...\" disabled>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SD Date</label>\n                <div class=\"col-sm-8\">\n                  <wj-input-date #cboShopOrderDate [disabled]=\"isLocked\" [(ngModel)]=\"salesDeliveryDetailModel.SDDate\"\n                    format=\"MMMM dd, yyyy\" style=\"width: 100%; padding: 3px;\">\n                  </wj-input-date>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Renewal Date</label>\n                <div class=\"col-sm-8\">\n                  <wj-input-date #cboShopOrderDate [disabled]=\"isLocked\"\n                    [(ngModel)]=\"salesDeliveryDetailModel.RenewalDate\" format=\"MMMM dd, yyyy\"\n                    style=\"width: 100%; padding: 3px;\">\n                  </wj-input-date>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Customer</label>\n                <div class=\"col-sm-8\">\n                  <div class=\"input-group\">\n                    <input type=\"text\" [(ngModel)]=\"selectedCustomer\" class=\"form-control\" aria-label=\"\" [disabled]=\"isLocked\">\n                    <div class=\"input-group-append\" >\n                      <span class=\"input-group-text\" (click)=\"btnCustomerListClick(customerModalTemplate)\"><i\n                          class=\"fa fa-plus\"></i></span>\n                    </div>\n                  </div>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SI Number</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboSalesInvoice [(ngModel)]=\"salesDeliveryDetailModel.SIId\"\n                    [itemsSource]=\"cboSalesInvoiceObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'SINumber'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\" [disabled]=\"isLocked\">\n                  </wj-combo-box>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Product</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboProduct [(ngModel)]=\"salesDeliveryDetailModel.ProductId\"\n                    [itemsSource]=\"cboProductObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'ProductDescription'\" [selectedValuePath]=\"'Id'\"\n                    style=\"width: 100%; padding: 3px;\" [disabled]=\"isLocked\">\n                  </wj-combo-box>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">LD Number</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboLDNumber [(ngModel)]=\"salesDeliveryDetailModel.LDId\"\n                    [itemsSource]=\"cboLeadObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'LDNumber'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\" [disabled]=\"isLocked\">\n                  </wj-combo-box>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Person</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\"\n                    [(ngModel)]=\"salesDeliveryDetailModel.ContactPerson\" placeholder=\"Contact Person...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Position</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\"\n                    [(ngModel)]=\"salesDeliveryDetailModel.ContactPosition\" placeholder=\"Contact Position...\">\n                </div>\n                <br /><br />\n\n              </div>\n            </div>\n            <div class=\"col-lg-6\">\n              <div class=\"form-group row\">\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Email</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\"\n                    [(ngModel)]=\"salesDeliveryDetailModel.ContactEmail\" placeholder=\"Contact Email...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Phone No.</label>\n                <div class=\"col-sm-8\">\n                  <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\"\n                    [(ngModel)]=\"salesDeliveryDetailModel.ContactPhoneNumber\" placeholder=\"Contact Phone Number...\">\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Particulars</label>\n                <div class=\"col-sm-8\">\n                  <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\"\n                    [(ngModel)]=\"salesDeliveryDetailModel.Particulars\" placeholder=\"Remarks...\" rows=\"5\">\n                  </textarea>\n                </div>\n                <br /><br /><br /><br /><br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Assigned To</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboAssignedToUser [(ngModel)]=\"salesDeliveryDetailModel.AssignedToUserId\"\n                    [itemsSource]=\"cboAssignedToUserObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\" [disabled]=\"isLocked\">\n                  </wj-combo-box>\n                </div>\n                <br /><br />\n                <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Status</label>\n                <div class=\"col-sm-8\">\n                  <wj-combo-box #cboSalesStatus [disabled]=\"isLocked\" [(ngModel)]=\"salesDeliveryDetailModel.Status\"\n                    [itemsSource]=\"cboSalesStatusObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                    [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\" style=\"width: 100%; padding: 3px;\">\n                  </wj-combo-box>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"card card-default\" style=\"margin-top: 10px;\">\n        <div class=\"card-header\">\n          User stamp\n        </div>\n        <div class=\"card-body\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n              <p>Created by:</p>\n              <div style=\"padding-left: 10px;\">\n                <i class=\"fa fa-key\"></i>&nbsp;\n                <label id=\"createdBy\">\n                  {{\n                  salesDeliveryDetailModel != null ?\n                  salesDeliveryDetailModel.CreatedByUser : 'NA'\n                  }}\n                </label>\n                <br />\n                <small>\n                  <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                  <span id=\"createdDate\">\n                    {{\n                    salesDeliveryDetailModel != null ?\n                    salesDeliveryDetailModel.CreatedDateTime : 'mm/dd/yyyy'\n                    }}\n                  </span>\n                </small>\n              </div>\n              <br />\n            </div>\n            <div class=\"col-md-6\">\n              <p>Updated by:</p>\n              <div style=\"padding-left: 10px;\">\n                <i class=\"fa fa-key\"></i>&nbsp;\n                <label id=\"updatedBy\">\n                  {{\n                  salesDeliveryDetailModel != null ?\n                  salesDeliveryDetailModel.UpdatedByUser : 'NA'\n                  }}\n                </label>\n                <br />\n                <small>\n                  <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                  <span id=\"updatedDate\">\n                    {{\n                    salesDeliveryDetailModel != null ?\n                    salesDeliveryDetailModel.UpdatedDateTime : 'mm/dd/yyyy'\n                    }}\n                  </span>\n                </small>\n              </div>\n              <br />\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"tab-pane fade\" id=\"activities\" role=\"tabpanel\" aria-labelledby=\"activities-tab\"\n      [hidden]=\"isActivityTabHidden\">\n      <div class=\"card card-default\">\n        <div class=\"card-header\">\n          <table border=\"0\" style=\"width: 100%; border: none;\">\n            <tr>\n              <td>\n                <div class=\"input-group\">\n                  <div class=\"input-group-prepend\">\n                    <div class=\"input-group-text\">\n                      <b>\n                        <i class=\"fa fa-table\"></i>\n                      </b>\n                    </div>\n                  </div>\n                  <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\"\n                    [isRequired]=\"true\" [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n                    (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n                    style=\"width: 140px;\">\n                  </wj-combo-box>\n                </div>\n              </td>\n              <td style=\"text-align: right;\">\n                <button class=\"btn btn-primary\" (click)=\"btnAddActivityClick(activityModalTemplate)\"\n                  style=\"margin-right: 5px;\" id=\"btnAddActivity\">\n                  <i class=\"fa fa-plus fa-fw\"></i> Add\n                </button>\n                <button class=\"btn btn-danger\" routerLink=\"/software/trn/sales\" id=\"btnCloseActivity\">\n                  <i class=\"fa fa-close fa-fw\"></i> Close\n                </button>\n              </td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"card-body\">\n          <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\">\n          </mat-progress-bar>\n          <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listActivityCollectionView\" [selectionMode]=\"3\"\n            [frozenColumns]=\"2\">\n            <wj-flex-grid-filter></wj-flex-grid-filter>\n            <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n              <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\"\n                  (click)=\"btnEditActivityClick(activityModalTemplate)\" id=\"btnEditActivity\">\n                  <i class=\"fa fa-edit fa-fw\"></i> Edit\n                </button>\n              </ng-template>\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n              <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\n                  (click)=\"btnDeleteActivityClick(activityDeleteModalTemplate)\" id=\"btnDeleteActivity\">\n                  <i class=\"fa fa-trash fa-fw\"></i> Delete\n                </button>\n              </ng-template>\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'No.'\" [binding]=\"'ACNumber'\" [isReadOnly]=\"true\" [width]=\"110\">\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'ACDate'\" [isReadOnly]=\"true\" [width]=\"110\">\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'User'\" [binding]=\"'User'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'CRM Status'\" [binding]=\"'CRMStatus'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Activity'\" [binding]=\"'Activity'\" [isReadOnly]=\"true\" [width]=\"'3*'\">\n            </wj-flex-grid-column>\n            <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n            </wj-flex-grid-column>\n          </wj-flex-grid>\n        </div>\n        <div class=\"card-footer\">\n          <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n              <i class=\"fa fa-fast-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n              <i class=\"fa fa-step-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n              {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n              <i class=\"fa fa-step-forward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n              <i class=\"fa fa-fast-forward\"></i>\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<ng-template #customerModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      {{ activityModalHeaderTitle }}\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listCustomerFlexGrid [itemsSource]=\"listCustomerCollectionView\" [selectionMode]=\"3\"\n      [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'Id'\" [binding]=\"'Id'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Code'\" [binding]=\"'ArticleCode'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Customer'\" [binding]=\"'Article'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Person'\" [binding]=\"'ContactPerson'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"Pick\" [isReadOnly]=\"true\" [width]=\"80\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnPickCustomerClick()\"\n            id=\"btnPickCustomer\">\n            <i class=\"fa fa-edit fa-fw\"></i> Pick\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n  <!-- <div class=\"modal-footer\"> -->\n  <div class=\"card-footer\">\n    <table>\n      <tr>\n        <td>\n          <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listCustomerCollectionView.moveToFirstPage()\">\n              <i class=\"fa fa-fast-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listCustomerCollectionView.moveToPreviousPage()\">\n              <i class=\"fa fa-step-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n              {{ listCustomerCollectionView.pageIndex + 1 }} / {{ listCustomerCollectionView.pageCount }}\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listCustomerCollectionView.moveToNextPage()\">\n              <i class=\"fa fa-step-forward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listCustomerCollectionView.moveToLastPage()\">\n              <i class=\"fa fa-fast-forward\"></i>\n            </button>\n          </div>\n        </td>\n        <td style=\"padding-left: 147%;\">\n          <button type=\"button\" class=\"btn btn-danger float-right\" (click)=\"customerModalRef.hide()\"\n            id=\"btnCustomerClickCloseModal\">\n            <i class=\"fa fa-close\"></i> Cancel\n          </button>\n        </td>\n      </tr>\n    </table>\n    <!-- </div> -->\n  </div>\n</ng-template>\n\n<ng-template #activityModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      {{ activityModalHeaderTitle }}\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    <div [hidden]=\"isActivityLoadingSpinnerHidden\">\n      <br /><br />\n      <mat-spinner style=\"margin: auto;\"></mat-spinner>\n      <br /><br />\n    </div>\n    <div [hidden]=\"isActivityContentHidden\">\n      <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link active\" id=\"activity-detail-tab\" data-toggle=\"tab\" href=\"#activity-detail\" role=\"tab\"\n            aria-controls=\"activity-detail\" aria-selected=\"true\">Detail</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" id=\"activity-activity-tab\" data-toggle=\"tab\" href=\"#activity-activity\" role=\"tab\"\n            aria-controls=\"activity-activity\" aria-selected=\"false\">Activity</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" id=\"activity-cost-tab\" data-toggle=\"tab\" href=\"#activity-cost\" role=\"tab\" aria-controls=\"activity-cost\"\n            aria-selected=\"false\">Cost</a>\n        </li>\n      </ul>\n\n      <br />\n\n      <div class=\"tab-content\" id=\"myTabContent\">\n        <div class=\"tab-pane fade show active\" id=\"activity-detail\" role=\"tabpanel\" aria-labelledby=\"activity-detail-tab\">\n          <div class=\"form-group row\">\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\" [hidden]=\"isActivityNumberHidden\">No.</label>\n            <div class=\"col-sm-9\" [hidden]=\"isActivityNumberHidden\">\n              <input type=\"text\" class=\"form-control\" placeholder=\"Number...\" [(ngModel)]=\"salesDetailActivityModel.ACNumber\"\n                disabled>\n            </div>\n            <div [hidden]=\"isActivityNumberHidden\">\n              <br /><br />\n            </div>\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">CRM</label>\n            <div class=\"col-sm-9\">\n              <input type=\"text\" class=\"form-control\" placeholder=\"CRM Status...\" [(ngModel)]=\"salesDetailActivityModel.CRMStatus\"\n                disabled>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Date</label>\n            <div class=\"col-sm-9\">\n              <wj-input-date #cboActivityDate format=\"MMMM dd, yyyy\" [(ngModel)]=\"salesDetailActivityModel.ACDate\"\n                style=\"width: 100%; padding: 3px;\">\n              </wj-input-date>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Functional</label>\n            <div class=\"col-sm-9\">\n              <wj-combo-box #cboActivityFunctionalUser [(ngModel)]=\"salesDetailActivityModel.FunctionalUserId\"\n                [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n              </wj-combo-box>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Technical</label>\n            <div class=\"col-sm-9\">\n              <wj-combo-box #cboActivityTechnicalUser [(ngModel)]=\"salesDetailActivityModel.TechnicalUserId\"\n                [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n              </wj-combo-box>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Start</label>\n            <div class=\"col-sm-9\">\n              <table style=\"width: 100%;\">\n                <tr>\n                  <td style=\"width: 60%\">\n                    <wj-input-date #cboActivityStartDate [(ngModel)]=\"salesDetailActivityModel.StartDate\" format=\"MMMM dd, yyyy\"></wj-input-date>\n                  </td>\n                  <td style=\"width: 1%\"></td>\n                  <td style=\"width: 39%\">\n                    <wj-input-time #cboActivityStartTime [(ngModel)]=\"salesDetailActivityModel.StartTime\" format=\"h:mm tt\"\n                      [step]=\"1\"></wj-input-time>\n                  </td>\n                </tr>\n              </table>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">End</label>\n            <div class=\"col-sm-9\">\n              <table style=\"width: 100%;\">\n                <tr>\n                  <td style=\"width: 60%\">\n                    <wj-input-date #cboActivityEndDate [(ngModel)]=\"salesDetailActivityModel.EndDate\" format=\"MMMM dd, yyyy\"></wj-input-date>\n                  </td>\n                  <td style=\"width: 1%\"></td>\n                  <td style=\"width: 39%\">\n                    <wj-input-time #cboActivityEndTime [(ngModel)]=\"salesDetailActivityModel.EndTime\" format=\"h:mm tt\"\n                      [step]=\"1\"></wj-input-time>\n                  </td>\n                </tr>\n              </table>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Status</label>\n            <div class=\"col-sm-9\">\n              <wj-combo-box #cboActivityStatus [(ngModel)]=\"salesDetailActivityModel.Status\" [itemsSource]=\"cboListActivityStatusObservableArray\"\n                [isEditable]=\"false\" [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                style=\"width: 100%; padding: 3px;\">\n              </wj-combo-box>\n            </div>\n          </div>\n        </div>\n        <div class=\"tab-pane fade\" id=\"activity-activity\" role=\"tabpanel\" aria-labelledby=\"activity-activity-tab\">\n          <div class=\"form-group row\">\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">User</label>\n            <div class=\"col-sm-9\">\n              <input type=\"text\" class=\"form-control\" placeholder=\"User...\" [(ngModel)]=\"salesDetailActivityModel.User\"\n                disabled>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Activity</label>\n            <div class=\"col-sm-9\">\n              <textarea [(ngModel)]=\"salesDetailActivityModel.Activity\" type=\"text\" class=\"form-control\" style=\"resize: vertical\"\n                placeholder=\"Activity...\" rows=\"10\"></textarea>\n            </div>\n          </div>\n        </div>\n        <div class=\"tab-pane fade\" id=\"activity-cost\" role=\"tabpanel\" aria-labelledby=\"activity-cost-tab\">\n          <div class=\"form-group row\">\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Transpo.</label>\n            <div class=\"col-sm-9\">\n              <wj-input-number [(ngModel)]=\"salesDetailActivityModel.TransportationCost\" #numActivityTranspoCost style=\"width: 100%; padding: 3px;\"></wj-input-number>\n            </div>\n            <br /><br />\n            <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">On-site</label>\n            <div class=\"col-sm-9\">\n              <wj-input-number [(ngModel)]=\"salesDetailActivityModel.OnSiteCost\" #numActivityOnsiteCost style=\"width: 100%; padding: 3px;\"></wj-input-number>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <button [hidden]=\"isActivityContentHidden\" type=\"button\" class=\"btn btn-primary\" style=\"margin-right: 5px;\"\n      (click)=\"btnSaveActivityClick()\" id=\"btnSaveActivity\">\n      <i class=\"fa fa-save\"></i> Save\n    </button>\n    <button type=\"button\" class=\"btn btn-danger\" (click)=\"activitiyModalRef.hide()\" id=\"btnSaveActivityClickCloseModal\">\n      <i class=\"fa fa-close\"></i> Cancel\n    </button>\n  </div>\n</ng-template>"
+
+/***/ }),
+
+/***/ "./src/app/software/sales-detail/sales-detail.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/software/sales-detail/sales-detail.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: SalesDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SalesDetailComponent", function() { return SalesDetailComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _sales_detail_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./sales-detail.service */ "./src/app/software/sales-detail/sales-detail.service.ts");
+
+
+
+
+
+
+
+
+var SalesDetailComponent = /** @class */ (function () {
+    function SalesDetailComponent(salesDetailService, toastr, activatedRoute, router, modalService) {
+        this.salesDetailService = salesDetailService;
+        this.toastr = toastr;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.modalService = modalService;
+        this.isLoadingSpinnerHidden = false;
+        this.isContentHidden = true;
+        this.isLocked = false;
+        this.IsLoaded = false;
+        this.listCustomerObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCustomerCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCustomerObservableArray);
+        this.listCustomerPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.selectedCustomer = "";
+        this.cboCustomerObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboSalesInvoiceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboProductObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboAssignedToUserObservable = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboLeadObservable = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboSalesStatusObservable = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.isDataLoaded = false;
+        this.salesDeliveryDetailModel = {
+            Id: 0,
+            SDNumber: "",
+            SDDate: new Date(),
+            RenewalDate: new Date(),
+            CustomerId: 0,
+            Customer: "",
+            SIId: 0,
+            ProductId: 0,
+            LDId: 0,
+            ContactPerson: "",
+            ContactPosition: "",
+            ContactEmail: "",
+            ContactPhoneNumber: "",
+            Particulars: "",
+            AssignedToUserId: 0,
+            Status: "",
+            IsLocked: false,
+            CreatedByUserId: 0,
+            CreatedByUser: "",
+            CreatedDateTime: new Date(),
+            UpdatedByUserId: 0,
+            UpdatedByUser: "",
+            UpdatedDateTime: new Date(),
+        };
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listActivityObservableArray);
+        this.listActivityPageIndex = 15;
+        this.salesDetailActivityModel = {
+            Id: 0,
+            ACNumber: "",
+            ACDate: new Date(),
+            UserId: 0,
+            User: "",
+            FunctionalUserId: 0,
+            FunctionalUser: "",
+            TechnicalUserId: 0,
+            TechnicalUser: "",
+            CRMStatus: "",
+            Activity: "",
+            StartDate: new Date(),
+            StartTime: new Date(),
+            EndDate: new Date(),
+            EndTime: new Date(),
+            TransportationCost: 0,
+            OnSiteCost: 0,
+            LDId: 0,
+            SDId: 0,
+            SPId: 0,
+            Status: "",
+            IsLocked: false,
+            CreatedByUserId: 0,
+            CreatedByUser: "",
+            CreatedDateTime: "",
+            UpdatedByUserId: 0,
+            UpdatedByUser: "",
+            UpdatedDateTime: "",
+        };
+        this.isActivityTabHidden = true;
+        this.activityModalHeaderTitle = "Activity";
+        this.cboListActivityUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboListActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.isActivityNumberHidden = false;
+        this.isAddClicked = false;
+    }
+    // public isProgressBarHidden = false;
+    // public isDataLoaded: boolean = false;
+    // public isLoadingSpinnerHidden: boolean = false;
+    // public isContentHidden: boolean = true;
+    SalesDetailComponent.prototype.ngOnInit = function () {
+        this.createCboProduct();
+        this.createCboShowNumberOfRows();
+    };
+    SalesDetailComponent.prototype.detailSales = function () {
+        var _this = this;
+        var id = 0;
+        this.activatedRoute.params.subscribe(function (params) { id = params["id"]; });
+        this.salesDetailService.detailSales(id);
+        this.detailSalesSub = this.salesDetailService.detailSalesObservable.subscribe(function (data) {
+            _this.salesDeliveryDetailModel.Id = data.Id;
+            _this.salesDeliveryDetailModel.SDNumber = data.SDNumber;
+            _this.salesDeliveryDetailModel.SDDate = data.SDDate;
+            _this.salesDeliveryDetailModel.RenewalDate = data.RenewalDate;
+            _this.salesDeliveryDetailModel.CustomerId = data.CustomerId;
+            _this.salesDeliveryDetailModel.Customer = data.Customer;
+            _this.salesDeliveryDetailModel.SIId = data.SIId;
+            _this.salesDeliveryDetailModel.ProductId = data.ProductId;
+            _this.salesDeliveryDetailModel.LDId = data.LDId;
+            _this.salesDeliveryDetailModel.ContactPerson = data.ContactPerson;
+            _this.salesDeliveryDetailModel.ContactPosition = data.ContactPosition;
+            _this.salesDeliveryDetailModel.ContactEmail = data.ContactEmail;
+            _this.salesDeliveryDetailModel.ContactPhoneNumber = data.ContactPhoneNumber;
+            _this.salesDeliveryDetailModel.Particulars = data.Particulars;
+            _this.salesDeliveryDetailModel.AssignedToUserId = data.AssignedToUserId;
+            _this.salesDeliveryDetailModel.Status = data.Status;
+            _this.salesDeliveryDetailModel.IsLocked = data.IsLocked;
+            _this.salesDeliveryDetailModel.CreatedByUserId = data.CreatedByUserId;
+            _this.salesDeliveryDetailModel.CreatedByUser = data.CreatedByUser;
+            _this.salesDeliveryDetailModel.CreatedDateTime = data.CreatedDateTime;
+            _this.salesDeliveryDetailModel.UpdatedByUserId = data.UpdatedByUserId;
+            _this.salesDeliveryDetailModel.UpdatedByUser = data.UpdatedByUser;
+            _this.salesDeliveryDetailModel.UpdatedDateTime = data.UpdatedDateTime;
+            var btnSaveSales = document.getElementById("btnSaveSales");
+            var btnLockSales = document.getElementById("btnLockSales");
+            var btnUnlockSales = document.getElementById("btnUnlockSales");
+            _this.selectedCustomer = data.Customer;
+            btnSaveSales.disabled = false;
+            btnLockSales.disabled = false;
+            btnUnlockSales.disabled = true;
+            if (data.IsLocked) {
+                _this.isLocked = true;
+                btnSaveSales.disabled = true;
+                btnLockSales.disabled = true;
+                btnUnlockSales.disabled = false;
+                _this.isActivityTabHidden = false;
+            }
+            setTimeout(function () {
+                _this.createCboSalesInvoice(_this.salesDeliveryDetailModel.CustomerId);
+            }, 100);
+            _this.isLoadingSpinnerHidden = true;
+            _this.isContentHidden = false;
+            if (_this.detailSalesSub != null)
+                _this.detailSalesSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.listCustomer = function () {
+        var _this = this;
+        this.listCustomerObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCustomerCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCustomerObservableArray);
+        this.listCustomerCollectionView.pageSize = 15;
+        this.listCustomerCollectionView.trackChanges = true;
+        this.listCustomerCollectionView.refresh();
+        // this.listCustomerFlexGrid.refresh();
+        this.isProgressBarHidden = false;
+        this.salesDetailService.listCustomer();
+        this.cboCustomerSub = this.salesDetailService.listCustomerObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listCustomerObservableArray = data;
+                _this.listCustomerCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listCustomerObservableArray);
+                _this.listCustomerCollectionView.pageSize = _this.listCustomerPageIndex;
+                _this.listCustomerCollectionView.trackChanges = true;
+                _this.listCustomerCollectionView.refresh();
+                // this.listCustomerFlexGrid.refresh();
+            }
+            console.log(_this.listCustomerCollectionView);
+            _this.isProgressBarHidden = true;
+            if (_this.cboCustomerSub != null)
+                _this.cboCustomerSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.createCboSalesInvoice = function (customerId) {
+        var _this = this;
+        this.salesDetailService.listSalesInvoice(customerId);
+        this.cboSalesInvoiceSub = this.salesDetailService.listSalesInvoiceObservable.subscribe(function (data) {
+            var salesInvoiceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    salesInvoiceObservableArray.push({
+                        Id: data[i].Id,
+                        SINumber: data[i].SINumber
+                    });
+                }
+            }
+            _this.cboSalesInvoiceObservableArray = salesInvoiceObservableArray;
+            if (_this.cboSalesInvoiceSub != null)
+                _this.cboSalesInvoiceSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.createCboProduct = function () {
+        var _this = this;
+        this.salesDetailService.listProduct();
+        this.cboProductSub = this.salesDetailService.listProductObservable.subscribe(function (data) {
+            var productObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    productObservableArray.push({
+                        Id: data[i].Id,
+                        ProductDescription: data[i].ProductDescription
+                    });
+                }
+            }
+            _this.cboProductObservableArray = productObservableArray;
+            setTimeout(function () {
+                _this.createCboLead();
+            }, 100);
+            if (_this.cboProductSub != null)
+                _this.cboProductSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.createCboLead = function () {
+        var _this = this;
+        this.salesDetailService.listLead();
+        this.cboLeadSub = this.salesDetailService.listLeadObservable.subscribe(function (data) {
+            var leadObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    leadObservableArray.push({
+                        Id: data[i].Id,
+                        LDNumber: data[i].LDNumber
+                    });
+                }
+            }
+            _this.cboLeadObservable = leadObservableArray;
+            setTimeout(function () {
+                _this.createCboAssignedToUser();
+            }, 100);
+            if (_this.cboLeadSub != null)
+                _this.cboLeadSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.createCboAssignedToUser = function () {
+        var _this = this;
+        this.salesDetailService.listAssignedUsers();
+        this.cboAssignedToUserSub = this.salesDetailService.listLeadAssignedToUsersObservable.subscribe(function (data) {
+            var assignedToUserObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    assignedToUserObservableArray.push({
+                        Id: data[i].Id,
+                        FullName: data[i].FullName
+                    });
+                }
+            }
+            _this.cboAssignedToUserObservable = assignedToUserObservableArray;
+            setTimeout(function () {
+                _this.createCboSalesStatus();
+            }, 100);
+            if (_this.cboAssignedToUserSub != null)
+                _this.cboAssignedToUserSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.createCboSalesStatus = function () {
+        var _this = this;
+        this.salesDetailService.listSalesStatus();
+        this.cboSalesStatusSub = this.salesDetailService.listSalesStatusObservable.subscribe(function (data) {
+            var salesStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    salesStatusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboSalesStatusObservable = salesStatusObservableArray;
+            setTimeout(function () {
+                _this.detailSales();
+            }, 100);
+            if (_this.cboSalesStatusSub != null)
+                _this.cboSalesStatusSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.btnCustomerListClick = function (customerModalTemplate) {
+        var _this = this;
+        if (!this.isLocked) {
+            this.activityModalHeaderTitle = "Costumer List";
+            this.listCustomer();
+            setTimeout(function () {
+                _this.customerModalRef = _this.modalService.show(customerModalTemplate, {
+                    backdrop: true,
+                    ignoreBackdropClick: true,
+                    class: "modal-lg"
+                });
+            }, 100);
+        }
+    };
+    SalesDetailComponent.prototype.btnPickCustomerClick = function () {
+        var currentCustomer = this.listCustomerCollectionView.currentItem;
+        this.selectedCustomer = currentCustomer.Article;
+        this.salesDeliveryDetailModel.CustomerId = currentCustomer.Id;
+        this.customerModalRef.hide();
+        this.createCboSalesInvoice(this.salesDeliveryDetailModel.CustomerId);
+    };
+    SalesDetailComponent.prototype.btnSaveSalesClick = function () {
+        var _this = this;
+        var btnSaveSales = document.getElementById("btnSaveSales");
+        var btnLockSales = document.getElementById("btnLockSales");
+        var btnUnlockSales = document.getElementById("btnUnlockSales");
+        btnSaveSales.disabled = true;
+        btnLockSales.disabled = true;
+        btnUnlockSales.disabled = true;
+        this.salesDetailService.saveSales(this.salesDeliveryDetailModel);
+        this.saveSalesSub = this.salesDetailService.saveSalesObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Sales was successfully saved.", "Success");
+                setTimeout(function () {
+                    btnSaveSales.disabled = false;
+                    btnLockSales.disabled = false;
+                    btnUnlockSales.disabled = true;
+                }, 500);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveSales.disabled = false;
+                btnLockSales.disabled = false;
+                btnUnlockSales.disabled = true;
+            }
+            if (_this.saveSalesSub != null)
+                _this.saveSalesSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.btnLockSalesClick = function () {
+        var _this = this;
+        var btnSaveSales = document.getElementById("btnSaveSales");
+        var btnLockSales = document.getElementById("btnLockSales");
+        var btnUnlockSales = document.getElementById("btnUnlockSales");
+        btnSaveSales.disabled = true;
+        btnLockSales.disabled = true;
+        btnUnlockSales.disabled = true;
+        this.salesDetailService.lockSales(this.salesDeliveryDetailModel);
+        this.lockSalesSub = this.salesDetailService.lockSalesObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Sales was successfully saved.", "Success");
+                setTimeout(function () {
+                    _this.isLocked = true;
+                    btnSaveSales.disabled = true;
+                    btnLockSales.disabled = true;
+                    btnUnlockSales.disabled = false;
+                    _this.isActivityTabHidden = false;
+                }, 500);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveSales.disabled = false;
+                btnLockSales.disabled = false;
+                btnUnlockSales.disabled = true;
+            }
+            if (_this.lockSalesSub != null)
+                _this.lockSalesSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.btnUnlockSalesClick = function () {
+        var _this = this;
+        this.isActivityTabHidden = true;
+        var btnSaveSales = document.getElementById("btnSaveSales");
+        var btnLockSales = document.getElementById("btnLockSales");
+        var btnUnlockSales = document.getElementById("btnUnlockSales");
+        btnSaveSales.disabled = true;
+        btnLockSales.disabled = true;
+        btnUnlockSales.disabled = true;
+        this.salesDetailService.unlockSales(this.salesDeliveryDetailModel);
+        this.unlockSalesSub = this.salesDetailService.unlockSalesObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Sales was successfully unlocked.", "Success");
+                setTimeout(function () {
+                    _this.isLocked = false;
+                    btnSaveSales.disabled = false;
+                    btnLockSales.disabled = false;
+                    btnUnlockSales.disabled = true;
+                    _this.isActivityTabHidden = true;
+                }, 500);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveSales.disabled = true;
+                btnLockSales.disabled = true;
+                btnUnlockSales.disabled = false;
+                _this.isActivityTabHidden = false;
+            }
+            if (_this.unlockSalesSub != null)
+                _this.unlockSalesSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    SalesDetailComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.listActivityCollectionView.pageSize = this.listActivityPageIndex;
+        this.listActivityCollectionView.refresh();
+        this.listActivityCollectionView.refresh();
+    };
+    SalesDetailComponent.prototype.listActivity = function () {
+        var _this = this;
+        if (!this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+                _this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listActivityObservableArray);
+                _this.listActivityCollectionView.pageSize = 15;
+                _this.listActivityCollectionView.trackChanges = true;
+                _this.listActivityCollectionView.refresh();
+                _this.listActivityFlexGrid.refresh();
+                _this.isProgressBarHidden = false;
+                var id = 0;
+                _this.activatedRoute.params.subscribe(function (params) { id = params["id"]; });
+                _this.salesDetailService.listActivity(id);
+                _this.listActivitySub = _this.salesDetailService.listActivityObservable.subscribe(function (data) {
+                    if (data.length > 0) {
+                        _this.listActivityObservableArray = data;
+                        _this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listActivityObservableArray);
+                        _this.listActivityCollectionView.pageSize = _this.listActivityPageIndex;
+                        _this.listActivityCollectionView.trackChanges = true;
+                        _this.listActivityCollectionView.refresh();
+                        _this.listActivityFlexGrid.refresh();
+                    }
+                    _this.isDataLoaded = true;
+                    _this.isProgressBarHidden = true;
+                    console.log("Hello world");
+                    if (_this.listActivitySub != null)
+                        _this.listActivitySub.unsubscribe();
+                });
+            }, 100);
+        }
+    };
+    SalesDetailComponent.prototype.listActivityUsers = function () {
+        var _this = this;
+        this.salesDetailService.listActivityUsers();
+        this.cboListActivityUsersSub = this.salesDetailService.listActivityUsersObservable.subscribe(function (data) {
+            var usersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    usersObservableArray.push({
+                        Id: data[i].Id,
+                        FullName: data[i].FullName,
+                        UserName: data[i].UserName
+                    });
+                }
+            }
+            _this.cboListActivityUsersObservableArray = usersObservableArray;
+            setTimeout(function () {
+                _this.listActivityStatus();
+            }, 100);
+            if (_this.cboListActivityUsersSub != null)
+                _this.cboListActivityUsersSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.listActivityStatus = function () {
+        var _this = this;
+        this.salesDetailService.listActivityStatus();
+        this.cboListActivityStatusSub = this.salesDetailService.listActivityStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboListActivityStatusObservableArray = statusObservableArray;
+            setTimeout(function () {
+                _this.currentActivity();
+            }, 100);
+            _this.isActivityLoadingSpinnerHidden = true;
+            _this.isActivityContentHidden = false;
+            if (_this.cboListActivityStatusSub != null)
+                _this.cboListActivityStatusSub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.currentActivity = function () {
+        var SDId = 0;
+        this.activatedRoute.params.subscribe(function (params) { SDId = params["id"]; });
+        if (this.isAddClicked) {
+            this.salesDetailActivityModel = {
+                Id: 0,
+                ACNumber: "0000000001",
+                ACDate: new Date(),
+                UserId: 0,
+                User: localStorage.getItem("username"),
+                FunctionalUserId: 0,
+                FunctionalUser: "",
+                TechnicalUserId: 0,
+                TechnicalUser: "",
+                CRMStatus: this.salesDeliveryDetailModel.Status,
+                Activity: "",
+                StartDate: new Date(),
+                StartTime: new Date(),
+                EndDate: new Date(),
+                EndTime: new Date(),
+                TransportationCost: 0,
+                OnSiteCost: 0,
+                LDId: null,
+                SDId: SDId,
+                SPId: null,
+                Status: "",
+                IsLocked: false,
+                CreatedByUserId: 0,
+                CreatedByUser: "",
+                CreatedDateTime: "",
+                UpdatedByUserId: 0,
+                UpdatedByUser: "",
+                UpdatedDateTime: ""
+            };
+        }
+        else {
+            var currentActivity = this.listActivityCollectionView.currentItem;
+            this.salesDetailActivityModel = {
+                Id: currentActivity.Id,
+                ACNumber: currentActivity.ACNumber,
+                ACDate: currentActivity.ACDate,
+                UserId: currentActivity.UserId,
+                User: currentActivity.User,
+                FunctionalUserId: currentActivity.FunctionalUserId,
+                FunctionalUser: currentActivity.FunctionalUser,
+                TechnicalUserId: currentActivity.TechnicalUserId,
+                TechnicalUser: currentActivity.TechnicalUser,
+                CRMStatus: currentActivity.CRMStatus,
+                Activity: currentActivity.Activity,
+                StartDate: currentActivity.StartDate,
+                StartTime: currentActivity.StartTime,
+                EndDate: currentActivity.EndDate,
+                EndTime: currentActivity.EndTime,
+                TransportationCost: currentActivity.TransportationCost,
+                OnSiteCost: currentActivity.OnSiteCost,
+                LDId: currentActivity.LDId,
+                SDId: currentActivity.SDId,
+                SPId: currentActivity.SPId,
+                Status: currentActivity.Status,
+                IsLocked: currentActivity.IsLocked,
+                CreatedByUserId: currentActivity.CreatedByUserId,
+                CreatedByUser: currentActivity.CreatedByUser,
+                CreatedDateTime: currentActivity.CreatedDateTime,
+                UpdatedByUserId: currentActivity.UpdatedByUserId,
+                UpdatedByUser: currentActivity.UpdatedByUser,
+                UpdatedDateTime: currentActivity.UpdatedDateTime
+            };
+        }
+    };
+    SalesDetailComponent.prototype.btnAddActivityClick = function (activityModalTemplate) {
+        this.activitiyModalRef = this.modalService.show(activityModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: ""
+        });
+        this.isAddClicked = true;
+        this.activityModalHeaderTitle = "Add Activity";
+        this.isActivityNumberHidden = true;
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.listActivityUsers();
+    };
+    SalesDetailComponent.prototype.btnEditActivityClick = function (activityModalTemplate) {
+        this.activitiyModalRef = this.modalService.show(activityModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: ""
+        });
+        this.isAddClicked = false;
+        this.activityModalHeaderTitle = "Edit Activity";
+        this.isActivityNumberHidden = false;
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.listActivityUsers();
+    };
+    SalesDetailComponent.prototype.btnSaveActivityClick = function () {
+        var _this = this;
+        var btnSaveActivity = document.getElementById("btnSaveActivity");
+        var btnSaveActivityClickCloseModal = document.getElementById("btnSaveActivityClickCloseModal");
+        btnSaveActivity.disabled = true;
+        btnSaveActivityClickCloseModal.disabled = true;
+        this.salesDetailService.saveActivity(this.salesDetailActivityModel);
+        this.saveActivitySub = this.salesDetailService.saveActivityObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Activity was successfully saved.", "Success");
+                setTimeout(function () {
+                    _this.isDataLoaded = false;
+                    _this.listActivity();
+                    _this.activitiyModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveActivity.disabled = false;
+                btnSaveActivityClickCloseModal.disabled = false;
+            }
+            if (_this.saveActivitySub != null)
+                _this.saveActivitySub.unsubscribe();
+        });
+    };
+    SalesDetailComponent.prototype.ngOnDestroy = function () {
+        if (this.cboProductSub != null)
+            this.cboProductSub.unsubscribe();
+        if (this.cboSalesInvoiceSub != null)
+            this.cboSalesInvoiceSub.unsubscribe();
+        if (this.cboCustomerSub != null)
+            this.cboCustomerSub.unsubscribe();
+        if (this.cboProductSub != null)
+            this.cboProductSub.unsubscribe();
+        if (this.cboLeadSub != null)
+            this.cboLeadSub.unsubscribe();
+        if (this.detailSalesSub != null)
+            this.detailSalesSub.unsubscribe();
+        if (this.saveSalesSub != null)
+            this.saveSalesSub.unsubscribe();
+        if (this.lockSalesSub != null)
+            this.lockSalesSub.unsubscribe();
+        if (this.unlockSalesSub != null)
+            this.unlockSalesSub.unsubscribe();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listCustomerFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], SalesDetailComponent.prototype, "listCustomerFlexGrid", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listActivityFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], SalesDetailComponent.prototype, "listActivityFlexGrid", void 0);
+    SalesDetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-sales-detail',
+            template: __webpack_require__(/*! ./sales-detail.component.html */ "./src/app/software/sales-detail/sales-detail.component.html"),
+            styles: [__webpack_require__(/*! ./sales-detail.component.css */ "./src/app/software/sales-detail/sales-detail.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_sales_detail_service__WEBPACK_IMPORTED_MODULE_7__["SalesDetailService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]])
+    ], SalesDetailComponent);
+    return SalesDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/sales-detail/sales-detail.service.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/software/sales-detail/sales-detail.service.ts ***!
+  \***************************************************************/
+/*! exports provided: SalesDetailService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SalesDetailService", function() { return SalesDetailService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var SalesDetailService = /** @class */ (function () {
+    function SalesDetailService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.detailSalesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.detailSalesObservable = this.detailSalesSubject.asObservable();
+        this.listCustomerSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listCustomerObservable = this.listCustomerSubject.asObservable();
+        this.listSalesInvoiceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSalesInvoiceObservable = this.listSalesInvoiceSubject.asObservable();
+        this.listProductSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listProductObservable = this.listProductSubject.asObservable();
+        this.listLeadSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listLeadObservable = this.listLeadSubject.asObservable();
+        this.listSalesAssignedToUsersSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listLeadAssignedToUsersObservable = this.listSalesAssignedToUsersSubject.asObservable();
+        this.listSalesStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSalesStatusObservable = this.listSalesStatusSubject.asObservable();
+        this.deleteSalesDeliverySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteSalesDeliveryObservable = this.deleteSalesDeliverySubject.asObservable();
+        this.saveSalesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveSalesObservable = this.saveSalesSubject.asObservable();
+        this.lockSalesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.lockSalesObservable = this.lockSalesSubject.asObservable();
+        this.unlockSalesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.unlockSalesObservable = this.unlockSalesSubject.asObservable();
+        this.listActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityObservable = this.listActivitySubject.asObservable();
+        this.saveActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveActivityObservable = this.saveActivitySubject.asObservable();
+        this.deleteActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteActivityObservable = this.deleteActivitySubject.asObservable();
+        this.listActivityUsersSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityUsersObservable = this.listActivityUsersSubject.asObservable();
+        this.listActivityStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityStatusObservable = this.listActivityStatusSubject.asObservable();
+    }
+    SalesDetailService.prototype.listCustomer = function () {
+        var _this = this;
+        var listCustomerObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listCustomerSubject.next(listCustomerObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/customer", this.options).subscribe(function (response) {
+            var results = response;
+            console.log(results);
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listCustomerObservableArray.push({
+                        Id: results[i].Id,
+                        ArticleCode: results[i].ArticleCode,
+                        Article: results[i].Article,
+                        ContactPerson: results[i].ContactPerson
+                    });
+                }
+            }
+            _this.listCustomerSubject.next(listCustomerObservableArray);
+        });
+    };
+    SalesDetailService.prototype.listSalesInvoice = function (id) {
+        var _this = this;
+        var listSalesInvoiceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSalesInvoiceSubject.next(listSalesInvoiceObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/sales/invoice/" + id, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listSalesInvoiceObservableArray.push({
+                        Id: results[i].Id,
+                        SINumber: results[i].SINumber
+                    });
+                }
+            }
+            _this.listSalesInvoiceSubject.next(listSalesInvoiceObservableArray);
+        });
+    };
+    SalesDetailService.prototype.listProduct = function () {
+        var _this = this;
+        var listProductObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listProductSubject.next(listProductObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/product", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listProductObservableArray.push({
+                        Id: results[i].Id,
+                        ProductDescription: results[i].ProductDescription
+                    });
+                }
+            }
+            _this.listProductSubject.next(listProductObservableArray);
+        });
+    };
+    SalesDetailService.prototype.listLead = function () {
+        var _this = this;
+        var listLeadObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listLeadSubject.next(listLeadObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/lead", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listLeadObservableArray.push({
+                        Id: results[i].Id,
+                        LDNumber: results[i].LDNumber,
+                    });
+                }
+            }
+            _this.listLeadSubject.next(listLeadObservableArray);
+        });
+    };
+    SalesDetailService.prototype.listAssignedUsers = function () {
+        var _this = this;
+        var listAssignedToUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSalesAssignedToUsersSubject.next(listAssignedToUsersObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/users", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listAssignedToUsersObservableArray.push({
+                        Id: results[i].Id,
+                        UserName: results[i].UserName,
+                        FullName: results[i].FullName
+                    });
+                }
+            }
+            _this.listSalesAssignedToUsersSubject.next(listAssignedToUsersObservableArray);
+        });
+    };
+    SalesDetailService.prototype.listSalesStatus = function () {
+        var _this = this;
+        var listSalesStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSalesStatusSubject.next(listSalesStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listSalesStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listSalesStatusSubject.next(listSalesStatusObservableArray);
+        });
+    };
+    SalesDetailService.prototype.detailSales = function (id) {
+        var _this = this;
+        var salesDeliveryDetailModel;
+        this.detailSalesSubject.next(salesDeliveryDetailModel);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/detail/" + id, this.options).subscribe(function (response) {
+            var result = response;
+            if (result != null) {
+                salesDeliveryDetailModel = {
+                    Id: result["Id"],
+                    SDNumber: result["SDNumber"],
+                    SDDate: result["SDDate"],
+                    RenewalDate: result["RenewalDate"],
+                    CustomerId: result["CustomerId"],
+                    Customer: result["Customer"],
+                    SIId: result["SIId"],
+                    ProductId: result["ProductId"],
+                    LDId: result["LDId"],
+                    ContactPerson: result["ContactPerson"],
+                    ContactPosition: result["ContactPosition"],
+                    ContactEmail: result["ContactEmail"],
+                    ContactPhoneNumber: result["ContactPhoneNumber"],
+                    Particulars: result["Particulars"],
+                    AssignedToUserId: result["AssignedToUserId"],
+                    Status: result["Status"],
+                    IsLocked: result["IsLocked"],
+                    CreatedByUserId: result["CreatedByUserId"],
+                    CreatedByUser: result["CreatedByUser"],
+                    CreatedDateTime: result["CreatedDateTime"],
+                    UpdatedByUserId: result["UpdatedByUserId"],
+                    UpdatedByUser: result["UpdatedByUser"],
+                    UpdatedDateTime: result["UpdatedDateTime"],
+                };
+            }
+            _this.detailSalesSubject.next(salesDeliveryDetailModel);
+        });
+    };
+    SalesDetailService.prototype.saveSales = function (objSales) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/sales/save/" + objSales.Id, JSON.stringify(objSales), this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.saveSalesSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.saveSalesSubject.next(errorResults);
+        });
+    };
+    SalesDetailService.prototype.lockSales = function (objSales) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/sales/lock/" + objSales.Id, JSON.stringify(objSales), this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.lockSalesSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.lockSalesSubject.next(errorResults);
+        });
+    };
+    SalesDetailService.prototype.unlockSales = function (objSales) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/sales//unlock/" + objSales.Id, JSON.stringify(objSales), this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.unlockSalesSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.unlockSalesSubject.next(errorResults);
+        });
+    };
+    SalesDetailService.prototype.deleteSalesDelivery = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/crm/trn/sales/delete" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteSalesDeliverySubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteSalesDeliverySubject.next(errorResults);
+        });
+    };
+    SalesDetailService.prototype.listActivity = function (salesId) {
+        var _this = this;
+        var listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivitySubject.next(listActivityObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/sales/list/" + salesId, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityObservableArray.push({
+                        Id: results[i].Id,
+                        ACNumber: results[i].ACNumber,
+                        ACDate: results[i].ACDate,
+                        UserId: results[i].UserId,
+                        User: results[i].User,
+                        FunctionalUserId: results[i].FunctionalUserId,
+                        FunctionalUser: results[i].FunctionalUser,
+                        TechnicalUserId: results[i].TechnicalUserId,
+                        TechnicalUser: results[i].TechnicalUser,
+                        CRMStatus: results[i].CRMStatus,
+                        Activity: results[i].Activity,
+                        StartDate: results[i].StartDate,
+                        StartTime: results[i].StartTime,
+                        EndDate: results[i].EndDate,
+                        EndTime: results[i].EndTime,
+                        TransportationCost: results[i].TransportationCost,
+                        OnSiteCost: results[i].OnSiteCost,
+                        LDId: results[i].LDId,
+                        SDId: results[i].SDId,
+                        SPId: results[i].SPId,
+                        LastActivity: results[i].LastActivity,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listActivitySubject.next(listActivityObservableArray);
+        });
+    };
+    SalesDetailService.prototype.listActivityUsers = function () {
+        var _this = this;
+        var listActivityUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityUsersSubject.next(listActivityUsersObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/users", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityUsersObservableArray.push({
+                        Id: results[i].Id,
+                        FullName: results[i].FullName,
+                        UserName: results[i].UserName
+                    });
+                }
+            }
+            _this.listActivityUsersSubject.next(listActivityUsersObservableArray);
+        });
+    };
+    SalesDetailService.prototype.listActivityStatus = function () {
+        var _this = this;
+        var listActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityStatusSubject.next(listActivityStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listActivityStatusSubject.next(listActivityStatusObservableArray);
+        });
+    };
+    SalesDetailService.prototype.saveActivity = function (objActivity) {
+        var _this = this;
+        if (objActivity.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/crm/trn/activity/add", JSON.stringify(objActivity), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveActivitySubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveActivitySubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/activity/update/" + objActivity.Id, JSON.stringify(objActivity), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveActivitySubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveActivitySubject.next(errorResults);
+            });
+        }
+    };
+    SalesDetailService.prototype.deleteActivity = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/crm/trn/activity/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteActivitySubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteActivitySubject.next(errorResults);
+        });
+    };
+    SalesDetailService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_3__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], SalesDetailService);
+    return SalesDetailService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/sales-list/sales-list.component.css":
+/*!**************************************************************!*\
+  !*** ./src/app/software/sales-list/sales-list.component.css ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NhbGVzLWxpc3Qvc2FsZXMtbGlzdC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/sales-list/sales-list.component.html":
+/*!***************************************************************!*\
+  !*** ./src/app/software/sales-list/sales-list.component.html ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-default\">\r\n\r\n  <div class=\"card-header\">\r\n    <table border=\"0\" style=\"width: 100%; border: none;\">\r\n      <tr>\r\n        <td>\r\n          <div class=\"input-group\">\r\n            <div class=\"input-group-prepend\">\r\n              <div class=\"input-group-text\">\r\n                <b>\r\n                  <i class=\"fa fa-table\"></i>\r\n                </b>\r\n              </div>\r\n            </div>\r\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\r\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\r\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\r\n              style=\"width: 140px;\">\r\n            </wj-combo-box>\r\n          </div>\r\n        </td>\r\n        <td style=\"text-align: right;\">\r\n          <button class=\"btn btn-primary\" (click)=\"btnAddSalesClick()\" style=\"margin-right: 5px;\" id=\"btnAddSales\">\r\n            <i class=\"fa fa-plus fa-fw\"></i> Add\r\n          </button>\r\n          <button class=\"btn btn-danger\" routerLink=\"/software/sys/dashboard\" id=\"btnCloseActivity\">\r\n            <i class=\"fa fa-close fa-fw\"></i> Close\r\n          </button>\r\n        </td>\r\n      </tr>\r\n    </table>\r\n  </div>\r\n\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-8\">\r\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\r\n          <tr>\r\n            <td>\r\n              <div class=\"form-group\">\r\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\r\n                  Start Date</span>\r\n                <wj-input-date #cboSalesStartDateFilter [(ngModel)]=\"salesStartDateFilterData\"\r\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\"\r\n                  style=\"width: 100%;\">\r\n                </wj-input-date>\r\n              </div>\r\n            </td>\r\n            <td>\r\n              <div class=\"form-group\">\r\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\r\n                  End Date</span>\r\n                <wj-input-date #cboSalesEndDateFilter [(ngModel)]=\"salesEndDateFilterData\"\r\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\"\r\n                  style=\"width: 100%;\">\r\n                </wj-input-date>\r\n              </div>\r\n            </td>\r\n            <td>\r\n              <div class=\"form-group\">\r\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\r\n                  Status</span>\r\n                <wj-combo-box #cboSalesStatus [itemsSource]=\"cboSalesStatusObservableArray\" [isEditable]=\"false\"\r\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\r\n                  (selectedIndexChanged)=\"cboSalesStatusSelectedIndexChanged(cboSalesStatus.selectedValue)\"\r\n                  style=\"width: 100%;\">\r\n                </wj-combo-box>\r\n              </div>\r\n            </td>\r\n          </tr>\r\n        </table>\r\n      </div>\r\n      <div class=\"col-md-4\"></div>\r\n    </div>\r\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\r\n    <wj-flex-grid #listSalesFlexGrid [itemsSource]=\"listSalesCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\r\n      <wj-flex-grid-filter></wj-flex-grid-filter>\r\n      <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\r\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\r\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditSalesClick()\"\r\n            id=\"btnEditSales\">\r\n            <i class=\"fa fa-edit fa-fw\"></i> Edit\r\n          </button>\r\n        </ng-template>\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\r\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\r\n          <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\r\n            (click)=\"btnDeleteSalesDeliveryClick(salesDeliveryDeleteModalTemplate)\" id=\"btnDeleteSales\">\r\n            <i class=\"fa fa-trash fa-fw\"></i> Delete\r\n          </button>\r\n        </ng-template>\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'Id'\" [binding]=\"'Id'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'SD No.'\" [binding]=\"'SDNumber'\" [isReadOnly]=\"true\" [width]=\"100\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'SDDate'\" [isReadOnly]=\"true\" [width]=\"100\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Renewal Date'\" [binding]=\"'RenewalDate'\" [isReadOnly]=\"true\" [width]=\"100\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'CustomerId'\" [binding]=\"'CustomerId'\" [isReadOnly]=\"true\"\r\n        [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Customer'\" [binding]=\"'Customer'\" [isReadOnly]=\"true\" [width]=\"175\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'SIId'\" [binding]=\"'SIId'\" [isReadOnly]=\"true\" [width]=\"120\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Product Description'\" [binding]=\"'ProductDescription'\" [isReadOnly]=\"true\"\r\n        [width]=\"225\"></wj-flex-grid-column>\r\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'LDId'\" [binding]=\"'LDId'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'LD No.'\" [binding]=\"'LDNumber'\" [isReadOnly]=\"true\" [width]=\"100\">\r\n      </wj-flex-grid-column>\r\n      <!-- <wj-flex-grid-column [header]=\"'Contact Person'\" [binding]=\"'ContactPerson'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Contact Position'\" [binding]=\"'ContactPosition'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Contact Email'\" [binding]=\"'ContactEmail'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Contact PhoneNumber'\" [binding]=\"'ContactPhoneNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Particulars'\" [binding]=\"'Particulars'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column> -->\r\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'AssignedToUserId'\" [binding]=\"'AssignedToUserId'\"\r\n        [isReadOnly]=\"true\" [width]=\"175\"></wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"170\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"50\">\r\n      </wj-flex-grid-column>\r\n      <!-- <wj-flex-grid-column *ngIf=\"false\" [header]=\"'CreatedByUserId'\" [binding]=\"'CreatedByUserId'\" [isReadOnly]=\"true\"\r\n        [width]=\"150\"></wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Created By'\" [binding]=\"'CreatedByUser'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Created Date'\" [binding]=\"'CreatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'UpdatedByUserId'\" [binding]=\"'UpdatedByUserId'\" [isReadOnly]=\"true\"\r\n        [width]=\"150\"></wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Updated By'\" [binding]=\"'UpdatedByUser'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column>\r\n      <wj-flex-grid-column [header]=\"'Updated Date'\" [binding]=\"'UpdatedDateTime'\" [isReadOnly]=\"true\" [width]=\"150\">\r\n      </wj-flex-grid-column> -->\r\n    </wj-flex-grid>\r\n  </div>\r\n\r\n  <div class=\"card-footer\">\r\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\r\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSalesCollectionView.moveToFirstPage()\">\r\n        <i class=\"fa fa-fast-backward\"></i>\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSalesCollectionView.moveToPreviousPage()\">\r\n        <i class=\"fa fa-step-backward\"></i>\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\r\n        {{ listSalesCollectionView.pageIndex + 1 }} / {{ listSalesCollectionView.pageCount }}\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSalesCollectionView.moveToNextPage()\">\r\n        <i class=\"fa fa-step-forward\"></i>\r\n      </button>\r\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSalesCollectionView.moveToLastPage()\">\r\n        <i class=\"fa fa-fast-forward\"></i>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"card card-default\" style=\"margin-top: 10px;\">\r\n  <div class=\"card-header\">\r\n    User stamp\r\n  </div>\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-6\">\r\n        <p>Created by:</p>\r\n        <div style=\"padding-left: 10px;\">\r\n          <i class=\"fa fa-key\"></i>&nbsp;\r\n          <label id=\"createdBy\">\r\n            {{\r\n              listSalesCollectionView.items.length > 0 ?\r\n            listSalesCollectionView.currentItem.CreatedByUser : 'NA'\r\n            }}\r\n          </label>\r\n          <br />\r\n          <small>\r\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\r\n            <span id=\"createdDate\">\r\n              {{\r\n              listSalesCollectionView.items.length > 0 ?\r\n              listSalesCollectionView.currentItem.CreatedDateTime : 'mm/dd/yyyy'\r\n              }}\r\n            </span>\r\n          </small>\r\n        </div>\r\n        <br />\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <p>Updated by:</p>\r\n        <div style=\"padding-left: 10px;\">\r\n          <i class=\"fa fa-key\"></i>&nbsp;\r\n          <label id=\"updatedBy\">\r\n            {{\r\n            listSalesCollectionView.items.length > 0 ?\r\n            listSalesCollectionView.currentItem.UpdatedByUser : 'NA'\r\n            }}\r\n          </label>\r\n          <br />\r\n          <small>\r\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\r\n            <span id=\"updatedDate\">\r\n              {{\r\n              listSalesCollectionView.items.length > 0 ?\r\n              listSalesCollectionView.currentItem.UpdatedDateTime : 'mm/dd/yyyy'\r\n              }}\r\n            </span>\r\n          </small>\r\n        </div>\r\n        <br />\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div>\r\n  <ng-template #salesDeliveryDeleteModalTemplate>\r\n    <div class=\"modal-header\">\r\n      <h4 class=\"modal-title\">\r\n        Delete\r\n      </h4>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n      Are you sure you want to delete this sales delivery?\r\n      <br /> <br />\r\n\r\n      SD Number:\r\n      <b>\r\n        {{\r\n      listSalesCollectionView.items.length > 0 ?\r\n      listSalesCollectionView.currentItem.SDNumber : 'NA'\r\n      }}\r\n      </b>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n      <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\"\r\n        (click)=\"btnConfirmDeleteSalesDeliveryClick()\" id=\"btnConfirmDeleteSalesDelivery\">\r\n        <i class=\"fa fa-trash\"></i> Delete\r\n      </button>\r\n      <button type=\"button\" class=\"btn\" (click)=\"deleteSalesDeliveryModalRef.hide()\"\r\n        id=\"btnCloseConfirmDeleteSalesDeliveryModal\">\r\n        <i class=\"fa fa-close\"></i> Cancel\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/software/sales-list/sales-list.component.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/software/sales-list/sales-list.component.ts ***!
+  \*************************************************************/
+/*! exports provided: SalesListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SalesListComponent", function() { return SalesListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _sales_list_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./sales-list.service */ "./src/app/software/sales-list/sales-list.service.ts");
+
+
+
+
+
+
+
+
+var SalesListComponent = /** @class */ (function () {
+    function SalesListComponent(salesListService, toastr, activatedRoute, router, modalService) {
+        this.salesListService = salesListService;
+        this.toastr = toastr;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.modalService = modalService;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.salesStartDateFilterData = new Date();
+        this.salesEndDateFilterData = new Date();
+        this.cboSalesStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboSalesStatusSelectedValue = "Open";
+        this.listSalesObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSalesCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSalesObservableArray);
+        this.listActivityPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+    }
+    SalesListComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    SalesListComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.listSalesCollectionView.pageSize = this.listActivityPageIndex;
+        this.listSalesCollectionView.refresh();
+        this.listSalesCollectionView.refresh();
+    };
+    SalesListComponent.prototype.createCboSalesStatus = function () {
+        var _this = this;
+        this.salesListService.listStatus();
+        this.cboListStatusSub = this.salesListService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboSalesStatusObservableArray = statusObservableArray;
+            if (_this.cboSalesStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listSales();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
+    };
+    SalesListComponent.prototype.cboStartDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSales();
+            }, 100);
+        }
+    };
+    SalesListComponent.prototype.cboEndDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSales();
+            }, 100);
+        }
+    };
+    SalesListComponent.prototype.cboSalesStatusSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboSalesStatusSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSales();
+            }, 100);
+        }
+    };
+    SalesListComponent.prototype.listSales = function () {
+        var _this = this;
+        this.listSalesObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSalesCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSalesObservableArray);
+        this.listSalesCollectionView.pageSize = 15;
+        this.listSalesCollectionView.trackChanges = true;
+        this.listSalesCollectionView.refresh();
+        this.listSalesFlexGrid.refresh();
+        var startDate = [this.salesStartDateFilterData.getFullYear(), this.salesStartDateFilterData.getMonth() + 1, this.salesStartDateFilterData.getDate()].join('-');
+        var endDate = [this.salesEndDateFilterData.getFullYear(), this.salesEndDateFilterData.getMonth() + 1, this.salesEndDateFilterData.getDate()].join('-');
+        this.isProgressBarHidden = false;
+        this.salesListService.listSales(startDate, endDate, this.cboSalesStatusSelectedValue);
+        this.listSalesSub = this.salesListService.listSalesObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listSalesObservableArray = data;
+                _this.listSalesCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listSalesObservableArray);
+                _this.listSalesCollectionView.pageSize = _this.listActivityPageIndex;
+                _this.listSalesCollectionView.trackChanges = true;
+                _this.listSalesCollectionView.refresh();
+                _this.listSalesFlexGrid.refresh();
+            }
+            _this.isDataLoaded = true;
+            _this.isProgressBarHidden = true;
+            if (_this.listSalesSub != null)
+                _this.listSalesSub.unsubscribe();
+        });
+    };
+    SalesListComponent.prototype.btnAddSalesClick = function () {
+        var _this = this;
+        var btnAddSales = document.getElementById("btnAddSales");
+        btnAddSales.disabled = true;
+        this.salesListService.AddSales();
+        this.addSalesSub = this.salesListService.addSalesObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Sales was successfully added.", "Success");
+                _this.router.navigate(['/software/trn/sales/detail/', data[1]]);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnAddSales.disabled = false;
+            }
+            if (_this.addSalesSub != null)
+                _this.addSalesSub.unsubscribe();
+        });
+    };
+    SalesListComponent.prototype.ngOnInit = function () {
+        this.createCboShowNumberOfRows();
+        this.createCboSalesStatus();
+        this.listSales();
+    };
+    SalesListComponent.prototype.btnDeleteSalesDeliveryClick = function (salesDeliveryDeleteModalTemplate) {
+        this.deleteSalesDeliveryModalRef = this.modalService.show(salesDeliveryDeleteModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
+    };
+    SalesListComponent.prototype.btnConfirmDeleteSalesDeliveryClick = function () {
+        var _this = this;
+        var btnConfirmDeleteSalesDelivery = document.getElementById("btnConfirmDeleteSalesDelivery");
+        var btnCloseConfirmDeleteAcitivityModal = document.getElementById("btnCloseConfirmDeleteSalesDeliveryModal");
+        btnConfirmDeleteSalesDelivery.disabled = true;
+        btnCloseConfirmDeleteAcitivityModal.disabled = true;
+        var currentItem = this.listSalesCollectionView.currentItem;
+        this.salesListService.DeleteSalesDelivery(currentItem.Id);
+        this.deleteSalesDeliverySub = this.salesListService.deleteSalesDeliveryObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Sales successfully deleted!", "Success");
+                setTimeout(function () {
+                    _this.listSales();
+                    _this.deleteSalesDeliveryModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnConfirmDeleteSalesDelivery.disabled = false;
+                btnCloseConfirmDeleteAcitivityModal.disabled = false;
+            }
+            if (_this.deleteSalesDeliverySub != null)
+                _this.deleteSalesDeliverySub.unsubscribe();
+        });
+    };
+    SalesListComponent.prototype.btnEditSalesClick = function () {
+        var currentSales = this.listSalesCollectionView.currentItem;
+        this.router.navigate(['/software/trn/sales/detail/', currentSales.Id]);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listSalesFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], SalesListComponent.prototype, "listSalesFlexGrid", void 0);
+    SalesListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-sales-list',
+            template: __webpack_require__(/*! ./sales-list.component.html */ "./src/app/software/sales-list/sales-list.component.html"),
+            styles: [__webpack_require__(/*! ./sales-list.component.css */ "./src/app/software/sales-list/sales-list.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_sales_list_service__WEBPACK_IMPORTED_MODULE_7__["SalesListService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]])
+    ], SalesListComponent);
+    return SalesListComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/sales-list/sales-list.service.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/software/sales-list/sales-list.service.ts ***!
+  \***********************************************************/
+/*! exports provided: SalesListService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SalesListService", function() { return SalesListService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var SalesListService = /** @class */ (function () {
+    function SalesListService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
+        this.listSalesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSalesObservable = this.listSalesSubject.asObservable();
+        this.addSalesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.addSalesObservable = this.addSalesSubject.asObservable();
+        this.deleteSalesDeliverySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteSalesDeliveryObservable = this.deleteSalesDeliverySubject.asObservable();
+    }
+    SalesListService.prototype.listStatus = function () {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
+        });
+    };
+    SalesListService.prototype.listSales = function (startDate, endDate, status) {
+        var _this = this;
+        var listSalesObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSalesSubject.next(listSalesObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/sales/list/" + startDate + "/" + endDate + "/" + status, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listSalesObservableArray.push({
+                        Id: results[i].Id,
+                        SDNumber: results[i].SDNumber,
+                        SDDate: results[i].SDDate,
+                        RenewalDate: results[i].RenewalDate,
+                        CustomerId: results[i].CustomerId,
+                        Customer: results[i].Customer,
+                        SIId: results[i].ProductId,
+                        ProductDescription: results[i].ProductDescription,
+                        LDId: results[i].LDId,
+                        LDNumber: results[i].LDNumber,
+                        ContactPerson: results[i].ContactPerson,
+                        ContactPosition: results[i].ContactPosition,
+                        ContactEmail: results[i].ContactEmail,
+                        ContactPhoneNumber: results[i].ContactPhoneNumber,
+                        Particulars: results[i].Particulars,
+                        AssignedToUserId: results[i].AssignedToUserId,
+                        AssignedToUser: results[i].AssignedToUser,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listSalesSubject.next(listSalesObservableArray);
+        });
+    };
+    SalesListService.prototype.AddSales = function () {
+        var _this = this;
+        this.httpClient.post(this.defaultAPIURLHost + "/api/crm/trn/sales/add", "", this.options).subscribe(function (response) {
+            var responseResults = ["success", response.toString()];
+            _this.addSalesSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.addSalesSubject.next(errorResults);
+        });
+    };
+    SalesListService.prototype.DeleteSalesDelivery = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/crm/trn/sales/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteSalesDeliverySubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteSalesDeliverySubject.next(errorResults);
+        });
+    };
+    SalesListService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], SalesListService);
+    return SalesListService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/software/software-routing.module.ts":
 /*!*****************************************************!*\
   !*** ./src/app/software/software-routing.module.ts ***!
@@ -63813,6 +67686,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/software/dashboard/dashboard.component.ts");
 /* harmony import */ var _lead_lead_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./lead/lead.component */ "./src/app/software/lead/lead.component.ts");
 /* harmony import */ var _lead_detail_lead_detail_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./lead-detail/lead-detail.component */ "./src/app/software/lead-detail/lead-detail.component.ts");
+/* harmony import */ var _sales_list_sales_list_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sales-list/sales-list.component */ "./src/app/software/sales-list/sales-list.component.ts");
+/* harmony import */ var _sales_detail_sales_detail_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sales-detail/sales-detail.component */ "./src/app/software/sales-detail/sales-detail.component.ts");
+/* harmony import */ var _support_list_support_list_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./support-list/support-list.component */ "./src/app/software/support-list/support-list.component.ts");
+/* harmony import */ var _support_detail_support_detail_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./support-detail/support-detail.component */ "./src/app/software/support-detail/support-detail.component.ts");
+/* harmony import */ var _report_lead_report_lead_report_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./report/lead-report/lead-report.component */ "./src/app/software/report/lead-report/lead-report.component.ts");
+/* harmony import */ var _report_salesdelivery_report_salesdelivery_report_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./report/salesdelivery-report/salesdelivery-report.component */ "./src/app/software/report/salesdelivery-report/salesdelivery-report.component.ts");
+/* harmony import */ var _report_support_report_support_report_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./report/support-report/support-report.component */ "./src/app/software/report/support-report/support-report.component.ts");
+/* harmony import */ var _report_activity_report_activity_report_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./report/activity-report/activity-report.component */ "./src/app/software/report/activity-report/activity-report.component.ts");
+/* harmony import */ var _activity_activity_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./activity/activity.component */ "./src/app/software/activity/activity.component.ts");
+/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
+/* harmony import */ var _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./user-detail/user-detail.component */ "./src/app/software/user-detail/user-detail.component.ts");
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -63829,7 +67724,18 @@ var routes = [
             { path: '', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_6__["DashboardComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
             { path: 'sys/dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_6__["DashboardComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
             { path: 'trn/lead', component: _lead_lead_component__WEBPACK_IMPORTED_MODULE_7__["LeadComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
-            { path: 'trn/lead/detail/:id', component: _lead_detail_lead_detail_component__WEBPACK_IMPORTED_MODULE_8__["LeadDetailComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] }
+            { path: 'trn/lead/detail/:id', component: _lead_detail_lead_detail_component__WEBPACK_IMPORTED_MODULE_8__["LeadDetailComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'trn/sales', component: _sales_list_sales_list_component__WEBPACK_IMPORTED_MODULE_9__["SalesListComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'trn/sales/detail/:id', component: _sales_detail_sales_detail_component__WEBPACK_IMPORTED_MODULE_10__["SalesDetailComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'trn/support', component: _support_list_support_list_component__WEBPACK_IMPORTED_MODULE_11__["SupportListComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'trn/support/detail/:id', component: _support_detail_support_detail_component__WEBPACK_IMPORTED_MODULE_12__["SupportDetailComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'trn/activity', component: _activity_activity_component__WEBPACK_IMPORTED_MODULE_17__["ActivityComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'report/lead', component: _report_lead_report_lead_report_component__WEBPACK_IMPORTED_MODULE_13__["LeadReportComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'report/sales/delivery', component: _report_salesdelivery_report_salesdelivery_report_component__WEBPACK_IMPORTED_MODULE_14__["SalesdeliveryReportComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'report/support', component: _report_support_report_support_report_component__WEBPACK_IMPORTED_MODULE_15__["SupportReportComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'report/activity', component: _report_activity_report_activity_report_component__WEBPACK_IMPORTED_MODULE_16__["ActivityReportComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'mst/user', component: _user_user_component__WEBPACK_IMPORTED_MODULE_18__["UserComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
+            { path: 'mst/user/detail/:id', component: _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_19__["UserDetailComponent"], canActivate: [_software_router_activate__WEBPACK_IMPORTED_MODULE_4__["SoftwareRouterActivate"]] },
         ]
     }
 ];
@@ -63878,13 +67784,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/sidenav */ "./node_modules/@angular/material/esm5/sidenav.es5.js");
 /* harmony import */ var _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/progress-bar */ "./node_modules/@angular/material/esm5/progress-bar.es5.js");
 /* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/esm5/progress-spinner.es5.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid.filter */ "./node_modules/wijmo/wijmo.angular2.grid.filter.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! wijmo/wijmo.angular2.input */ "./node_modules/wijmo/wijmo.angular2.input.js");
-/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _angular_material_menu__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/menu */ "./node_modules/@angular/material/esm5/menu.es5.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid.filter */ "./node_modules/wijmo/wijmo.angular2.grid.filter.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! wijmo/wijmo.angular2.input */ "./node_modules/wijmo/wijmo.angular2.input.js");
+/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _sales_list_sales_list_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./sales-list/sales-list.component */ "./src/app/software/sales-list/sales-list.component.ts");
+/* harmony import */ var _sales_detail_sales_detail_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./sales-detail/sales-detail.component */ "./src/app/software/sales-detail/sales-detail.component.ts");
+/* harmony import */ var _support_list_support_list_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./support-list/support-list.component */ "./src/app/software/support-list/support-list.component.ts");
+/* harmony import */ var _support_detail_support_detail_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./support-detail/support-detail.component */ "./src/app/software/support-detail/support-detail.component.ts");
+/* harmony import */ var _report_lead_report_lead_report_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./report/lead-report/lead-report.component */ "./src/app/software/report/lead-report/lead-report.component.ts");
+/* harmony import */ var _report_salesdelivery_report_salesdelivery_report_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./report/salesdelivery-report/salesdelivery-report.component */ "./src/app/software/report/salesdelivery-report/salesdelivery-report.component.ts");
+/* harmony import */ var _report_support_report_support_report_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./report/support-report/support-report.component */ "./src/app/software/report/support-report/support-report.component.ts");
+/* harmony import */ var _report_activity_report_activity_report_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./report/activity-report/activity-report.component */ "./src/app/software/report/activity-report/activity-report.component.ts");
+/* harmony import */ var _activity_activity_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./activity/activity.component */ "./src/app/software/activity/activity.component.ts");
+/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
+/* harmony import */ var _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./user-detail/user-detail.component */ "./src/app/software/user-detail/user-detail.component.ts");
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -63907,7 +67837,7 @@ var SoftwareModule = /** @class */ (function () {
     }
     SoftwareModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_layout_layout_component__WEBPACK_IMPORTED_MODULE_6__["LayoutComponent"], _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["DashboardComponent"], _lead_lead_component__WEBPACK_IMPORTED_MODULE_7__["LeadComponent"], _lead_detail_lead_detail_component__WEBPACK_IMPORTED_MODULE_9__["LeadDetailComponent"]],
+            declarations: [_layout_layout_component__WEBPACK_IMPORTED_MODULE_6__["LayoutComponent"], _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["DashboardComponent"], _lead_lead_component__WEBPACK_IMPORTED_MODULE_7__["LeadComponent"], _lead_detail_lead_detail_component__WEBPACK_IMPORTED_MODULE_9__["LeadDetailComponent"], _sales_list_sales_list_component__WEBPACK_IMPORTED_MODULE_18__["SalesListComponent"], _sales_detail_sales_detail_component__WEBPACK_IMPORTED_MODULE_19__["SalesDetailComponent"], _support_list_support_list_component__WEBPACK_IMPORTED_MODULE_20__["SupportListComponent"], _support_detail_support_detail_component__WEBPACK_IMPORTED_MODULE_21__["SupportDetailComponent"], _report_lead_report_lead_report_component__WEBPACK_IMPORTED_MODULE_22__["LeadReportComponent"], _report_salesdelivery_report_salesdelivery_report_component__WEBPACK_IMPORTED_MODULE_23__["SalesdeliveryReportComponent"], _report_support_report_support_report_component__WEBPACK_IMPORTED_MODULE_24__["SupportReportComponent"], _report_activity_report_activity_report_component__WEBPACK_IMPORTED_MODULE_25__["ActivityReportComponent"], _activity_activity_component__WEBPACK_IMPORTED_MODULE_26__["ActivityComponent"], _user_user_component__WEBPACK_IMPORTED_MODULE_27__["UserComponent"], _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_28__["UserDetailComponent"]],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
@@ -63916,10 +67846,11 @@ var SoftwareModule = /** @class */ (function () {
                 _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_10__["MatSidenavModule"],
                 _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_11__["MatProgressBarModule"],
                 _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_12__["MatProgressSpinnerModule"],
-                wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_13__["WjGridFilterModule"],
-                wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_14__["WjGridModule"],
-                wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_15__["WjInputModule"],
-                ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_16__["ModalModule"].forRoot()
+                _angular_material_menu__WEBPACK_IMPORTED_MODULE_13__["MatMenuModule"],
+                wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_14__["WjGridFilterModule"],
+                wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_15__["WjGridModule"],
+                wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_16__["WjInputModule"],
+                ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_17__["ModalModule"].forRoot()
             ],
             providers: [
                 _software_router_activate__WEBPACK_IMPORTED_MODULE_5__["SoftwareRouterActivate"]
@@ -63967,6 +67898,2151 @@ var SoftwareRouterActivate = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], SoftwareRouterActivate);
     return SoftwareRouterActivate;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/support-detail/support-detail.component.css":
+/*!**********************************************************************!*\
+  !*** ./src/app/software/support-detail/support-detail.component.css ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N1cHBvcnQtZGV0YWlsL3N1cHBvcnQtZGV0YWlsLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/support-detail/support-detail.component.html":
+/*!***********************************************************************!*\
+  !*** ./src/app/software/support-detail/support-detail.component.html ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div [hidden]=\"isLoadingSpinnerHidden\">\n  <mat-spinner style=\"margin: auto;\"></mat-spinner>\n</div>\n<div [hidden]=\"isContentHidden\">\n  <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\" style=\"margin-top: 10px; margin-bottom: 10px;\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link active\" id=\"sales-tab\" data-toggle=\"tab\" href=\"#support\" role=\"tab\" aria-controls=\"support\"\n        aria-selected=\"true\">Support Detail</a>\n    </li>\n    <li class=\"nav-item\" [hidden]=\"isActivityTabHidden\">\n      <a class=\"nav-link\" id=\"activities-tab\" data-toggle=\"tab\" href=\"#activities\" role=\"tab\" aria-controls=\"activities\"\n        aria-selected=\"false\" (click)=\"listActivity()\">Activities</a>\n    </li>\n  </ul>\n</div>\n<div class=\"tab-content\" id=\"myTabContent\">\n  <div class=\"tab-pane fade show active\" id=\"support\" role=\"tabpanel\" aria-labelledby=\"support-tab\">\n    <div class=\"card card-default\">\n      <div class=\"card-header\">\n        <table border=\"0\" style=\"width: 100%; border: none;\">\n          <tr>\n            <td style=\"text-align: right;\">\n              <button class=\"btn btn-primary\" (click)=\"btnSaveSupportClick()\" style=\"margin-right: 5px;\"\n                id=\"btnSaveSupport\" disabled>\n                <i class=\"fa fa-save fa-fw\"></i> Save\n              </button>\n              <button class=\"btn btn-primary\" (click)=\"btnLockSupportClick()\" style=\"margin-right: 5px;\"\n                id=\"btnLockSupport\" disabled>\n                <i class=\"fa fa-lock fa-fw\"></i> Lock\n              </button>\n              <button class=\"btn btn-primary\" (click)=\"btnUnlockSupportClick()\" style=\"margin-right: 5px;\"\n                id=\"btnUnlockSupport\" disabled>\n                <i class=\"fa fa-unlock fa-fw\"></i> Unlock\n              </button>\n              <button class=\"btn btn-danger\" routerLink=\"/software/trn/support\" id=\"btnCloseSupport\">\n                <i class=\"fa fa-close fa-fw\"></i> Close\n              </button>\n            </td>\n          </tr>\n        </table>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"row\">\n          <div class=\"col-lg-6\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SP No.</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [(ngModel)]=\"supportModel.SPNumber\" placeholder=\"SP Number...\"\n                  disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SP Date</label>\n              <div class=\"col-sm-8\">\n                <wj-input-date #cboSPDate [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.SPDate\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%; padding: 3px;\">\n                </wj-input-date>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Customer</label>\n              <div class=\"col-sm-8\">\n                <div class=\"input-group\">\n                  <input type=\"text\" [(ngModel)]=\"selectedCustomer\" class=\"form-control\" aria-label=\"\"\n                    [disabled]=\"isLocked\">\n                  <div class=\"input-group-append\">\n                    <span class=\"input-group-text\" (click)=\"btnCustomerListClick(customerModalTemplate)\"><i\n                        class=\"fa fa-plus\"></i></span>\n                  </div>\n                </div>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SD Number</label>\n              <div class=\"col-sm-8\">\n                <wj-combo-box #cboSalesInvoice [(ngModel)]=\"supportModel.SDId\"\n                  [itemsSource]=\"cboSalesDeliveryObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                  [displayMemberPath]=\"'SDNumber'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\"\n                  [disabled]=\"isLocked\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Person</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.ContactPerson\"\n                  placeholder=\"Contact Person...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Position</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.ContactPosition\"\n                  placeholder=\"Contact Position...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Email</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.ContactEmail\"\n                  placeholder=\"Contact Email...\">\n              </div>\n              <br /><br />\n            </div>\n          </div>\n          <div class=\"col-lg-6\">\n            <div class=\"form-group row\">\n\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Phone No.</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\"\n                  [(ngModel)]=\"supportModel.ContactPhoneNumber\" placeholder=\"Contact Phone Number...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Issue</label>\n              <div class=\"col-sm-8\">\n                <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\"\n                  [(ngModel)]=\"supportModel.Issue\" placeholder=\"Remarks...\" rows=\"5\">\n                  </textarea>\n              </div>\n              <br /><br /><br /><br /><br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Assigned To</label>\n              <div class=\"col-sm-8\">\n                <wj-combo-box #cboAssignedToUser [(ngModel)]=\"supportModel.AssignedToUserId\"\n                  [itemsSource]=\"cboAssignedToUserObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\"\n                  [disabled]=\"isLocked\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Status</label>\n              <div class=\"col-sm-8\">\n                <wj-combo-box #cboSalesStatus [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.Status\"\n                  [itemsSource]=\"cboSupportStatusObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                  [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card card-default\" style=\"margin-top: 10px;\">\n      <div class=\"card-header\">\n        User stamp\n      </div>\n      <div class=\"card-body\">\n        <div class=\"row\">\n          <div class=\"col-md-6\">\n            <p>Created by:</p>\n            <div style=\"padding-left: 10px;\">\n              <i class=\"fa fa-key\"></i>&nbsp;\n              <label id=\"createdBy\">\n                {{\n                  supportModel != null ?\n                  supportModel.CreatedByUser : 'NA'\n                  }}\n              </label>\n              <br />\n              <small>\n                <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                <span id=\"createdDate\">\n                  {{\n                    supportModel != null ?\n                    supportModel.CreatedDateTime : 'mm/dd/yyyy'\n                    }}\n                </span>\n              </small>\n            </div>\n            <br />\n          </div>\n          <div class=\"col-md-6\">\n            <p>Updated by:</p>\n            <div style=\"padding-left: 10px;\">\n              <i class=\"fa fa-key\"></i>&nbsp;\n              <label id=\"updatedBy\">\n                {{\n                  supportModel != null ?\n                  supportModel.UpdatedByUser : 'NA'\n                  }}\n              </label>\n              <br />\n              <small>\n                <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                <span id=\"updatedDate\">\n                  {{\n                    supportModel != null ?\n                    supportModel.UpdatedDateTime : 'mm/dd/yyyy'\n                    }}\n                </span>\n              </small>\n            </div>\n            <br />\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"tab-pane fade\" id=\"activities\" role=\"tabpanel\" aria-labelledby=\"activities-tab\"\n    [hidden]=\"isActivityTabHidden\">\n    <div class=\"card card-default\">\n      <div class=\"card-header\">\n        <table border=\"0\" style=\"width: 100%; border: none;\">\n          <tr>\n            <td>\n              <div class=\"input-group\">\n                <div class=\"input-group-prepend\">\n                  <div class=\"input-group-text\">\n                    <b>\n                      <i class=\"fa fa-table\"></i>\n                    </b>\n                  </div>\n                </div>\n                <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n                  (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n                  style=\"width: 140px;\">\n                </wj-combo-box>\n              </div>\n            </td>\n            <td style=\"text-align: right;\">\n              <button class=\"btn btn-primary\" (click)=\"btnAddActivityClick(activityModalTemplate)\"\n                style=\"margin-right: 5px;\" id=\"btnAddActivity\">\n                <i class=\"fa fa-plus fa-fw\"></i> Add\n              </button>\n              <button class=\"btn btn-danger\" routerLink=\"/software/trn/sales\" id=\"btnCloseActivity\">\n                <i class=\"fa fa-close fa-fw\"></i> Close\n              </button>\n            </td>\n          </tr>\n        </table>\n      </div>\n\n      <div class=\"card-body\">\n        <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\">\n        </mat-progress-bar>\n        <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listActivityCollectionView\" [selectionMode]=\"3\"\n          [frozenColumns]=\"2\">\n          <wj-flex-grid-filter></wj-flex-grid-filter>\n          <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n              <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\"\n                (click)=\"btnEditActivityClick(activityModalTemplate)\" id=\"btnEditActivity\">\n                <i class=\"fa fa-edit fa-fw\"></i> Edit\n              </button>\n            </ng-template>\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n              <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\n                (click)=\"btnDeleteActivityClick(activityDeleteModalTemplate)\" id=\"btnDeleteActivity\">\n                <i class=\"fa fa-trash fa-fw\"></i> Delete\n              </button>\n            </ng-template>\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'No.'\" [binding]=\"'ACNumber'\" [isReadOnly]=\"true\" [width]=\"110\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'ACDate'\" [isReadOnly]=\"true\" [width]=\"110\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'User'\" [binding]=\"'User'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'CRM Status'\" [binding]=\"'CRMStatus'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Activity'\" [binding]=\"'Activity'\" [isReadOnly]=\"true\" [width]=\"'3*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n          </wj-flex-grid-column>\n        </wj-flex-grid>\n      </div>\n      <div class=\"card-footer\">\n        <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n            <i class=\"fa fa-fast-backward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n            <i class=\"fa fa-step-backward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n            {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n            <i class=\"fa fa-step-forward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n            <i class=\"fa fa-fast-forward\"></i>\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <ng-template #activityModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        {{ activityModalHeaderTitle }}\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      <div [hidden]=\"isActivityLoadingSpinnerHidden\">\n        <br /><br />\n        <mat-spinner style=\"margin: auto;\"></mat-spinner>\n        <br /><br />\n      </div>\n      <div [hidden]=\"isActivityContentHidden\">\n        <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link active\" id=\"activity-detail-tab\" data-toggle=\"tab\" href=\"#activity-detail\" role=\"tab\"\n              aria-controls=\"activity-detail\" aria-selected=\"true\">Detail</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" id=\"activity-activity-tab\" data-toggle=\"tab\" href=\"#activity-activity\" role=\"tab\"\n              aria-controls=\"activity-activity\" aria-selected=\"false\">Activity</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" id=\"activity-cost-tab\" data-toggle=\"tab\" href=\"#activity-cost\" role=\"tab\"\n              aria-controls=\"activity-cost\" aria-selected=\"false\">Cost</a>\n          </li>\n        </ul>\n        <br />\n        <div class=\"tab-content\" id=\"myTabContent\">\n          <div class=\"tab-pane fade show active\" id=\"activity-detail\" role=\"tabpanel\"\n            aria-labelledby=\"activity-detail-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\"\n                [hidden]=\"isActivityNumberHidden\">No.</label>\n              <div class=\"col-sm-9\" [hidden]=\"isActivityNumberHidden\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Number...\"\n                  [(ngModel)]=\"supportDetailActivityModel.ACNumber\" disabled>\n              </div>\n              <div [hidden]=\"isActivityNumberHidden\">\n                <br /><br />\n              </div>\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">CRM</label>\n              <div class=\"col-sm-9\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"CRM Status...\"\n                  [(ngModel)]=\"supportDetailActivityModel.CRMStatus\" disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Date</label>\n              <div class=\"col-sm-9\">\n                <wj-input-date #cboActivityDate format=\"MMMM dd, yyyy\" [(ngModel)]=\"supportDetailActivityModel.ACDate\"\n                  style=\"width: 100%; padding: 3px;\">\n                </wj-input-date>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Functional</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityFunctionalUser [(ngModel)]=\"supportDetailActivityModel.FunctionalUserId\"\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Technical</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityTechnicalUser [(ngModel)]=\"supportDetailActivityModel.TechnicalUserId\"\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Start</label>\n              <div class=\"col-sm-9\">\n                <table style=\"width: 100%;\">\n                  <tr>\n                    <td style=\"width: 60%\">\n                      <wj-input-date #cboActivityStartDate [(ngModel)]=\"supportDetailActivityModel.StartDate\"\n                        format=\"MMMM dd, yyyy\"></wj-input-date>\n                    </td>\n                    <td style=\"width: 1%\"></td>\n                    <td style=\"width: 39%\">\n                      <wj-input-time #cboActivityStartTime [(ngModel)]=\"supportDetailActivityModel.StartTime\"\n                        format=\"h:mm tt\" [step]=\"1\"></wj-input-time>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">End</label>\n              <div class=\"col-sm-9\">\n                <table style=\"width: 100%;\">\n                  <tr>\n                    <td style=\"width: 60%\">\n                      <wj-input-date #cboActivityEndDate [(ngModel)]=\"supportDetailActivityModel.EndDate\"\n                        format=\"MMMM dd, yyyy\"></wj-input-date>\n                    </td>\n                    <td style=\"width: 1%\"></td>\n                    <td style=\"width: 39%\">\n                      <wj-input-time #cboActivityEndTime [(ngModel)]=\"supportDetailActivityModel.EndTime\"\n                        format=\"h:mm tt\" [step]=\"1\"></wj-input-time>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Status</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityStatus [(ngModel)]=\"supportDetailActivityModel.Status\"\n                  [itemsSource]=\"cboListActivityStatusObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\n                  [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n            </div>\n          </div>\n          <div class=\"tab-pane fade\" id=\"activity-activity\" role=\"tabpanel\" aria-labelledby=\"activity-activity-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">User</label>\n              <div class=\"col-sm-9\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"User...\"\n                  [(ngModel)]=\"supportDetailActivityModel.User\" disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Activity</label>\n              <div class=\"col-sm-9\">\n                <textarea [(ngModel)]=\"supportDetailActivityModel.Activity\" type=\"text\" class=\"form-control\"\n                  style=\"resize: vertical\" placeholder=\"Activity...\" rows=\"10\"></textarea>\n              </div>\n            </div>\n          </div>\n          <div class=\"tab-pane fade\" id=\"activity-cost\" role=\"tabpanel\" aria-labelledby=\"activity-cost-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Transpo.</label>\n              <div class=\"col-sm-9\">\n                <wj-input-number [(ngModel)]=\"supportDetailActivityModel.TransportationCost\" #numActivityTranspoCost\n                  style=\"width: 100%; padding: 3px;\"></wj-input-number>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">On-site</label>\n              <div class=\"col-sm-9\">\n                <wj-input-number [(ngModel)]=\"supportDetailActivityModel.OnSiteCost\" #numActivityOnsiteCost\n                  style=\"width: 100%; padding: 3px;\"></wj-input-number>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button [hidden]=\"isActivityContentHidden\" type=\"button\" class=\"btn btn-primary\" style=\"margin-right: 5px;\"\n        (click)=\"btnSaveActivityClick()\" id=\"btnSaveActivity\">\n        <i class=\"fa fa-save\"></i> Save\n      </button>\n      <button type=\"button\" class=\"btn btn-danger\" (click)=\"activitiyModalRef.hide()\"\n        id=\"btnSaveActivityClickCloseModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n\n  <ng-template #activityDeleteModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        Delete\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      Are you sure you want to delete this activity?\n      <br /> <br />\n\n      AC Number:\n      <b>\n        {{\n          listActivityCollectionView.items.length > 0 ?\n          listActivityCollectionView.currentItem.ACNumber : 'NA'\n          }}\n      </b>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteAcitivityClick()\"\n        id=\"btnConfirmDeleteAcitivity\">\n        <i class=\"fa fa-trash\"></i> Delete\n      </button>\n      <button type=\"button\" class=\"btn\" (click)=\"deleteActivitiyModalRef.hide()\"\n        id=\"btnCloseConfirmDeleteAcitivityModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n</div>\n\n<ng-template #customerModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      {{ activityModalHeaderTitle }}\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listCustomerFlexGrid [itemsSource]=\"listCustomerCollectionView\" [selectionMode]=\"3\"\n      [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column *ngIf=\"false\" [header]=\"'Id'\" [binding]=\"'Id'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Code'\" [binding]=\"'ArticleCode'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Customer'\" [binding]=\"'Article'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Contact Person'\" [binding]=\"'ContactPerson'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"Pick\" [isReadOnly]=\"true\" [width]=\"80\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnPickCustomerClick()\"\n            id=\"btnPickCustomer\">\n            <i class=\"fa fa-edit fa-fw\"></i> Pick\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n  <!-- <div class=\"modal-footer\"> -->\n  <div class=\"card-footer\">\n    <table>\n      <tr>\n        <td>\n          <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listCustomerCollectionView.moveToFirstPage()\">\n              <i class=\"fa fa-fast-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listCustomerCollectionView.moveToPreviousPage()\">\n              <i class=\"fa fa-step-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n              {{ listCustomerCollectionView.pageIndex + 1 }} / {{ listCustomerCollectionView.pageCount }}\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listCustomerCollectionView.moveToNextPage()\">\n              <i class=\"fa fa-step-forward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listCustomerCollectionView.moveToLastPage()\">\n              <i class=\"fa fa-fast-forward\"></i>\n            </button>\n          </div>\n        </td>\n        <td style=\"padding-left: 147%;\">\n          <button type=\"button\" class=\"btn btn-danger float-right\" (click)=\"customerModalRef.hide()\"\n            id=\"btnCustomerClickCloseModal\">\n            <i class=\"fa fa-close\"></i> Cancel\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n</ng-template>"
+
+/***/ }),
+
+/***/ "./src/app/software/support-detail/support-detail.component.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/software/support-detail/support-detail.component.ts ***!
+  \*********************************************************************/
+/*! exports provided: SupportDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupportDetailComponent", function() { return SupportDetailComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _support_detail_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./support-detail.service */ "./src/app/software/support-detail/support-detail.service.ts");
+
+
+
+
+
+
+
+
+var SupportDetailComponent = /** @class */ (function () {
+    function SupportDetailComponent(supportDetailService, toastr, activatedRoute, router, modalService) {
+        this.supportDetailService = supportDetailService;
+        this.toastr = toastr;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.modalService = modalService;
+        this.IsLoaded = false;
+        this.listCustomerObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCustomerCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCustomerObservableArray);
+        this.listCustomerPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.selectedCustomer = "";
+        this.cboCustomerObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboAssignedToUserObservable = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboSupportStatusObservable = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboSalesDeliveryObservable = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.isLocked = false;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listActivityObservableArray);
+        this.listActivityPageIndex = 15;
+        this.isDataLoaded = false;
+        this.isLoadingSpinnerHidden = false;
+        this.isContentHidden = true;
+        this.isActivityTabHidden = true;
+        this.activityModalHeaderTitle = "Activity";
+        this.cboListActivityUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboListActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.isActivityNumberHidden = false;
+        this.isAddClicked = false;
+        this.supportModel = {
+            Id: 0,
+            SPNumber: "",
+            SPDate: new Date(),
+            CustomerId: 0,
+            Customer: "",
+            SDId: 0,
+            SDNumber: "",
+            ContactPerson: "",
+            ContactPosition: "",
+            ContactEmail: "",
+            ContactPhoneNumber: "",
+            Issue: "",
+            AssignedToUserId: 0,
+            AssignedToUser: "",
+            Status: "",
+            IsLocked: false,
+            CreatedByUserId: 0,
+            CreatedByUser: "",
+            CreatedDateTime: new Date(),
+            UpdatedByUserId: 0,
+            UpdatedByUser: "",
+            UpdatedDateTime: new Date()
+        };
+        this.supportDetailActivityModel = {
+            Id: 0,
+            ACNumber: "",
+            ACDate: new Date(),
+            UserId: 0,
+            User: "",
+            FunctionalUserId: 0,
+            FunctionalUser: "",
+            TechnicalUserId: 0,
+            TechnicalUser: "",
+            CRMStatus: "",
+            Activity: "",
+            StartDate: new Date(),
+            StartTime: new Date(),
+            EndDate: new Date(),
+            EndTime: new Date(),
+            TransportationCost: 0,
+            OnSiteCost: 0,
+            LDId: 0,
+            SDId: 0,
+            SPId: 0,
+            Status: "",
+            IsLocked: false,
+            CreatedByUserId: 0,
+            CreatedByUser: "",
+            CreatedDateTime: "",
+            UpdatedByUserId: 0,
+            UpdatedByUser: "",
+            UpdatedDateTime: "",
+        };
+    }
+    SupportDetailComponent.prototype.ngOnInit = function () {
+        this.createCboAssignedToUser();
+        this.createCboShowNumberOfRows();
+    };
+    SupportDetailComponent.prototype.listCustomer = function () {
+        var _this = this;
+        this.listCustomerObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCustomerCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCustomerObservableArray);
+        this.listCustomerCollectionView.pageSize = 15;
+        this.listCustomerCollectionView.trackChanges = true;
+        this.listCustomerCollectionView.refresh();
+        // this.listCustomerFlexGrid.refresh();
+        this.isProgressBarHidden = false;
+        this.supportDetailService.listCustomer();
+        this.cboCustomerSub = this.supportDetailService.listCustomerObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listCustomerObservableArray = data;
+                _this.listCustomerCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listCustomerObservableArray);
+                _this.listCustomerCollectionView.pageSize = _this.listCustomerPageIndex;
+                _this.listCustomerCollectionView.trackChanges = true;
+                _this.listCustomerCollectionView.refresh();
+                // this.listCustomerFlexGrid.refresh();
+            }
+            console.log(_this.listCustomerCollectionView);
+            _this.isProgressBarHidden = true;
+            if (_this.cboCustomerSub != null)
+                _this.cboCustomerSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.btnCustomerListClick = function (customerModalTemplate) {
+        var _this = this;
+        this.activityModalHeaderTitle = "Costumer List";
+        this.listCustomer();
+        setTimeout(function () {
+            _this.customerModalRef = _this.modalService.show(customerModalTemplate, {
+                backdrop: true,
+                ignoreBackdropClick: true,
+                class: "modal-lg"
+            });
+        }, 100);
+    };
+    SupportDetailComponent.prototype.btnPickCustomerClick = function () {
+        var currentCustomer = this.listCustomerCollectionView.currentItem;
+        this.selectedCustomer = currentCustomer.Article;
+        this.supportModel.CustomerId = currentCustomer.Id;
+        this.customerModalRef.hide();
+        this.createCboSalesDelivery(this.supportModel.CustomerId);
+    };
+    SupportDetailComponent.prototype.createCboSalesDelivery = function (customerId) {
+        var _this = this;
+        this.supportDetailService.listSalesDelivery(customerId);
+        this.cboSalesDeliverySub = this.supportDetailService.listSalesDeliveryObservable.subscribe(function (data) {
+            var salesInvoiceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    salesInvoiceObservableArray.push({
+                        Id: data[i].Id,
+                        SDNumber: data[i].SDNumber
+                    });
+                }
+            }
+            else {
+                _this.toastr.error("No Sales Delivery");
+            }
+            _this.cboSalesDeliveryObservable = salesInvoiceObservableArray;
+            if (_this.cboSalesDeliverySub != null)
+                _this.cboSalesDeliverySub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.createCboAssignedToUser = function () {
+        var _this = this;
+        this.supportDetailService.listAssignedUsers();
+        this.cboAssignedToUserSub = this.supportDetailService.listLeadAssignedToUsersObservable.subscribe(function (data) {
+            var assignedToUserObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    assignedToUserObservableArray.push({
+                        Id: data[i].Id,
+                        FullName: data[i].FullName
+                    });
+                }
+            }
+            _this.cboAssignedToUserObservable = assignedToUserObservableArray;
+            setTimeout(function () {
+                _this.createCboStatus();
+            }, 100);
+            if (_this.cboAssignedToUserSub != null)
+                _this.cboAssignedToUserSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.createCboStatus = function () {
+        var _this = this;
+        this.supportDetailService.listSupportStatus();
+        this.cboSupportStatusSub = this.supportDetailService.listSupportStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboSupportStatusObservable = statusObservableArray;
+            setTimeout(function () {
+                _this.detailSupport();
+            }, 100);
+            if (_this.cboSupportStatusSub != null)
+                _this.cboSupportStatusSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.detailSupport = function () {
+        var _this = this;
+        var id = 0;
+        this.activatedRoute.params.subscribe(function (params) { id = params["id"]; });
+        this.supportDetailService.detailSupport(id);
+        this.detailSupportSub = this.supportDetailService.detailSupportObservable.subscribe(function (data) {
+            _this.supportModel.Id = data.Id;
+            _this.supportModel.SPNumber = data.SPNumber;
+            _this.supportModel.CustomerId = data.CustomerId;
+            _this.supportModel.Customer = data.Customer;
+            _this.supportModel.SDId = data.SDId;
+            _this.supportModel.ContactPerson = data.ContactPerson;
+            _this.supportModel.ContactPosition = data.ContactPosition;
+            _this.supportModel.ContactEmail = data.ContactEmail;
+            _this.supportModel.ContactPhoneNumber = data.ContactPhoneNumber;
+            _this.supportModel.Issue = data.Issue;
+            _this.supportModel.AssignedToUserId = data.AssignedToUserId;
+            _this.supportModel.AssignedToUserId = data.AssignedToUserId;
+            _this.supportModel.Status = data.Status;
+            _this.supportModel.IsLocked = data.IsLocked;
+            _this.supportModel.CreatedByUserId = data.CreatedByUserId;
+            _this.supportModel.CreatedByUser = data.CreatedByUser;
+            _this.supportModel.CreatedDateTime = data.CreatedDateTime;
+            _this.supportModel.UpdatedByUserId = data.UpdatedByUserId;
+            _this.supportModel.UpdatedByUser = data.UpdatedByUser;
+            _this.supportModel.UpdatedDateTime = data.UpdatedDateTime;
+            var btnSaveSupport = document.getElementById("btnSaveSupport");
+            var btnLockSupport = document.getElementById("btnLockSupport");
+            var btnUnlockSupport = document.getElementById("btnUnlockSupport");
+            _this.selectedCustomer = data.Customer;
+            btnSaveSupport.disabled = false;
+            btnLockSupport.disabled = false;
+            btnUnlockSupport.disabled = true;
+            if (data.IsLocked) {
+                _this.isLocked = true;
+                btnSaveSupport.disabled = true;
+                btnLockSupport.disabled = true;
+                btnUnlockSupport.disabled = false;
+                _this.isActivityTabHidden = false;
+            }
+            setTimeout(function () {
+                _this.createCboSalesDelivery(_this.supportModel.CustomerId);
+            }, 100);
+            _this.isLoadingSpinnerHidden = true;
+            _this.isContentHidden = false;
+            if (_this.detailSupportSub != null)
+                _this.detailSupportSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.btnSaveSupportClick = function () {
+        var _this = this;
+        var btnSaveSupport = document.getElementById("btnSaveSupport");
+        var btnLockSupport = document.getElementById("btnLockSupport");
+        var btnUnlockSupport = document.getElementById("btnUnlockSupport");
+        btnSaveSupport.disabled = true;
+        btnLockSupport.disabled = true;
+        btnUnlockSupport.disabled = true;
+        this.supportDetailService.saveSupport(this.supportModel);
+        this.saveSupportSub = this.supportDetailService.saveSupportObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Support was successfully saved.", "Success");
+                setTimeout(function () {
+                    btnSaveSupport.disabled = false;
+                    btnLockSupport.disabled = false;
+                    btnUnlockSupport.disabled = true;
+                }, 500);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveSupport.disabled = false;
+                btnLockSupport.disabled = false;
+                btnUnlockSupport.disabled = true;
+            }
+            if (_this.saveSupportSub != null)
+                _this.saveSupportSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.btnLockSupportClick = function () {
+        var _this = this;
+        var btnSaveSupport = document.getElementById("btnSaveSupport");
+        var btnLockSupport = document.getElementById("btnLockSupport");
+        var btnUnlockSupport = document.getElementById("btnUnlockSupport");
+        btnSaveSupport.disabled = true;
+        btnLockSupport.disabled = true;
+        btnUnlockSupport.disabled = true;
+        this.supportDetailService.lockSupport(this.supportModel);
+        this.lockSupportSub = this.supportDetailService.lockSupportObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Support was successfully locked.", "Success");
+                setTimeout(function () {
+                    _this.isLocked = true;
+                    btnSaveSupport.disabled = true;
+                    btnLockSupport.disabled = true;
+                    btnUnlockSupport.disabled = false;
+                    _this.isActivityTabHidden = false;
+                }, 500);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveSupport.disabled = false;
+                btnLockSupport.disabled = false;
+                btnUnlockSupport.disabled = true;
+            }
+            if (_this.lockSupportSub != null)
+                _this.lockSupportSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.btnUnlockSupportClick = function () {
+        var _this = this;
+        this.isActivityTabHidden = true;
+        var btnSaveSupport = document.getElementById("btnSaveSupport");
+        var btnLockSupport = document.getElementById("btnLockSupport");
+        var btnUnlockSupport = document.getElementById("btnUnlockSupport");
+        btnSaveSupport.disabled = true;
+        btnLockSupport.disabled = true;
+        btnUnlockSupport.disabled = true;
+        this.supportDetailService.unlockSupport(this.supportModel);
+        this.unlockSupportSub = this.supportDetailService.unlockSupportObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Support was successfully unlocked.", "Success");
+                setTimeout(function () {
+                    _this.isLocked = false;
+                    btnSaveSupport.disabled = false;
+                    btnLockSupport.disabled = false;
+                    btnUnlockSupport.disabled = true;
+                    _this.isActivityTabHidden = true;
+                }, 500);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveSupport.disabled = true;
+                btnLockSupport.disabled = true;
+                btnUnlockSupport.disabled = false;
+                _this.isActivityTabHidden = false;
+            }
+            if (_this.unlockSupportSub != null)
+                _this.unlockSupportSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    SupportDetailComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listActivityPageIndex = selectedValue;
+        this.listActivityCollectionView.pageSize = this.listActivityPageIndex;
+        this.listActivityCollectionView.refresh();
+        this.listActivityCollectionView.refresh();
+    };
+    SupportDetailComponent.prototype.listActivity = function () {
+        var _this = this;
+        if (!this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+                _this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listActivityObservableArray);
+                _this.listActivityCollectionView.pageSize = 15;
+                _this.listActivityCollectionView.trackChanges = true;
+                _this.listActivityCollectionView.refresh();
+                _this.listActivityFlexGrid.refresh();
+                _this.isProgressBarHidden = false;
+                var id = 0;
+                _this.activatedRoute.params.subscribe(function (params) { id = params["id"]; });
+                _this.supportDetailService.listActivity(id);
+                _this.listActivitySub = _this.supportDetailService.listActivityObservable.subscribe(function (data) {
+                    if (data.length > 0) {
+                        _this.listActivityObservableArray = data;
+                        _this.listActivityCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listActivityObservableArray);
+                        _this.listActivityCollectionView.pageSize = _this.listActivityPageIndex;
+                        _this.listActivityCollectionView.trackChanges = true;
+                        _this.listActivityCollectionView.refresh();
+                        _this.listActivityFlexGrid.refresh();
+                    }
+                    _this.isDataLoaded = true;
+                    _this.isProgressBarHidden = true;
+                    if (_this.listActivitySub != null)
+                        _this.listActivitySub.unsubscribe();
+                });
+            }, 100);
+        }
+    };
+    SupportDetailComponent.prototype.btnAddActivityClick = function (activityModalTemplate) {
+        this.activitiyModalRef = this.modalService.show(activityModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: ""
+        });
+        this.isAddClicked = true;
+        this.activityModalHeaderTitle = "Add Activity";
+        this.isActivityNumberHidden = true;
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.listActivityUsers();
+    };
+    SupportDetailComponent.prototype.listActivityUsers = function () {
+        var _this = this;
+        this.supportDetailService.listActivityUsers();
+        this.cboListActivityUsersSub = this.supportDetailService.listActivityUsersObservable.subscribe(function (data) {
+            var usersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    usersObservableArray.push({
+                        Id: data[i].Id,
+                        FullName: data[i].FullName,
+                        UserName: data[i].UserName
+                    });
+                }
+            }
+            _this.cboListActivityUsersObservableArray = usersObservableArray;
+            setTimeout(function () {
+                _this.listActivityStatus();
+            }, 100);
+            if (_this.cboListActivityUsersSub != null)
+                _this.cboListActivityUsersSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.listActivityStatus = function () {
+        var _this = this;
+        this.supportDetailService.listActivityStatus();
+        this.cboListActivityStatusSub = this.supportDetailService.listActivityStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboListActivityStatusObservableArray = statusObservableArray;
+            setTimeout(function () {
+                _this.currentActivity();
+            }, 100);
+            _this.isActivityLoadingSpinnerHidden = true;
+            _this.isActivityContentHidden = false;
+            if (_this.cboListActivityStatusSub != null)
+                _this.cboListActivityStatusSub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.currentActivity = function () {
+        var SPId = 0;
+        this.activatedRoute.params.subscribe(function (params) { SPId = params["id"]; });
+        if (this.isAddClicked) {
+            this.supportDetailActivityModel = {
+                Id: 0,
+                ACNumber: "0000000001",
+                ACDate: new Date(),
+                UserId: 0,
+                User: localStorage.getItem("username"),
+                FunctionalUserId: 0,
+                FunctionalUser: "",
+                TechnicalUserId: 0,
+                TechnicalUser: "",
+                CRMStatus: this.supportModel.Status,
+                Activity: "",
+                StartDate: new Date(),
+                StartTime: new Date(),
+                EndDate: new Date(),
+                EndTime: new Date(),
+                TransportationCost: 0,
+                OnSiteCost: 0,
+                LDId: null,
+                SDId: null,
+                SPId: SPId,
+                Status: "",
+                IsLocked: false,
+                CreatedByUserId: 0,
+                CreatedByUser: "",
+                CreatedDateTime: "",
+                UpdatedByUserId: 0,
+                UpdatedByUser: "",
+                UpdatedDateTime: ""
+            };
+        }
+        else {
+            var currentActivity = this.listActivityCollectionView.currentItem;
+            this.supportDetailActivityModel = {
+                Id: currentActivity.Id,
+                ACNumber: currentActivity.ACNumber,
+                ACDate: currentActivity.ACDate,
+                UserId: currentActivity.UserId,
+                User: currentActivity.User,
+                FunctionalUserId: currentActivity.FunctionalUserId,
+                FunctionalUser: currentActivity.FunctionalUser,
+                TechnicalUserId: currentActivity.TechnicalUserId,
+                TechnicalUser: currentActivity.TechnicalUser,
+                CRMStatus: currentActivity.CRMStatus,
+                Activity: currentActivity.Activity,
+                StartDate: currentActivity.StartDate,
+                StartTime: currentActivity.StartTime,
+                EndDate: currentActivity.EndDate,
+                EndTime: currentActivity.EndTime,
+                TransportationCost: currentActivity.TransportationCost,
+                OnSiteCost: currentActivity.OnSiteCost,
+                LDId: currentActivity.LDId,
+                SDId: currentActivity.SDId,
+                SPId: currentActivity.SPId,
+                Status: currentActivity.Status,
+                IsLocked: currentActivity.IsLocked,
+                CreatedByUserId: currentActivity.CreatedByUserId,
+                CreatedByUser: currentActivity.CreatedByUser,
+                CreatedDateTime: currentActivity.CreatedDateTime,
+                UpdatedByUserId: currentActivity.UpdatedByUserId,
+                UpdatedByUser: currentActivity.UpdatedByUser,
+                UpdatedDateTime: currentActivity.UpdatedDateTime
+            };
+        }
+    };
+    SupportDetailComponent.prototype.btnEditActivityClick = function (activityModalTemplate) {
+        this.activitiyModalRef = this.modalService.show(activityModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: ""
+        });
+        this.isAddClicked = false;
+        this.activityModalHeaderTitle = "Edit Activity";
+        this.isActivityNumberHidden = false;
+        this.isActivityLoadingSpinnerHidden = false;
+        this.isActivityContentHidden = true;
+        this.listActivityUsers();
+    };
+    SupportDetailComponent.prototype.btnSaveActivityClick = function () {
+        var _this = this;
+        var btnSaveActivity = document.getElementById("btnSaveActivity");
+        var btnSaveActivityClickCloseModal = document.getElementById("btnSaveActivityClickCloseModal");
+        btnSaveActivity.disabled = true;
+        btnSaveActivityClickCloseModal.disabled = true;
+        this.supportDetailService.saveActivity(this.supportDetailActivityModel);
+        this.saveActivitySub = this.supportDetailService.saveActivityObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Activity was successfully saved.", "Success");
+                setTimeout(function () {
+                    _this.isDataLoaded = false;
+                    _this.listActivity();
+                    _this.activitiyModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveActivity.disabled = false;
+                btnSaveActivityClickCloseModal.disabled = false;
+            }
+            if (_this.saveActivitySub != null)
+                _this.saveActivitySub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.btnDeleteActivityClick = function (activityDeleteModalTemplate) {
+        this.deleteActivitiyModalRef = this.modalService.show(activityDeleteModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
+    };
+    SupportDetailComponent.prototype.btnConfirmDeleteAcitivityClick = function () {
+        var _this = this;
+        var btnConfirmDeleteAcitivity = document.getElementById("btnConfirmDeleteAcitivity");
+        var btnCloseConfirmDeleteAcitivityModal = document.getElementById("btnCloseConfirmDeleteAcitivityModal");
+        btnConfirmDeleteAcitivity.disabled = true;
+        btnCloseConfirmDeleteAcitivityModal.disabled = true;
+        var currentActivity = this.listActivityCollectionView.currentItem;
+        this.supportDetailService.deleteActivity(currentActivity.Id);
+        this.deleteActivitySub = this.supportDetailService.deleteActivityObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Lead was successfully deleted.", "Success");
+                setTimeout(function () {
+                    _this.isDataLoaded = false;
+                    _this.listActivity();
+                    _this.deleteActivitiyModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnConfirmDeleteAcitivity.disabled = false;
+                btnCloseConfirmDeleteAcitivityModal.disabled = false;
+            }
+            if (_this.deleteActivitySub != null)
+                _this.deleteActivitySub.unsubscribe();
+        });
+    };
+    SupportDetailComponent.prototype.ngOnDestry = function () {
+        if (this.cboCustomerSub != null)
+            this.cboCustomerSub.unsubscribe();
+        if (this.detailSupportSub != null)
+            this.detailSupportSub.unsubscribe();
+        if (this.cboSupportStatusSub != null)
+            this.cboSupportStatusSub.unsubscribe();
+        if (this.cboAssignedToUserSub != null)
+            this.cboAssignedToUserSub.unsubscribe();
+        if (this.cboSalesDeliverySub != null)
+            this.cboSalesDeliverySub.unsubscribe();
+        if (this.cboCustomerSub != null)
+            this.cboCustomerSub.unsubscribe();
+        if (this.saveSupportSub != null)
+            this.saveSupportSub.unsubscribe();
+        if (this.lockSupportSub != null)
+            this.lockSupportSub.unsubscribe();
+        if (this.unlockSupportSub != null)
+            this.unlockSupportSub.unsubscribe();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listCustomerFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], SupportDetailComponent.prototype, "listCustomerFlexGrid", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listActivityFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], SupportDetailComponent.prototype, "listActivityFlexGrid", void 0);
+    SupportDetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-support-detail',
+            template: __webpack_require__(/*! ./support-detail.component.html */ "./src/app/software/support-detail/support-detail.component.html"),
+            styles: [__webpack_require__(/*! ./support-detail.component.css */ "./src/app/software/support-detail/support-detail.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_support_detail_service__WEBPACK_IMPORTED_MODULE_7__["SupportDetailService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]])
+    ], SupportDetailComponent);
+    return SupportDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/support-detail/support-detail.service.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/software/support-detail/support-detail.service.ts ***!
+  \*******************************************************************/
+/*! exports provided: SupportDetailService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupportDetailService", function() { return SupportDetailService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var SupportDetailService = /** @class */ (function () {
+    function SupportDetailService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.listCustomerSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listCustomerObservable = this.listCustomerSubject.asObservable();
+        this.listSalesDeliverySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSalesDeliveryObservable = this.listSalesDeliverySubject.asObservable();
+        this.listSupportAssignedToUsersSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listLeadAssignedToUsersObservable = this.listSupportAssignedToUsersSubject.asObservable();
+        this.listSupportStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSupportStatusObservable = this.listSupportStatusSubject.asObservable();
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.detailSupportSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.detailSupportObservable = this.detailSupportSubject.asObservable();
+        this.saveSupportSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveSupportObservable = this.saveSupportSubject.asObservable();
+        this.lockSupportSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.lockSupportObservable = this.lockSupportSubject.asObservable();
+        this.unlockSupportSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.unlockSupportObservable = this.unlockSupportSubject.asObservable();
+        this.listActivityUsersSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityUsersObservable = this.listActivityUsersSubject.asObservable();
+        this.listActivityStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityStatusObservable = this.listActivityStatusSubject.asObservable();
+        this.listActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listActivityObservable = this.listActivitySubject.asObservable();
+        this.saveActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveActivityObservable = this.saveActivitySubject.asObservable();
+        this.deleteActivitySubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteActivityObservable = this.deleteActivitySubject.asObservable();
+    }
+    SupportDetailService.prototype.listCustomer = function () {
+        var _this = this;
+        var listCustomerObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listCustomerSubject.next(listCustomerObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/support/list/customer", this.options).subscribe(function (response) {
+            var results = response;
+            console.log(results);
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listCustomerObservableArray.push({
+                        Id: results[i].Id,
+                        ArticleCode: results[i].ArticleCode,
+                        Article: results[i].Article,
+                        ContactPerson: results[i].ContactPerson
+                    });
+                }
+            }
+            _this.listCustomerSubject.next(listCustomerObservableArray);
+        });
+    };
+    SupportDetailService.prototype.listSalesDelivery = function (customerId) {
+        var _this = this;
+        var listSupportObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSalesDeliverySubject.next(listSupportObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/support/list/sales/delivery/" + customerId, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listSupportObservableArray.push({
+                        Id: results[i].Id,
+                        SDNumber: results[i].SDNumber,
+                    });
+                }
+            }
+            _this.listSalesDeliverySubject.next(listSupportObservableArray);
+        });
+    };
+    SupportDetailService.prototype.listAssignedUsers = function () {
+        var _this = this;
+        var listAssignedToUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSupportAssignedToUsersSubject.next(listAssignedToUsersObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/support/list/users", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listAssignedToUsersObservableArray.push({
+                        Id: results[i].Id,
+                        UserName: results[i].UserName,
+                        FullName: results[i].FullName
+                    });
+                }
+            }
+            _this.listSupportAssignedToUsersSubject.next(listAssignedToUsersObservableArray);
+        });
+    };
+    SupportDetailService.prototype.listSupportStatus = function () {
+        var _this = this;
+        var listSupportStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSupportStatusSubject.next(listSupportStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/support/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listSupportStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listSupportStatusSubject.next(listSupportStatusObservableArray);
+        });
+    };
+    SupportDetailService.prototype.detailSupport = function (id) {
+        var _this = this;
+        var supportDetailModel;
+        this.detailSupportSubject.next(supportDetailModel);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/support/detail/" + id, this.options).subscribe(function (response) {
+            var result = response;
+            if (result != null) {
+                supportDetailModel = {
+                    Id: result["Id"],
+                    SPNumber: result["SPNumber"],
+                    SPDate: result["SPDate"],
+                    CustomerId: result["CustomerId"],
+                    Customer: result["Customer"],
+                    SDId: result["SDId"],
+                    SDNumber: result["SDNumber"],
+                    ContactPerson: result["ContactPerson"],
+                    ContactPosition: result["ContactPosition"],
+                    ContactEmail: result["ContactEmail"],
+                    ContactPhoneNumber: result["ContactPhoneNumber"],
+                    Issue: result["Issue"],
+                    AssignedToUserId: result["AssignedToUserId"],
+                    AssignedToUser: result["AssignedToUser"],
+                    Status: result["Status"],
+                    IsLocked: result["IsLocked"],
+                    CreatedByUserId: result["CreatedByUserId"],
+                    CreatedByUser: result["CreatedByUser"],
+                    CreatedDateTime: result["CreatedDateTime"],
+                    UpdatedByUserId: result["UpdatedByUserId"],
+                    UpdatedByUser: result["UpdatedByUser"],
+                    UpdatedDateTime: result["UpdatedDateTime"],
+                };
+            }
+            _this.detailSupportSubject.next(supportDetailModel);
+        });
+    };
+    SupportDetailService.prototype.saveSupport = function (objSupport) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/support/save/" + objSupport.Id, JSON.stringify(objSupport), this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.saveSupportSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.saveSupportSubject.next(errorResults);
+        });
+    };
+    SupportDetailService.prototype.lockSupport = function (objSupport) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/support/lock/" + objSupport.Id, JSON.stringify(objSupport), this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.lockSupportSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.lockSupportSubject.next(errorResults);
+        });
+    };
+    SupportDetailService.prototype.unlockSupport = function (objSupport) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/support/unlock/" + objSupport.Id, JSON.stringify(objSupport), this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.unlockSupportSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.unlockSupportSubject.next(errorResults);
+        });
+    };
+    SupportDetailService.prototype.listActivityUsers = function () {
+        var _this = this;
+        var listActivityUsersObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityUsersSubject.next(listActivityUsersObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/users", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityUsersObservableArray.push({
+                        Id: results[i].Id,
+                        FullName: results[i].FullName,
+                        UserName: results[i].UserName
+                    });
+                }
+            }
+            _this.listActivityUsersSubject.next(listActivityUsersObservableArray);
+        });
+    };
+    SupportDetailService.prototype.listActivityStatus = function () {
+        var _this = this;
+        var listActivityStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivityStatusSubject.next(listActivityStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listActivityStatusSubject.next(listActivityStatusObservableArray);
+        });
+    };
+    SupportDetailService.prototype.listActivity = function (supportId) {
+        var _this = this;
+        var listActivityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listActivitySubject.next(listActivityObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/activity/support/list/" + supportId, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listActivityObservableArray.push({
+                        Id: results[i].Id,
+                        ACNumber: results[i].ACNumber,
+                        ACDate: results[i].ACDate,
+                        UserId: results[i].UserId,
+                        User: results[i].User,
+                        FunctionalUserId: results[i].FunctionalUserId,
+                        FunctionalUser: results[i].FunctionalUser,
+                        TechnicalUserId: results[i].TechnicalUserId,
+                        TechnicalUser: results[i].TechnicalUser,
+                        CRMStatus: results[i].CRMStatus,
+                        Activity: results[i].Activity,
+                        StartDate: results[i].StartDate,
+                        StartTime: results[i].StartTime,
+                        EndDate: results[i].EndDate,
+                        EndTime: results[i].EndTime,
+                        TransportationCost: results[i].TransportationCost,
+                        OnSiteCost: results[i].OnSiteCost,
+                        LDId: results[i].LDId,
+                        SDId: results[i].SIId,
+                        SPId: results[i].SPId,
+                        LastActivity: results[i].LastActivity,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listActivitySubject.next(listActivityObservableArray);
+        });
+    };
+    SupportDetailService.prototype.saveActivity = function (objActivity) {
+        var _this = this;
+        if (objActivity.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/crm/trn/activity/add", JSON.stringify(objActivity), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveActivitySubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveActivitySubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/crm/trn/activity/update/" + objActivity.Id, JSON.stringify(objActivity), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveActivitySubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveActivitySubject.next(errorResults);
+            });
+        }
+    };
+    SupportDetailService.prototype.deleteActivity = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/crm/trn/activity/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteActivitySubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteActivitySubject.next(errorResults);
+        });
+    };
+    SupportDetailService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_3__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], SupportDetailService);
+    return SupportDetailService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/support-list/support-list.component.css":
+/*!******************************************************************!*\
+  !*** ./src/app/software/support-list/support-list.component.css ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N1cHBvcnQtbGlzdC9zdXBwb3J0LWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/support-list/support-list.component.html":
+/*!*******************************************************************!*\
+  !*** ./src/app/software/support-list/support-list.component.html ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnAddSupportClick()\" style=\"margin-right: 5px;\" id=\"btnAddSupport\">\n            <i class=\"fa fa-plus fa-fw\"></i> Add\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software/sys/dashboard\" id=\"btnCloseActivity\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <table border=\"0\" style=\"width: 100%; border: none; margin-top: -15px;\">\n          <tr>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  Start Date</span>\n                <wj-input-date #cboSupportStartDateFilter [(ngModel)]=\"supportStartDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboStartDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-calendar fa-fw\"></i>\n                  End Date</span>\n                <wj-input-date #cboSupportEndDateFilter [(ngModel)]=\"supportEndDateFilterData\"\n                  [ngModelOptions]=\"{standalone: true}\" (textChanged)=\"cboEndDateTextChanged()\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%;\">\n                </wj-input-date>\n              </div>\n            </td>\n            <td>\n              <div class=\"form-group\">\n                <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                  Status</span>\n                <wj-combo-box #cboSupportStatus [itemsSource]=\"cboSupportStatusObservableArray\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\"\n                  (selectedIndexChanged)=\"cboSupportStatusSelectedIndexChanged(cboSupportStatus.selectedValue)\"\n                  style=\"width: 100%;\">\n                </wj-combo-box>\n              </div>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"col-md-4\"></div>\n    </div>\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listSupportFlexGrid [itemsSource]=\"listSupportCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\" (click)=\"btnEditSupportClick()\"\n            id=\"btnEditSupport\">\n            <i class=\"fa fa-edit fa-fw\"></i> Edit\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\n            (click)=\"btnDeleteSupportClick(supportDeleteModalTemplate)\" id=\"btnDeleteSupport\">\n            <i class=\"fa fa-trash fa-fw\"></i> Delete\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'SP No.'\" [binding]=\"'SPNumber'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'SPDate'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Customer'\" [binding]=\"'Customer'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'SD No.'\" [binding]=\"'SDNumber'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Assigned To'\" [binding]=\"'AssignedToUser'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSupportCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSupportCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listSupportCollectionView.pageIndex + 1 }} / {{ listSupportCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSupportCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listSupportCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n\n<div class=\"card card-default\" style=\"margin-top: 10px;\">\n  <div class=\"card-header\">\n    User stamp\n  </div>\n  <div class=\"card-body\">\n    <div class=\"row\">\n      <div class=\"col-md-6\">\n        <p>Created by:</p>\n        <div style=\"padding-left: 10px;\">\n          <i class=\"fa fa-key\"></i>&nbsp;\n          <label id=\"createdBy\">\n            {{\n              listSupportCollectionView.items.length > 0 ?\n            listSupportCollectionView.currentItem.CreatedByUser : 'NA'\n            }}\n          </label>\n          <br />\n          <small>\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n            <span id=\"createdDate\">\n              {{\n              listSupportCollectionView.items.length > 0 ?\n              listSupportCollectionView.currentItem.CreatedDateTime : 'mm/dd/yyyy'\n              }}\n            </span>\n          </small>\n        </div>\n        <br />\n      </div>\n      <div class=\"col-md-6\">\n        <p>Updated by:</p>\n        <div style=\"padding-left: 10px;\">\n          <i class=\"fa fa-key\"></i>&nbsp;\n          <label id=\"updatedBy\">\n            {{\n            listSupportCollectionView.items.length > 0 ?\n            listSupportCollectionView.currentItem.UpdatedByUser : 'NA'\n            }}\n          </label>\n          <br />\n          <small>\n            <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n            <span id=\"updatedDate\">\n              {{\n              listSupportCollectionView.items.length > 0 ?\n              listSupportCollectionView.currentItem.UpdatedDateTime : 'mm/dd/yyyy'\n              }}\n            </span>\n          </small>\n        </div>\n        <br />\n      </div>\n    </div>\n  </div>\n</div>\n<div>\n  <ng-template #supportDeleteModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        Delete\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      Are you sure you want to delete this support?\n      <br /> <br />\n\n      SP Number:\n      <b>\n        {{\n      listSupportCollectionView.items.length > 0 ?\n      listSupportCollectionView.currentItem.SPNumber : 'NA'\n      }}\n      </b>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\"\n        (click)=\"btnConfirmDeleteSupportClick()\" id=\"btnConfirmDeleteSupport\">\n        <i class=\"fa fa-trash\"></i> Delete\n      </button>\n      <button type=\"button\" class=\"btn\" (click)=\"deleteSupportModalRef.hide()\"\n        id=\"btnCloseConfirmDeleteSupportModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/software/support-list/support-list.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/software/support-list/support-list.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: SupportListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupportListComponent", function() { return SupportListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _support_list_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./support-list.service */ "./src/app/software/support-list/support-list.service.ts");
+
+
+
+
+
+
+
+
+var SupportListComponent = /** @class */ (function () {
+    function SupportListComponent(supportListService, toastr, activatedRoute, router, modalService) {
+        this.supportListService = supportListService;
+        this.toastr = toastr;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.modalService = modalService;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.supportStartDateFilterData = new Date();
+        this.supportEndDateFilterData = new Date();
+        this.cboSupportStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.cboSupportStatusSelectedValue = "Open";
+        this.listSupportObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSupportCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSupportObservableArray);
+        this.listSupportPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+    }
+    SupportListComponent.prototype.ngOnInit = function () {
+        this.createCboShowNumberOfRows();
+        this.createCboSupportStatus();
+    };
+    SupportListComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    SupportListComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listSupportPageIndex = selectedValue;
+        this.listSupportCollectionView.pageSize = this.listSupportPageIndex;
+        this.listSupportCollectionView.refresh();
+        this.listSupportCollectionView.refresh();
+    };
+    SupportListComponent.prototype.createCboSupportStatus = function () {
+        var _this = this;
+        this.supportListService.listStatus();
+        this.cboListStatusSub = this.supportListService.listStatusObservable.subscribe(function (data) {
+            var statusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            statusObservableArray.push({
+                Id: 0,
+                Status: "ALL"
+            });
+            if (data != null) {
+                for (var i = 0; i <= data.length - 1; i++) {
+                    statusObservableArray.push({
+                        Id: data[i].Id,
+                        Status: data[i].Status
+                    });
+                }
+            }
+            _this.cboSupportStatusObservableArray = statusObservableArray;
+            if (_this.cboSupportStatusObservableArray.length > 0) {
+                setTimeout(function () {
+                    _this.listSupport();
+                }, 100);
+            }
+            if (_this.cboListStatusSub != null)
+                _this.cboListStatusSub.unsubscribe();
+        });
+    };
+    SupportListComponent.prototype.cboStartDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSupport();
+            }, 100);
+        }
+    };
+    SupportListComponent.prototype.cboEndDateTextChanged = function () {
+        var _this = this;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSupport();
+            }, 100);
+        }
+    };
+    SupportListComponent.prototype.cboSupportStatusSelectedIndexChanged = function (selectedValue) {
+        var _this = this;
+        this.cboSupportStatusSelectedValue = selectedValue;
+        if (this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listSupport();
+            }, 100);
+        }
+    };
+    SupportListComponent.prototype.listSupport = function () {
+        var _this = this;
+        this.listSupportObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSupportCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSupportObservableArray);
+        this.listSupportCollectionView.pageSize = 15;
+        this.listSupportCollectionView.trackChanges = true;
+        this.listSupportCollectionView.refresh();
+        this.listSupportFlexGrid.refresh();
+        var startDate = [this.supportStartDateFilterData.getFullYear(), this.supportStartDateFilterData.getMonth() + 1, this.supportStartDateFilterData.getDate()].join('-');
+        var endDate = [this.supportEndDateFilterData.getFullYear(), this.supportEndDateFilterData.getMonth() + 1, this.supportEndDateFilterData.getDate()].join('-');
+        this.isProgressBarHidden = false;
+        this.supportListService.listSupport(startDate, endDate, this.cboSupportStatusSelectedValue);
+        this.listSupportSub = this.supportListService.listSupportObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listSupportObservableArray = data;
+                _this.listSupportCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listSupportObservableArray);
+                _this.listSupportCollectionView.pageSize = _this.listSupportPageIndex;
+                _this.listSupportCollectionView.trackChanges = true;
+                _this.listSupportCollectionView.refresh();
+                _this.listSupportFlexGrid.refresh();
+            }
+            _this.isDataLoaded = true;
+            _this.isProgressBarHidden = true;
+            if (_this.listSupportSub != null)
+                _this.listSupportSub.unsubscribe();
+        });
+    };
+    SupportListComponent.prototype.btnAddSupportClick = function () {
+        var _this = this;
+        var btnAddSupport = document.getElementById("btnAddSupport");
+        btnAddSupport.disabled = true;
+        this.supportListService.AddSupport();
+        this.addSupportSub = this.supportListService.addSupportObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Sales was successfully added.", "Success");
+                _this.router.navigate(['/software/trn/support/detail/', data[1]]);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnAddSupport.disabled = false;
+            }
+            if (_this.addSupportSub != null)
+                _this.addSupportSub.unsubscribe();
+        });
+    };
+    SupportListComponent.prototype.btnDeleteSupportClick = function (supportDeleteModalTemplate) {
+        this.deleteSupportModalRef = this.modalService.show(supportDeleteModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
+    };
+    SupportListComponent.prototype.btnConfirmDeleteSupportClick = function () {
+        var _this = this;
+        var btnConfirmDeleteSupport = document.getElementById("btnConfirmDeleteSupport");
+        var btnCloseConfirmDeleteAcitivityModal = document.getElementById("btnCloseConfirmDeleteSupportModal");
+        btnConfirmDeleteSupport.disabled = true;
+        btnCloseConfirmDeleteAcitivityModal.disabled = true;
+        var currentItem = this.listSupportCollectionView.currentItem;
+        this.supportListService.DeleteSupport(currentItem.Id);
+        this.deleteSupportSub = this.supportListService.deleteSupportObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Sales successfully deleted!", "Success");
+                setTimeout(function () {
+                    _this.listSupport();
+                    _this.deleteSupportModalRef.hide();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnConfirmDeleteSupport.disabled = false;
+                btnCloseConfirmDeleteAcitivityModal.disabled = false;
+            }
+            if (_this.deleteSupportSub != null)
+                _this.deleteSupportSub.unsubscribe();
+        });
+    };
+    SupportListComponent.prototype.btnEditSupportClick = function () {
+        var currentSupport = this.listSupportCollectionView.currentItem;
+        this.router.navigate(['/software/trn/support/detail/', currentSupport.Id]);
+    };
+    SupportListComponent.prototype.ngOnDestroy = function () {
+        if (this.listSupportSub != null)
+            this.listSupportSub.unsubscribe();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listSupportFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], SupportListComponent.prototype, "listSupportFlexGrid", void 0);
+    SupportListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-support-list',
+            template: __webpack_require__(/*! ./support-list.component.html */ "./src/app/software/support-list/support-list.component.html"),
+            styles: [__webpack_require__(/*! ./support-list.component.css */ "./src/app/software/support-list/support-list.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_support_list_service__WEBPACK_IMPORTED_MODULE_7__["SupportListService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]])
+    ], SupportListComponent);
+    return SupportListComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/support-list/support-list.service.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/software/support-list/support-list.service.ts ***!
+  \***************************************************************/
+/*! exports provided: SupportListService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupportListService", function() { return SupportListService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var SupportListService = /** @class */ (function () {
+    function SupportListService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
+        this.listSupportSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSupportObservable = this.listSupportSubject.asObservable();
+        this.addSupportSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.addSupportObservable = this.addSupportSubject.asObservable();
+        this.deleteSupportSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteSupportObservable = this.addSupportSubject.asObservable();
+    }
+    SupportListService.prototype.listStatus = function () {
+        var _this = this;
+        var listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/support/list/status", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listStatusSubject.next(listStatusObservableArray);
+        });
+    };
+    SupportListService.prototype.listSupport = function (startDate, endDate, status) {
+        var _this = this;
+        var listSupportObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSupportSubject.next(listSupportObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/trn/support/list/" + startDate + "/" + endDate + "/" + status, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listSupportObservableArray.push({
+                        Id: results[i].Id,
+                        SPNumber: results[i].SPNumber,
+                        SPDate: results[i].SPDate,
+                        CustomerId: results[i].CustomerId,
+                        Customer: results[i].Customer,
+                        SDId: results[i].SDId,
+                        SDNumber: results[i].SDNumber,
+                        ContactPerson: results[i].ContactPerson,
+                        ContactPosition: results[i].ContactPosition,
+                        ContactEmail: results[i].ContactEmail,
+                        ContactPhoneNumber: results[i].ContactPhoneNumber,
+                        Issue: results[i].Issue,
+                        AssignedToUserId: results[i].AssignedToUserId,
+                        AssignedToUser: results[i].AssignedToUser,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].CreatedByUser,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].UpdatedByUser,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.listSupportSubject.next(listSupportObservableArray);
+        });
+    };
+    SupportListService.prototype.AddSupport = function () {
+        var _this = this;
+        this.httpClient.post(this.defaultAPIURLHost + "/api/crm/trn/support/add", "", this.options).subscribe(function (response) {
+            var responseResults = ["success", response.toString()];
+            _this.addSupportSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.addSupportSubject.next(errorResults);
+        });
+    };
+    SupportListService.prototype.DeleteSupport = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/crm/trn/support/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteSupportSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteSupportSubject.next(errorResults);
+        });
+    };
+    SupportListService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], SupportListService);
+    return SupportListService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/user-detail/user-detail.component.css":
+/*!****************************************************************!*\
+  !*** ./src/app/software/user-detail/user-detail.component.css ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3VzZXItZGV0YWlsL3VzZXItZGV0YWlsLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/user-detail/user-detail.component.html":
+/*!*****************************************************************!*\
+  !*** ./src/app/software/user-detail/user-detail.component.html ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div [hidden]=\"isLoadingSpinnerHidden\">\n  <mat-spinner style=\"margin: auto;\"></mat-spinner>\n</div>\n<div [hidden]=\"isContentHidden\">\n  <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\" style=\"margin-top: 10px; margin-bottom: 10px;\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link active\" id=\"sales-tab\" data-toggle=\"tab\" href=\"#support\" role=\"tab\" aria-controls=\"support\"\n        aria-selected=\"true\">Support Detail</a>\n    </li>\n    <li class=\"nav-item\" [hidden]=\"isActivityTabHidden\">\n      <a class=\"nav-link\" id=\"activities-tab\" data-toggle=\"tab\" href=\"#activities\" role=\"tab\" aria-controls=\"activities\"\n        aria-selected=\"false\" (click)=\"listActivity()\">Activities</a>\n    </li>\n  </ul>\n</div>\n<div class=\"tab-content\" id=\"myTabContent\">\n  <div class=\"tab-pane fade show active\" id=\"support\" role=\"tabpanel\" aria-labelledby=\"support-tab\">\n    <div class=\"card card-default\">\n      <div class=\"card-header\">\n        <table border=\"0\" style=\"width: 100%; border: none;\">\n          <tr>\n            <td style=\"text-align: right;\">\n              <button class=\"btn btn-primary\" (click)=\"btnSaveSupportClick()\" style=\"margin-right: 5px;\"\n                id=\"btnSaveSupport\" disabled>\n                <i class=\"fa fa-save fa-fw\"></i> Save\n              </button>\n              <button class=\"btn btn-primary\" (click)=\"btnLockSupportClick()\" style=\"margin-right: 5px;\"\n                id=\"btnLockSupport\" disabled>\n                <i class=\"fa fa-lock fa-fw\"></i> Lock\n              </button>\n              <button class=\"btn btn-primary\" (click)=\"btnUnlockSupportClick()\" style=\"margin-right: 5px;\"\n                id=\"btnUnlockSupport\" disabled>\n                <i class=\"fa fa-unlock fa-fw\"></i> Unlock\n              </button>\n              <button class=\"btn btn-danger\" routerLink=\"/software/trn/support\" id=\"btnCloseSupport\">\n                <i class=\"fa fa-close fa-fw\"></i> Close\n              </button>\n            </td>\n          </tr>\n        </table>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"row\">\n          <div class=\"col-lg-6\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SP No.</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [(ngModel)]=\"supportModel.SPNumber\" placeholder=\"SP Number...\"\n                  disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SP Date</label>\n              <div class=\"col-sm-8\">\n                <wj-input-date #cboSPDate [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.SPDate\" format=\"MMMM dd, yyyy\"\n                  style=\"width: 100%; padding: 3px;\">\n                </wj-input-date>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Customer</label>\n              <div class=\"col-sm-8\">\n                <div class=\"input-group\">\n                  <input type=\"text\" [(ngModel)]=\"selectedCustomer\" class=\"form-control\" aria-label=\"\"\n                    [disabled]=\"isLocked\">\n                  <div class=\"input-group-append\">\n                    <span class=\"input-group-text\" (click)=\"btnCustomerListClick(customerModalTemplate)\"><i\n                        class=\"fa fa-plus\"></i></span>\n                  </div>\n                </div>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">SD Number</label>\n              <div class=\"col-sm-8\">\n                <wj-combo-box #cboSalesInvoice [(ngModel)]=\"supportModel.SDId\"\n                  [itemsSource]=\"cboSalesDeliveryObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                  [displayMemberPath]=\"'SDNumber'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\"\n                  [disabled]=\"isLocked\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Person</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.ContactPerson\"\n                  placeholder=\"Contact Person...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Position</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.ContactPosition\"\n                  placeholder=\"Contact Position...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Email</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.ContactEmail\"\n                  placeholder=\"Contact Email...\">\n              </div>\n              <br /><br />\n            </div>\n          </div>\n          <div class=\"col-lg-6\">\n            <div class=\"form-group row\">\n\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Contact Phone No.</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\"\n                  [(ngModel)]=\"supportModel.ContactPhoneNumber\" placeholder=\"Contact Phone Number...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Issue</label>\n              <div class=\"col-sm-8\">\n                <textarea type=\"text\" class=\"form-control\" style=\"resize: none\" [disabled]=\"isLocked\"\n                  [(ngModel)]=\"supportModel.Issue\" placeholder=\"Remarks...\" rows=\"5\">\n                  </textarea>\n              </div>\n              <br /><br /><br /><br /><br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Assigned To</label>\n              <div class=\"col-sm-8\">\n                <wj-combo-box #cboAssignedToUser [(ngModel)]=\"supportModel.AssignedToUserId\"\n                  [itemsSource]=\"cboAssignedToUserObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\"\n                  [disabled]=\"isLocked\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Status</label>\n              <div class=\"col-sm-8\">\n                <wj-combo-box #cboSalesStatus [disabled]=\"isLocked\" [(ngModel)]=\"supportModel.Status\"\n                  [itemsSource]=\"cboSupportStatusObservable\" [isEditable]=\"false\" [isRequired]=\"true\"\n                  [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card card-default\" style=\"margin-top: 10px;\">\n      <div class=\"card-header\">\n        User stamp\n      </div>\n      <div class=\"card-body\">\n        <div class=\"row\">\n          <div class=\"col-md-6\">\n            <p>Created by:</p>\n            <div style=\"padding-left: 10px;\">\n              <i class=\"fa fa-key\"></i>&nbsp;\n              <label id=\"createdBy\">\n                {{\n                  supportModel != null ?\n                  supportModel.CreatedByUser : 'NA'\n                  }}\n              </label>\n              <br />\n              <small>\n                <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                <span id=\"createdDate\">\n                  {{\n                    supportModel != null ?\n                    supportModel.CreatedDateTime : 'mm/dd/yyyy'\n                    }}\n                </span>\n              </small>\n            </div>\n            <br />\n          </div>\n          <div class=\"col-md-6\">\n            <p>Updated by:</p>\n            <div style=\"padding-left: 10px;\">\n              <i class=\"fa fa-key\"></i>&nbsp;\n              <label id=\"updatedBy\">\n                {{\n                  supportModel != null ?\n                  supportModel.UpdatedByUser : 'NA'\n                  }}\n              </label>\n              <br />\n              <small>\n                <i class=\"fa fa-calendar\"></i>&nbsp;&nbsp;\n                <span id=\"updatedDate\">\n                  {{\n                    supportModel != null ?\n                    supportModel.UpdatedDateTime : 'mm/dd/yyyy'\n                    }}\n                </span>\n              </small>\n            </div>\n            <br />\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"tab-pane fade\" id=\"activities\" role=\"tabpanel\" aria-labelledby=\"activities-tab\"\n    [hidden]=\"isActivityTabHidden\">\n    <div class=\"card card-default\">\n      <div class=\"card-header\">\n        <table border=\"0\" style=\"width: 100%; border: none;\">\n          <tr>\n            <td>\n              <div class=\"input-group\">\n                <div class=\"input-group-prepend\">\n                  <div class=\"input-group-text\">\n                    <b>\n                      <i class=\"fa fa-table\"></i>\n                    </b>\n                  </div>\n                </div>\n                <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n                  (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n                  style=\"width: 140px;\">\n                </wj-combo-box>\n              </div>\n            </td>\n            <td style=\"text-align: right;\">\n              <button class=\"btn btn-primary\" (click)=\"btnAddActivityClick(activityModalTemplate)\"\n                style=\"margin-right: 5px;\" id=\"btnAddActivity\">\n                <i class=\"fa fa-plus fa-fw\"></i> Add\n              </button>\n              <button class=\"btn btn-danger\" routerLink=\"/software/trn/sales\" id=\"btnCloseActivity\">\n                <i class=\"fa fa-close fa-fw\"></i> Close\n              </button>\n            </td>\n          </tr>\n        </table>\n      </div>\n\n      <div class=\"card-body\">\n        <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\">\n        </mat-progress-bar>\n        <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listActivityCollectionView\" [selectionMode]=\"3\"\n          [frozenColumns]=\"2\">\n          <wj-flex-grid-filter></wj-flex-grid-filter>\n          <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n              <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\"\n                (click)=\"btnEditActivityClick(activityModalTemplate)\" id=\"btnEditActivity\">\n                <i class=\"fa fa-edit fa-fw\"></i> Edit\n              </button>\n            </ng-template>\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n              <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\n                (click)=\"btnDeleteActivityClick(activityDeleteModalTemplate)\" id=\"btnDeleteActivity\">\n                <i class=\"fa fa-trash fa-fw\"></i> Delete\n              </button>\n            </ng-template>\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'No.'\" [binding]=\"'ACNumber'\" [isReadOnly]=\"true\" [width]=\"110\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Date'\" [binding]=\"'ACDate'\" [isReadOnly]=\"true\" [width]=\"110\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'User'\" [binding]=\"'User'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'CRM Status'\" [binding]=\"'CRMStatus'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Activity'\" [binding]=\"'Activity'\" [isReadOnly]=\"true\" [width]=\"'3*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n          </wj-flex-grid-column>\n        </wj-flex-grid>\n      </div>\n      <div class=\"card-footer\">\n        <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n            <i class=\"fa fa-fast-backward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n            <i class=\"fa fa-step-backward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n            {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n            <i class=\"fa fa-step-forward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n            <i class=\"fa fa-fast-forward\"></i>\n          </button>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <ng-template #activityModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        {{ activityModalHeaderTitle }}\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      <div [hidden]=\"isActivityLoadingSpinnerHidden\">\n        <br /><br />\n        <mat-spinner style=\"margin: auto;\"></mat-spinner>\n        <br /><br />\n      </div>\n      <div [hidden]=\"isActivityContentHidden\">\n        <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link active\" id=\"activity-detail-tab\" data-toggle=\"tab\" href=\"#activity-detail\" role=\"tab\"\n              aria-controls=\"activity-detail\" aria-selected=\"true\">Detail</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" id=\"activity-activity-tab\" data-toggle=\"tab\" href=\"#activity-activity\" role=\"tab\"\n              aria-controls=\"activity-activity\" aria-selected=\"false\">Activity</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" id=\"activity-cost-tab\" data-toggle=\"tab\" href=\"#activity-cost\" role=\"tab\"\n              aria-controls=\"activity-cost\" aria-selected=\"false\">Cost</a>\n          </li>\n        </ul>\n        <br />\n        <div class=\"tab-content\" id=\"myTabContent\">\n          <div class=\"tab-pane fade show active\" id=\"activity-detail\" role=\"tabpanel\"\n            aria-labelledby=\"activity-detail-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\"\n                [hidden]=\"isActivityNumberHidden\">No.</label>\n              <div class=\"col-sm-9\" [hidden]=\"isActivityNumberHidden\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Number...\"\n                  [(ngModel)]=\"supportDetailActivityModel.ACNumber\" disabled>\n              </div>\n              <div [hidden]=\"isActivityNumberHidden\">\n                <br /><br />\n              </div>\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">CRM</label>\n              <div class=\"col-sm-9\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"CRM Status...\"\n                  [(ngModel)]=\"supportDetailActivityModel.CRMStatus\" disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Date</label>\n              <div class=\"col-sm-9\">\n                <wj-input-date #cboActivityDate format=\"MMMM dd, yyyy\" [(ngModel)]=\"supportDetailActivityModel.ACDate\"\n                  style=\"width: 100%; padding: 3px;\">\n                </wj-input-date>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Functional</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityFunctionalUser [(ngModel)]=\"supportDetailActivityModel.FunctionalUserId\"\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Technical</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityTechnicalUser [(ngModel)]=\"supportDetailActivityModel.TechnicalUserId\"\n                  [itemsSource]=\"cboListActivityUsersObservableArray\" [isEditable]=\"false\" [isRequired]=\"false\"\n                  [displayMemberPath]=\"'FullName'\" [selectedValuePath]=\"'Id'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Start</label>\n              <div class=\"col-sm-9\">\n                <table style=\"width: 100%;\">\n                  <tr>\n                    <td style=\"width: 60%\">\n                      <wj-input-date #cboActivityStartDate [(ngModel)]=\"supportDetailActivityModel.StartDate\"\n                        format=\"MMMM dd, yyyy\"></wj-input-date>\n                    </td>\n                    <td style=\"width: 1%\"></td>\n                    <td style=\"width: 39%\">\n                      <wj-input-time #cboActivityStartTime [(ngModel)]=\"supportDetailActivityModel.StartTime\"\n                        format=\"h:mm tt\" [step]=\"1\"></wj-input-time>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">End</label>\n              <div class=\"col-sm-9\">\n                <table style=\"width: 100%;\">\n                  <tr>\n                    <td style=\"width: 60%\">\n                      <wj-input-date #cboActivityEndDate [(ngModel)]=\"supportDetailActivityModel.EndDate\"\n                        format=\"MMMM dd, yyyy\"></wj-input-date>\n                    </td>\n                    <td style=\"width: 1%\"></td>\n                    <td style=\"width: 39%\">\n                      <wj-input-time #cboActivityEndTime [(ngModel)]=\"supportDetailActivityModel.EndTime\"\n                        format=\"h:mm tt\" [step]=\"1\"></wj-input-time>\n                    </td>\n                  </tr>\n                </table>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Status</label>\n              <div class=\"col-sm-9\">\n                <wj-combo-box #cboActivityStatus [(ngModel)]=\"supportDetailActivityModel.Status\"\n                  [itemsSource]=\"cboListActivityStatusObservableArray\" [isEditable]=\"false\" [isRequired]=\"true\"\n                  [displayMemberPath]=\"'Status'\" [selectedValuePath]=\"'Status'\" style=\"width: 100%; padding: 3px;\">\n                </wj-combo-box>\n              </div>\n            </div>\n          </div>\n          <div class=\"tab-pane fade\" id=\"activity-activity\" role=\"tabpanel\" aria-labelledby=\"activity-activity-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">User</label>\n              <div class=\"col-sm-9\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"User...\"\n                  [(ngModel)]=\"supportDetailActivityModel.User\" disabled>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Activity</label>\n              <div class=\"col-sm-9\">\n                <textarea [(ngModel)]=\"supportDetailActivityModel.Activity\" type=\"text\" class=\"form-control\"\n                  style=\"resize: vertical\" placeholder=\"Activity...\" rows=\"10\"></textarea>\n              </div>\n            </div>\n          </div>\n          <div class=\"tab-pane fade\" id=\"activity-cost\" role=\"tabpanel\" aria-labelledby=\"activity-cost-tab\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">Transpo.</label>\n              <div class=\"col-sm-9\">\n                <wj-input-number [(ngModel)]=\"supportDetailActivityModel.TransportationCost\" #numActivityTranspoCost\n                  style=\"width: 100%; padding: 3px;\"></wj-input-number>\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-3 col-form-label form-group-label\">On-site</label>\n              <div class=\"col-sm-9\">\n                <wj-input-number [(ngModel)]=\"supportDetailActivityModel.OnSiteCost\" #numActivityOnsiteCost\n                  style=\"width: 100%; padding: 3px;\"></wj-input-number>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <button [hidden]=\"isActivityContentHidden\" type=\"button\" class=\"btn btn-primary\" style=\"margin-right: 5px;\"\n        (click)=\"btnSaveActivityClick()\" id=\"btnSaveActivity\">\n        <i class=\"fa fa-save\"></i> Save\n      </button>\n      <button type=\"button\" class=\"btn btn-danger\" (click)=\"activitiyModalRef.hide()\"\n        id=\"btnSaveActivityClickCloseModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n\n  <ng-template #activityDeleteModalTemplate>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">\n        Delete\n      </h4>\n    </div>\n    <div class=\"modal-body\">\n      Are you sure you want to delete this activity?\n      <br /> <br />\n\n      AC Number:\n      <b>\n        {{\n          listActivityCollectionView.items.length > 0 ?\n          listActivityCollectionView.currentItem.ACNumber : 'NA'\n          }}\n      </b>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteAcitivityClick()\"\n        id=\"btnConfirmDeleteAcitivity\">\n        <i class=\"fa fa-trash\"></i> Delete\n      </button>\n      <button type=\"button\" class=\"btn\" (click)=\"deleteActivitiyModalRef.hide()\"\n        id=\"btnCloseConfirmDeleteAcitivityModal\">\n        <i class=\"fa fa-close\"></i> Cancel\n      </button>\n    </div>\n  </ng-template>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/software/user-detail/user-detail.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/software/user-detail/user-detail.component.ts ***!
+  \***************************************************************/
+/*! exports provided: UserDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserDetailComponent", function() { return UserDetailComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var UserDetailComponent = /** @class */ (function () {
+    function UserDetailComponent() {
+    }
+    UserDetailComponent.prototype.ngOnInit = function () {
+    };
+    UserDetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-user-detail',
+            template: __webpack_require__(/*! ./user-detail.component.html */ "./src/app/software/user-detail/user-detail.component.html"),
+            styles: [__webpack_require__(/*! ./user-detail.component.css */ "./src/app/software/user-detail/user-detail.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], UserDetailComponent);
+    return UserDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/user/user.component.css":
+/*!**************************************************!*\
+  !*** ./src/app/software/user/user.component.css ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3VzZXIvdXNlci5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/user/user.component.html":
+/*!***************************************************!*\
+  !*** ./src/app/software/user/user.component.html ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card card-default\">\n\n  <div class=\"card-header\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <div class=\"input-group-text\">\n                <b>\n                  <i class=\"fa fa-table\"></i>\n                </b>\n              </div>\n            </div>\n            <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\" [isRequired]=\"true\"\n              [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n              (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n              style=\"width: 140px;\">\n            </wj-combo-box>\n          </div>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnAddUserClick(userDetailModalTemplate)\" style=\"margin-right: 5px;\"\n            id=\"btnAddSupport\">\n            <i class=\"fa fa-plus fa-fw\"></i> Add\n          </button>\n          <button class=\"btn btn-danger\" routerLink=\"/software/sys/dashboard\" id=\"btnCloseActivity\">\n            <i class=\"fa fa-close fa-fw\"></i> Close\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n  <div class=\"card-body\">\n    <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\"></mat-progress-bar>\n    <wj-flex-grid #listUserFlexGrid [itemsSource]=\"listUserCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"2\">\n      <wj-flex-grid-filter></wj-flex-grid-filter>\n      <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\"\n            (click)=\"btnEditUserClick(userDetailModalTemplate)\" id=\"btnEditUser\">\n            <i class=\"fa fa-edit fa-fw\"></i> Edit\n          </button>\n        </ng-template>\n      </wj-flex-grid-column>\n      <!-- <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n          <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\n            (click)=\"btnDeleteSupportClick(supportDeleteModalTemplate)\" id=\"btnDeleteSupport\">\n            <i class=\"fa fa-trash fa-fw\"></i> Delete\n          </button>\n        </ng-template>\n      </wj-flex-grid-column> -->\n      <wj-flex-grid-column [header]=\"'UserName'\" [binding]=\"'UserName'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'FullName'\" [binding]=\"'FullName'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'Password'\" [binding]=\"'Password'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n      <wj-flex-grid-column [header]=\"'IsLocked'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n      </wj-flex-grid-column>\n    </wj-flex-grid>\n  </div>\n\n  <div class=\"card-footer\">\n    <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listUserCollectionView.moveToFirstPage()\">\n        <i class=\"fa fa-fast-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listUserCollectionView.moveToPreviousPage()\">\n        <i class=\"fa fa-step-backward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n        {{ listUserCollectionView.pageIndex + 1 }} / {{ listUserCollectionView.pageCount }}\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listUserCollectionView.moveToNextPage()\">\n        <i class=\"fa fa-step-forward\"></i>\n      </button>\n      <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listUserCollectionView.moveToLastPage()\">\n        <i class=\"fa fa-fast-forward\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n\n<ng-template #userDetailModalTemplates>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      {{ userDetailModalHeaderTitle }}\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"card card-default\">\n      <div class=\"card-header\">\n        <table border=\"0\" style=\"width: 100%; border: none;\">\n          <tr>\n            <td>\n              <!-- <div class=\"input-group\">\n                <div class=\"input-group-prepend\">\n                  <div class=\"input-group-text\">\n                    <b>\n                      <i class=\"fa fa-table\"></i>\n                    </b>\n                  </div>\n                </div>\n                <wj-combo-box #cboNumberOfRows [itemsSource]=\"modalcboShowNumberOfRows\" [isEditable]=\"false\"\n                  [isRequired]=\"true\" [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n                  (selectedIndexChanged)=\"modalCboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n                  style=\"width: 140px;\">\n                </wj-combo-box>\n              </div> -->\n            </td>\n            <td style=\"text-align: right;\">\n              <button class=\"btn btn-primary\" (click)=\"btnSaveClick()\" style=\"margin-right: 5px;\" id=\"btnAddActivity\">\n                <i class=\"fa fa-plus fa-fw\"></i> Register\n              </button>\n              <button class=\"btn btn-danger\" (click)=\"btnCloseModal()\" id=\"btnCloseActivity\">\n                <i class=\"fa fa-close fa-fw\"></i> Close\n              </button>\n            </td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"card-header\">\n        <div class=\"row\">\n          <div class=\"col-lg-12\">\n            <div class=\"form-group row\">\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Username</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"userModel.UserName\"\n                  placeholder=\"Username...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Full name</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"userModel.FullName\"\n                  placeholder=\"Full name...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Email</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"userModel.Email\"\n                  placeholder=\"Email...\">\n              </div>\n              <br /><br />\n              <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Password</label>\n              <div class=\"col-sm-8\">\n                <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"userModel.Password\"\n                  placeholder=\"Password...\">\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <table border=\"0\" style=\"width: 100%; border: none;\">\n          <tr>\n            <td>\n              <h4>User Form</h4>\n            </td>\n            <td style=\"text-align: right;\">\n              <button class=\"btn btn-primary\" (click)=\"btnAddUserFormClick(userFormModalTemplate)\"\n                style=\"margin-right: 5px;\" id=\"btnAddSupport\">\n                <i class=\"fa fa-plus fa-fw\"></i> Add\n              </button>\n            </td>\n          </tr>\n        </table>\n        <br>\n        <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\">\n        </mat-progress-bar>\n        <wj-flex-grid #listActivityFlexGrid [itemsSource]=\"listUserFormCollectionView\" [selectionMode]=\"3\"\n          [frozenColumns]=\"2\">\n          <wj-flex-grid-filter></wj-flex-grid-filter>\n          <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n              <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\"\n                (click)=\"btnEditActivityClick(activityModalTemplate)\" id=\"btnEditActivity\">\n                <i class=\"fa fa-edit fa-fw\"></i> Edit\n              </button>\n            </ng-template>\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n              <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\n                (click)=\"btnDeleteActivityClick(activityDeleteModalTemplate)\" id=\"btnDeleteActivity\">\n                <i class=\"fa fa-trash fa-fw\"></i> Delete\n              </button>\n            </ng-template>\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Form'\" [binding]=\"'Form'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Add'\" [binding]=\"'CanAdd'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Edit'\" [binding]=\"'CanEdit'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Delete'\" [binding]=\"'CanDelete'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Unlock'\" [binding]=\"'CanCancel'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n          </wj-flex-grid-column>\n          <wj-flex-grid-column [header]=\"'Print'\" [binding]=\"'CanPrint'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n          </wj-flex-grid-column>\n        </wj-flex-grid>\n      </div>\n      <!-- <div class=\"card-footer\">\n        <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n            <i class=\"fa fa-fast-backward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n            <i class=\"fa fa-step-backward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n            {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n            <i class=\"fa fa-step-forward\"></i>\n          </button>\n          <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n            <i class=\"fa fa-fast-forward\"></i>\n          </button>\n        </div>\n      </div> -->\n    </div>\n\n  </div>\n  <!-- <div class=\"modal-footer\"> -->\n  <div class=\"modal-footer\">\n    <!-- <table>\n      <tr>\n        <td>\n          <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modalListActivityCollectionView.moveToFirstPage()\">\n              <i class=\"fa fa-fast-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modalListActivityCollectionView.moveToPreviousPage()\">\n              <i class=\"fa fa-step-backward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n              {{ modalListActivityCollectionView.pageIndex + 1 }} / {{ modalListActivityCollectionView.pageCount }}\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modalListActivityCollectionView.moveToNextPage()\">\n              <i class=\"fa fa-step-forward\"></i>\n            </button>\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"modalListActivityCollectionView.moveToLastPage()\">\n              <i class=\"fa fa-fast-forward\"></i>\n            </button>\n          </div>\n        </td>\n        <td></td>\n      </tr>\n    </table> -->\n  </div>\n</ng-template>\n\n<ng-template #userDetailModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      {{ userDetailModalHeaderTitle }}\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    <!-- <div [hidden]=\"isLoadingSpinnerHidden\">\n      <br /><br /><br />\n      <mat-spinner style=\"margin: auto;\"></mat-spinner>\n    </div> -->\n\n    <div [hidden]=\"isContentHidden\">\n      <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\" style=\"margin-top: 10px; margin-bottom: 10px;\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link active\" id=\"user-tab\" data-toggle=\"tab\" href=\"#user\" role=\"tab\" aria-controls=\"user\"\n            aria-selected=\"true\">User</a>\n        </li>\n        <li class=\"nav-item\" [hidden]=\"isUserFormTabHidden\">\n          <a class=\"nav-link\" id=\"user-form-tab\" data-toggle=\"tab\" href=\"#userForm\" role=\"tab\" aria-controls=\"userForm\"\n            aria-selected=\"false\" (click)=\"listUserForm()\">User Form</a>\n        </li>\n      </ul>\n\n      <div class=\"tab-content\" id=\"myTabContent\">\n        <div class=\"tab-pane fade show active\" id=\"user\" role=\"tabpanel\" aria-labelledby=\"user-tab\">\n          <div class=\"card card-default\">\n\n            <div class=\"card-header\">\n              <table border=\"0\" style=\"width: 100%; border: none;\">\n                <tr>\n                  <td style=\"text-align: right;\">\n                    <button class=\"btn btn-primary\" (click)=\"btnSaveUserClick()\" style=\"margin-right: 5px;\"\n                      id=\"btnSaveLead\">\n                      <i class=\"fa fa-save fa-fw\"></i> Save\n                    </button>\n                    <!-- <button class=\"btn btn-primary\" (click)=\"btnLockUserClick()\" style=\"margin-right: 5px;\"\n                      id=\"btnLockLead\" disabled>\n                      <i class=\"fa fa-lock fa-fw\"></i> Lock\n                    </button>\n                    <button class=\"btn btn-primary\" (click)=\"btnUnlockUserClick()\" style=\"margin-right: 5px;\"\n                      id=\"btnUnlockLead\" disabled>\n                      <i class=\"fa fa-unlock fa-fw\"></i> Unlock\n                    </button> -->\n                    <button class=\"btn btn-danger\" (click)=\"btnCloseModal()\" id=\"btnCloseLead\">\n                      <i class=\"fa fa-close fa-fw\"></i> Close\n                    </button>\n                  </td>\n                </tr>\n              </table>\n            </div>\n\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group row\">\n                    <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Username</label>\n                    <div class=\"col-sm-8\">\n                      <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"userModel.UserName\"\n                        placeholder=\"Username...\">\n                    </div>\n                    <br /><br />\n                    <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Full name</label>\n                    <div class=\"col-sm-8\">\n                      <input type=\"text\" class=\"form-control\" [disabled]=\"isLocked\" [(ngModel)]=\"userModel.FullName\"\n                        placeholder=\"Full name...\">\n                    </div>\n                    <br /><br />\n                    <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Email</label>\n                    <div class=\"col-sm-8\">\n                      <input type=\"text\" class=\"form-control\" disabled [(ngModel)]=\"userModel.Email\"\n                        placeholder=\"Email...\">\n                    </div>\n                    <br /><br />\n                    <label for=\"\" class=\"col-sm-4 col-form-label form-group-label\">Password</label>\n                    <div class=\"col-sm-8\">\n                      <input type=\"text\" class=\"form-control\" disabled [(ngModel)]=\"userModel.Password\"\n                        placeholder=\"Password...\">\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"tab-pane fade\" id=\"userForm\" role=\"tabpanel\" aria-labelledby=\"user-form-tab\"\n          [hidden]=\"isUserFormTabHidden\">\n          <div class=\"card card-default\">\n\n            <div class=\"card-header\">\n              <table border=\"0\" style=\"width: 100%; border: none;\">\n                <tr>\n                  <td>\n                    <div class=\"input-group\">\n                      <div class=\"input-group-prepend\">\n                        <div class=\"input-group-text\">\n                          <b>\n                            <i class=\"fa fa-table\"></i>\n                          </b>\n                        </div>\n                      </div>\n                      <wj-combo-box #cboNumberOfRows [itemsSource]=\"cboShowNumberOfRows\" [isEditable]=\"false\"\n                        [isRequired]=\"true\" [displayMemberPath]=\"'rowString'\" [selectedValuePath]=\"'rowNumber'\"\n                        (selectedIndexChanged)=\"cboShowNumberOfRowsOnSelectedIndexChanged(cboNumberOfRows.selectedValue)\"\n                        style=\"width: 140px;\">\n                      </wj-combo-box>\n                    </div>\n                  </td>\n                  <td style=\"text-align: right;\">\n                    <button class=\"btn btn-primary\" (click)=\"btnAddUserFormClick(userFormModalTemplate)\"\n                      style=\"margin-right: 5px;\" id=\"btnAddActivity\">\n                      <i class=\"fa fa-plus fa-fw\"></i> Add\n                    </button>\n                    <button class=\"btn btn-danger\" (click)=\"btnCloseModal()\" id=\"btnCloseActivity\">\n                      <i class=\"fa fa-close fa-fw\"></i> Close\n                    </button>\n                  </td>\n                </tr>\n              </table>\n            </div>\n\n            <div class=\"card-body\">\n              <mat-progress-bar [hidden]=\"isProgressBarHidden\" [color]=\"'primary'\" [mode]=\"'indeterminate'\">\n              </mat-progress-bar>\n              <wj-flex-grid #listUserFormFlexGrid [itemsSource]=\"listUserFormCollectionView\" [selectionMode]=\"3\"\n                [frozenColumns]=\"2\">\n                <wj-flex-grid-filter></wj-flex-grid-filter>\n                <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"80\">\n                  <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                    <button type=\"button\" class=\"btn btn-primary btn-block btn-xs\"\n                      (click)=\"btnEditUserFormClick(userFormModalTemplate)\" id=\"btnEditActivity\">\n                      <i class=\"fa fa-edit fa-fw\"></i> Edit\n                    </button>\n                  </ng-template>\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"90\">\n                  <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                    <button type=\"button\" class=\"btn btn-danger btn-block btn-xs\"\n                      (click)=\"btnDelteUserFormClick(userFormDeleteModalTemplate)\" id=\"btnDeleteUserForm\">\n                      <i class=\"fa fa-trash fa-fw\"></i> Delete\n                    </button>\n                  </ng-template>\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Form'\" [binding]=\"'Form'\" [isReadOnly]=\"true\" [width]=\"'2*'\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Add'\" [binding]=\"'CanAdd'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Edit'\" [binding]=\"'CanEdit'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Delete'\" [binding]=\"'CanDelete'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'CanLock'\" [binding]=\"'CanLock'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Unlock'\" [binding]=\"'CanUnlock'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'CanCancel'\" [binding]=\"'CanCancel'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Print'\" [binding]=\"'CanPrint'\" [isReadOnly]=\"true\" [width]=\"'1*'\">\n                </wj-flex-grid-column>\n              </wj-flex-grid>\n            </div>\n\n            <div class=\"card-footer\">\n              <!-- <div class=\"col-sm-12 btn-group\" style=\"padding: 5px 0px 5px 0px;\">\n                <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToFirstPage()\">\n                  <i class=\"fa fa-fast-backward\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToPreviousPage()\">\n                  <i class=\"fa fa-step-backward\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-secondary\" disabled style=\"width:100px\">\n                  {{ listActivityCollectionView.pageIndex + 1 }} / {{ listActivityCollectionView.pageCount }}\n                </button>\n                <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToNextPage()\">\n                  <i class=\"fa fa-step-forward\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-secondary\" (click)=\"listActivityCollectionView.moveToLastPage()\">\n                  <i class=\"fa fa-fast-forward\"></i>\n                </button>\n              </div> -->\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </div>\n\n  <div class=\"modal-footer\">\n\n  </div>\n</ng-template>\n\n<ng-template #userFormModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      {{ userFormDetailModalHeaderTitle }}\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    <div class=\"card card-default\">\n      <div class=\"card-header\">\n\n      </div>\n      <div class=\"card-body\">\n        <div class=\"row\">\n          <div class=\"col-lg-12\">\n            <div class=\"form-group\">\n              <span class=\"badge badge-info\" style=\"margin-bottom: 5px;\"><i class=\"fa fa-question-circle fa-fw\"></i>\n                System Form</span>\n              <wj-combo-box #cboSysForm [itemsSource]=\"cboSysFormObservable\" [isEditable]=\"false\" [isRequired]=\"true\" [(ngModel)]=\"userFormModel.FormId\"\n                [displayMemberPath]=\"'FormName'\" [selectedValuePath]=\"'Id'\"\n                (selectedIndexChanged)=\"cboSysFormSelectedIndexChanged(cboSysForm.selectedValue)\" style=\"width: 100%;\">\n              </wj-combo-box>\n            </div>\n            <table>\n              <tr>\n                <td>\n                  <input type=\"checkbox\" [(ngModel)]=\"userFormModel.CanAdd\"\n                    aria-label=\"Checkbox for following text input\">\n                </td>\n                <td>\n                  <label for=\"\" class=\"col-form-label form-group-label\">CanAdd</label>\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <input type=\"checkbox\" [(ngModel)]=\"userFormModel.CanEdit\"\n                    aria-label=\"Checkbox for following text input\">\n                </td>\n                <td>\n                  <label for=\"\" class=\"col-form-label form-group-label\">CanEdit</label>\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <input type=\"checkbox\" [(ngModel)]=\"userFormModel.CanDelete\"\n                    aria-label=\"Checkbox for following text input\">\n                </td>\n                <td>\n                  <label for=\"\" class=\"col-form-label form-group-label\">CanDelete</label>\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <input type=\"checkbox\" [(ngModel)]=\"userFormModel.CanLock\"\n                    aria-label=\"Checkbox for following text input\">\n                </td>\n                <td>\n                  <label for=\"\" class=\"col-form-label form-group-label\">CanLock</label>\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <input type=\"checkbox\" [(ngModel)]=\"userFormModel.CanUnlock\"\n                    aria-label=\"Checkbox for following text input\">\n                </td>\n                <td>\n                  <label for=\"\" class=\"col-form-label form-group-label\">CanUnlock</label>\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <input type=\"checkbox\" [(ngModel)]=\"userFormModel.CanCancel\"\n                    aria-label=\"Checkbox for following text input\">\n                </td>\n                <td>\n                  <label for=\"\" class=\"col-form-label form-group-label\">CanCancel</label>\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <input type=\"checkbox\" [(ngModel)]=\"userFormModel.CanPrint\"\n                    aria-label=\"Checkbox for following text input\">\n                </td>\n                <td>\n                  <label for=\"\" class=\"col-form-label form-group-label\">CanPrint</label>\n                </td>\n              </tr>\n            </table>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"modal-footer\">\n    <table border=\"0\" style=\"width: 100%; border: none;\">\n      <tr>\n        <td>\n        </td>\n        <td style=\"text-align: right;\">\n          <button class=\"btn btn-primary\" (click)=\"btnSaveUserFormClick()\" style=\"margin-right: 5px;\"\n            id=\"btnAddActivity\">\n            <i class=\"fa fa-plus fa-fw\"></i> Save\n          </button>\n          <button class=\"btn btn-danger\" (click)=\"btnCloseUserFormModal()\" id=\"btnCloseActivity\">\n            <i class=\"fa fa-close fa-fw\"></i> Cancel\n          </button>\n        </td>\n      </tr>\n    </table>\n  </div>\n</ng-template>\n\n<ng-template #userFormDeleteModalTemplate>\n  <div class=\"modal-header\">\n    <h4 class=\"modal-title\">\n      Delete\n    </h4>\n  </div>\n  <div class=\"modal-body\">\n    Are you sure you want to delete this form\n    <br /> <br />\n    Form:\n    <b>\n      {{\n        listUserFormCollectionView.items.length > 0 ?\n        listUserFormCollectionView.currentItem.Form : 'NA'\n      }}\n    </b>\n  </div>\n  <div class=\"modal-footer\">\n    <button type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 5px;\" (click)=\"btnConfirmDeleteUserFormClick()\"\n      id=\"btnConfirmDeleteAcitivity\">\n      <i class=\"fa fa-trash\"></i> Delete\n    </button>\n    <button type=\"button\" class=\"btn\" (click)=\"deleteActivitiyModalRef.hide()\" id=\"btnCloseConfirmDeleteAcitivityModal\">\n      <i class=\"fa fa-close\"></i> Cancel\n    </button>\n  </div>\n</ng-template>"
+
+/***/ }),
+
+/***/ "./src/app/software/user/user.component.ts":
+/*!*************************************************!*\
+  !*** ./src/app/software/user/user.component.ts ***!
+  \*************************************************/
+/*! exports provided: UserComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserComponent", function() { return UserComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
+/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user.service */ "./src/app/software/user/user.service.ts");
+
+
+
+
+
+
+
+
+var UserComponent = /** @class */ (function () {
+    function UserComponent(userService, toastr, activatedRoute, router, modalService) {
+        this.userService = userService;
+        this.toastr = toastr;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.modalService = modalService;
+        this.cboShowNumberOfRows = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listUserObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listUserCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listUserObservableArray);
+        this.listUserPageIndex = 15;
+        this.isProgressBarHidden = false;
+        this.isDataLoaded = false;
+        this.cboSysFormObservable = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.currentUserId = 0;
+        this.listUserFormObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listUserFormCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listUserFormObservableArray);
+        this.listUserFormPageIndex = 15;
+        this.userModel = {
+            Id: 0,
+            UserName: '',
+            FullName: '',
+            Email: '',
+            Password: '',
+            ConfirmPassword: ''
+        };
+        this.userFormModel = {
+            Id: 0,
+            UserId: 0,
+            FormId: 0,
+            CanAdd: true,
+            CanEdit: true,
+            CanDelete: true,
+            CanLock: true,
+            CanUnlock: true,
+            CanCancel: true,
+            CanPrint: true
+        };
+    }
+    UserComponent.prototype.ngOnInit = function () {
+        this.createCboShowNumberOfRows();
+        this.listUserData();
+    };
+    UserComponent.prototype.createCboShowNumberOfRows = function () {
+        for (var i = 0; i <= 4; i++) {
+            var rows = 0;
+            var rowsString = "";
+            if (i == 0) {
+                rows = 15;
+                rowsString = "Show 15";
+            }
+            else if (i == 1) {
+                rows = 50;
+                rowsString = "Show 50";
+            }
+            else if (i == 2) {
+                rows = 100;
+                rowsString = "Show 100";
+            }
+            else if (i == 3) {
+                rows = 150;
+                rowsString = "Show 150";
+            }
+            else {
+                rows = 200;
+                rowsString = "Show 200";
+            }
+            this.cboShowNumberOfRows.push({
+                rowNumber: rows,
+                rowString: rowsString
+            });
+        }
+    };
+    UserComponent.prototype.cboShowNumberOfRowsOnSelectedIndexChanged = function (selectedValue) {
+        this.listUserPageIndex = selectedValue;
+        this.listUserCollectionView.pageSize = this.listUserPageIndex;
+        this.listUserCollectionView.refresh();
+        this.listUserCollectionView.refresh();
+    };
+    UserComponent.prototype.listUserData = function () {
+        var _this = this;
+        this.listUserObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listUserCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listUserObservableArray);
+        this.listUserCollectionView.pageSize = 15;
+        this.listUserCollectionView.trackChanges = true;
+        this.listUserCollectionView.refresh();
+        this.listUserFlexGrid.refresh();
+        this.isProgressBarHidden = false;
+        this.userService.listUser();
+        this.listUserSub = this.userService.userListObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listUserObservableArray = data;
+                _this.listUserCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listUserObservableArray);
+                _this.listUserCollectionView.pageSize = _this.listUserPageIndex;
+                _this.listUserCollectionView.trackChanges = true;
+                _this.listUserCollectionView.refresh();
+                _this.listUserFlexGrid.refresh();
+            }
+            _this.isDataLoaded = true;
+            _this.isProgressBarHidden = true;
+            if (_this.listUserSub != null)
+                _this.listUserSub.unsubscribe();
+        });
+    };
+    UserComponent.prototype.btnEditUserClick = function (userDetailModalTemplate) {
+        this.userDetailModalRef = this.modalService.show(userDetailModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-lg"
+        });
+        var currentUserDetail = this.listUserCollectionView.currentItem;
+        this.userModel.Id = currentUserDetail.Id;
+        this.userModel.UserName = currentUserDetail.UserName;
+        this.userModel.FullName = currentUserDetail.FullName;
+        this.userModel.Email = currentUserDetail.Email;
+        this.userModel.Password = currentUserDetail.Password;
+        this.userDetailModalHeaderTitle = "User Detail";
+        this.IsAddButtonClick = false;
+        this.currentUserId = currentUserDetail.Id;
+        this.userFormModel.UserId = currentUserDetail.Id;
+    };
+    UserComponent.prototype.btnAddUserClick = function (addDetailModalTemplate) {
+        this.userDetailModalRef = this.modalService.show(addDetailModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-lg"
+        });
+        this.userDetailModalHeaderTitle = "Add User";
+        this.IsAddButtonClick = true;
+        this.userFormModel.UserId = 0;
+        this.currentUserId = 0;
+        this.listUserFormData();
+    };
+    UserComponent.prototype.btnAddUserFormClick = function (addUserFormDetailModalTemplate) {
+        this.userFormDetailModalRef = this.modalService.show(addUserFormDetailModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
+        this.userFormDetailModalHeaderTitle = "Add User Form";
+        this.IsAddButtonClick = true;
+        this.createCboSysForm();
+    };
+    UserComponent.prototype.btnSaveUserClick = function () {
+        var _this = this;
+        if (this.IsAddButtonClick == true) {
+            if (this.userModel.UserName !== "" || this.userModel.FullName !== "" || this.userModel.Email !== "" || this.userModel.Password !== "") {
+                this.userService.saveUser(this.userModel);
+                this.addUserSub = this.userService.saveUserObservable.subscribe(function (data) {
+                    if (data[0] == "success") {
+                        _this.userDetailModalRef.hide();
+                        _this.toastr.success("User is successfully added.", "Success");
+                        setTimeout(function () {
+                            _this.isDataLoaded = false;
+                            _this.listUserData();
+                            _this.resetUserForm();
+                        }, 100);
+                    }
+                    else if (data[0] == "failed") {
+                        _this.toastr.error(data[1], "Error");
+                    }
+                    if (_this.addUserSub != null)
+                        _this.addUserSub.unsubscribe();
+                });
+            }
+            else {
+                this.toastr.error("Please don't leave empty fields.", "Error");
+            }
+        }
+        else {
+            if (this.userModel.UserName !== "" || this.userModel.FullName !== "" || this.userModel.Email !== "" || this.userModel.Password !== "") {
+                this.userService.saveUser(this.userModel);
+                this.addUserSub = this.userService.saveUserObservable.subscribe(function (data) {
+                    if (data[0] == "success") {
+                        _this.userDetailModalRef.hide();
+                        _this.toastr.success("Updated successfully.", "Success");
+                        setTimeout(function () {
+                            _this.isDataLoaded = false;
+                            _this.listUserData();
+                            _this.resetUserForm();
+                        }, 100);
+                    }
+                    else if (data[0] == "failed") {
+                        _this.toastr.error(data[1], "Error");
+                    }
+                    if (_this.addUserSub != null)
+                        _this.addUserSub.unsubscribe();
+                });
+            }
+            else {
+                this.toastr.error("Please don't leave empty fields.", "Error");
+            }
+        }
+    };
+    UserComponent.prototype.btnLockUserClick = function () {
+        var _this = this;
+        if (this.userModel.UserName !== "" || this.userModel.FullName !== "" || this.userModel.Email !== "" || this.userModel.Password !== "") {
+            this.userService.saveUser(this.userModel);
+            this.addUserSub = this.userService.saveUserObservable.subscribe(function (data) {
+                if (data[0] == "success") {
+                    _this.userDetailModalRef.hide();
+                    _this.toastr.success("Updated successfully.", "Success");
+                    setTimeout(function () {
+                        _this.isDataLoaded = false;
+                        _this.listUserData();
+                        _this.resetUserForm();
+                    }, 100);
+                }
+                else if (data[0] == "failed") {
+                    _this.toastr.error(data[1], "Error");
+                }
+                if (_this.addUserSub != null)
+                    _this.addUserSub.unsubscribe();
+            });
+        }
+        else {
+            this.toastr.error("Please don't leave empty fields.", "Error");
+        }
+    };
+    UserComponent.prototype.createCboSysForm = function () {
+        var _this = this;
+        this.userService.listSysForm();
+        this.cboSysFormSub = this.userService.sysFormObservable.subscribe(function (data) {
+            var sysFormObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+            if (data.length > 0) {
+                for (var i = 0; i <= data.length - 1; ++i) {
+                    sysFormObservableArray.push({
+                        Id: data[i].Id,
+                        FormName: data[i].FormName
+                    });
+                }
+            }
+            _this.cboSysFormObservable = sysFormObservableArray;
+            if (_this.cboSysFormSub != null)
+                _this.cboSysFormSub.unsubscribe();
+        });
+    };
+    UserComponent.prototype.cboSysFormSelectedIndexChanged = function (selectedValue) {
+        this.userFormModel.FormId = selectedValue;
+    };
+    UserComponent.prototype.listUserFormData = function () {
+        var _this = this;
+        if (!this.isDataLoaded) {
+            setTimeout(function () {
+                _this.listUserFormObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+                _this.listUserFormCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listUserFormObservableArray);
+                _this.listUserFormCollectionView.pageSize = 15;
+                _this.listUserFormCollectionView.trackChanges = true;
+                _this.listUserFormCollectionView.refresh();
+                // this.listUserFormFlexGrid.refresh();
+                _this.isProgressBarHidden = false;
+                _this.userService.listUserForm(_this.currentUserId);
+                _this.listUserFormSub = _this.userService.userFormListObservable.subscribe(function (data) {
+                    if (data.length > 0) {
+                        _this.listUserFormObservableArray = data;
+                        _this.listUserFormCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listUserFormObservableArray);
+                        _this.listUserFormCollectionView.pageSize = _this.listUserFormPageIndex;
+                        _this.listUserFormCollectionView.trackChanges = true;
+                        _this.listUserFormCollectionView.refresh();
+                        // this.listUserFormFlexGrid.refresh();
+                    }
+                    _this.isDataLoaded = true;
+                    _this.isProgressBarHidden = true;
+                    if (_this.listUserFormSub != null)
+                        _this.listUserFormSub.unsubscribe();
+                });
+            }, 100);
+        }
+    };
+    UserComponent.prototype.btnCloseModal = function () {
+        this.userDetailModalRef.hide();
+        this.resetUserForm();
+    };
+    UserComponent.prototype.listUserForm = function () {
+        var _this = this;
+        this.isDataLoaded = false;
+        setTimeout(function () {
+            _this.listUserFormData();
+        }, 500);
+    };
+    UserComponent.prototype.btnSaveUserFormClick = function () {
+        var _this = this;
+        this.userService.SaveUserForm(this.userFormModel);
+        this.addUserFormSub = this.userService.saveserFormObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.closeUserFormModal();
+                _this.toastr.success("Saved successfully.", "Success");
+                setTimeout(function () {
+                    _this.isDataLoaded = false;
+                    _this.listUserFormData();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+            }
+            if (_this.addUserFormSub != null)
+                _this.addUserFormSub.unsubscribe();
+        });
+    };
+    UserComponent.prototype.btnConfirmDeleteUserFormClick = function () {
+        var _this = this;
+        var currentUserForm = this.listUserFormCollectionView.currentItem;
+        this.userService.DeleteUserForm(currentUserForm.Id);
+        this.deleteUserFormSub = this.userService.deleteUserFormObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.userFormDeleteModalRef.hide();
+                _this.toastr.success("Deleted successfully.", "Success");
+                setTimeout(function () {
+                    _this.isDataLoaded = false;
+                    _this.listUserFormData();
+                }, 100);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+            }
+            if (_this.deleteUserFormSub != null)
+                _this.deleteUserFormSub.unsubscribe();
+        });
+    };
+    UserComponent.prototype.btnEditUserFormClick = function (editUserFormDetailModalTemplate) {
+        var _this = this;
+        this.userFormDetailModalRef = this.modalService.show(editUserFormDetailModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
+        this.createCboSysForm();
+        setTimeout(function () {
+            var currentUserForm = _this.listUserFormCollectionView.currentItem;
+            _this.userFormModel = {
+                Id: currentUserForm.Id,
+                UserId: currentUserForm.UserId,
+                FormId: currentUserForm.FormId,
+                CanAdd: currentUserForm.CanAdd,
+                CanEdit: currentUserForm.CanEdit,
+                CanDelete: currentUserForm.CanDelete,
+                CanLock: currentUserForm.CanLock,
+                CanUnlock: currentUserForm.CanUnlock,
+                CanCancel: currentUserForm.CanCancel,
+                CanPrint: currentUserForm.CanPrint,
+            };
+        }, 100);
+    };
+    UserComponent.prototype.btnDelteUserFormClick = function (deleteUserFormDetailModalTemplate) {
+        this.userFormDeleteModalRef = this.modalService.show(deleteUserFormDetailModalTemplate, {
+            backdrop: true,
+            ignoreBackdropClick: true,
+            class: "modal-sm"
+        });
+    };
+    UserComponent.prototype.btnCloseUserFormModal = function () {
+        this.closeUserFormModal();
+    };
+    UserComponent.prototype.closeUserFormModal = function () {
+        this.userFormDetailModalRef.hide();
+        this.resetUserFormForm();
+    };
+    UserComponent.prototype.resetUserFormForm = function () {
+        this.userFormModel.Id = 0;
+        this.userFormModel.FormId = 0;
+        this.userFormModel.CanAdd = true;
+        this.userFormModel.CanEdit = true;
+        this.userFormModel.CanDelete = true;
+        this.userFormModel.CanLock = true;
+        this.userFormModel.CanUnlock = true;
+        this.userFormModel.CanCancel = true;
+        this.userFormModel.CanPrint = true;
+    };
+    UserComponent.prototype.resetUserForm = function () {
+        this.userModel.Id = 0;
+        this.userModel.UserName = "";
+        this.userModel.FullName = "";
+        this.userModel.Email = "";
+        this.userModel.Password = "";
+    };
+    ;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listUserFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], UserComponent.prototype, "listUserFlexGrid", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('listUserFormFlexGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_4__["WjFlexGrid"])
+    ], UserComponent.prototype, "listUserFormFlexGrid", void 0);
+    UserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-user',
+            template: __webpack_require__(/*! ./user.component.html */ "./src/app/software/user/user.component.html"),
+            styles: [__webpack_require__(/*! ./user.component.css */ "./src/app/software/user/user.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]])
+    ], UserComponent);
+    return UserComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/user/user.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/software/user/user.service.ts ***!
+  \***********************************************/
+/*! exports provided: UserService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var UserService = /** @class */ (function () {
+    function UserService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.defaultAPIURLHost = this.appSettings.defaultAPIURLHost;
+        this.userListSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.userListObservable = this.userListSubject.asObservable();
+        this.saveUserSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveUserObservable = this.saveUserSubject.asObservable();
+        this.sysFormSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.sysFormObservable = this.sysFormSubject.asObservable();
+        this.userFormListSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.userFormListObservable = this.userFormListSubject.asObservable();
+        this.saveUserFormSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveserFormObservable = this.saveUserFormSubject.asObservable();
+        this.deleteUserFormSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteUserFormObservable = this.deleteUserFormSubject.asObservable();
+    }
+    UserService.prototype.listUser = function () {
+        var _this = this;
+        var userListObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.userListSubject.next(userListObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/user/list/user", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    userListObservableArray.push({
+                        Id: results[i].Id,
+                        UserName: results[i].UserName,
+                        FullName: results[i].FullName,
+                        Email: results[i].Email,
+                        Password: results[i].Password,
+                        IsLocked: results[i].IsLocked,
+                        CreatedBy: results[i].CreatedBy,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedBy: results[i].UpdatedBy,
+                        UpdatedDateTime: results[i].UpdatedDateTime,
+                    });
+                }
+            }
+            _this.userListSubject.next(userListObservableArray);
+        });
+    };
+    UserService.prototype.saveUser = function (objUser) {
+        var _this = this;
+        if (objUser.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/Account/Register", JSON.stringify(objUser), this.options).subscribe(function (response) {
+                var responseResults = ["success", "Add succeccful"];
+                _this.saveUserSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed"];
+                var errMessage = error.error;
+                if (errMessage != null) {
+                    if (errMessage.ModelState[""] != null) {
+                        var mainErrorMessageLength = errMessage.ModelState[""].length;
+                        for (var i = 0; i < mainErrorMessageLength; i++) {
+                            errorResults.push(errMessage.ModelState[""][i]);
+                        }
+                    }
+                    if (errMessage.ModelState["model.FullName"] != null) {
+                        var fullnameErrorMessageLength = errMessage.ModelState["model.FullName"].length;
+                        for (var i = 0; i < fullnameErrorMessageLength; i++) {
+                            errorResults.push(errMessage.ModelState["model.FullName"][i]);
+                        }
+                    }
+                    if (errMessage.ModelState["model.UserName"] != null) {
+                        var usernameErrorMessageLength = errMessage.ModelState["model.UserName"].length;
+                        for (var i = 0; i < usernameErrorMessageLength; i++) {
+                            errorResults.push(errMessage.ModelState["model.UserName"][i]);
+                        }
+                    }
+                    if (errMessage.ModelState["model.Password"] != null) {
+                        var passwordErrorMessageLength = errMessage.ModelState["model.Password"].length;
+                        for (var i = 0; i < passwordErrorMessageLength; i++) {
+                            errorResults.push(errMessage.ModelState["model.Password"][i]);
+                        }
+                    }
+                    if (errMessage.ModelState["model.ConfirmPassword"] != null) {
+                        var confirmPasswordErrorMessageLength = errMessage.ModelState["model.ConfirmPassword"].length;
+                        for (var i = 0; i < confirmPasswordErrorMessageLength; i++) {
+                            errorResults.push(errMessage.ModelState["model.ConfirmPassword"][i]);
+                        }
+                    }
+                    _this.saveUserSubject.next(errorResults);
+                }
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/crm/user/update/" + objUser.Id, JSON.stringify(objUser), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveUserSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveUserSubject.next(errorResults);
+            });
+        }
+    };
+    UserService.prototype.listSysForm = function () {
+        var _this = this;
+        var sysFormListObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.sysFormSubject.next(sysFormListObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/mst/user/form/list/sysForm", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    sysFormListObservableArray.push({
+                        Id: results[i].Id,
+                        FormName: results[i].FormName,
+                        Particulars: results[i].Particulars
+                    });
+                }
+            }
+            _this.sysFormSubject.next(sysFormListObservableArray);
+        });
+    };
+    UserService.prototype.listUserForm = function (Id) {
+        var _this = this;
+        var userFormListObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.userFormListSubject.next(userFormListObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/crm/mst/user/form/list/UserForm/" + Id, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    userFormListObservableArray.push({
+                        Id: results[i].Id,
+                        UserId: results[i].UserId,
+                        FormId: results[i].FormId,
+                        Form: results[i].Form,
+                        CanAdd: results[i].CanAdd,
+                        CanEdit: results[i].CanEdit,
+                        CanDelete: results[i].CanDelete,
+                        CanLock: results[i].CanLock,
+                        CanUnlock: results[i].CanUnlock,
+                        CanCancel: results[i].CanCancel,
+                        CanPrint: results[i].CanPrint
+                    });
+                }
+            }
+            _this.userFormListSubject.next(userFormListObservableArray);
+        });
+    };
+    UserService.prototype.SaveUserForm = function (objUserForm) {
+        var _this = this;
+        if (objUserForm.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/crm/mst/user/form/add", JSON.stringify(objUserForm), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveUserFormSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveUserFormSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/crm/mst/user/form/update", JSON.stringify(objUserForm), this.options).subscribe(function (response) {
+                var responseResults = ["success", ""];
+                _this.saveUserFormSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveUserFormSubject.next(errorResults);
+            });
+        }
+    };
+    UserService.prototype.DeleteUserForm = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/crm/mst/user/form/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteUserFormSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteUserFormSubject.next(errorResults);
+        });
+    };
+    UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], UserService);
+    return UserService;
 }());
 
 

@@ -174,7 +174,7 @@ module.exports = "header.masthead {\r\n    position: relative;\r\n    background
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"masthead\">\n  <div class=\"overlay\"></div>\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-4\"></div>\n      <div class=\"col-lg-4\">\n        <div class=\"card\">\n          <div class=\"card-body\">\n            <a routerLink=\"/landing/home\"><img src=\"../../../assets/logo/easyfislogo.png\" height=\"40\" alt=\"\"></a>\n            <br />\n            <div class=\"card-title\">\n              Sign in to continue to application.\n            </div>\n            <hr />\n            <br />\n            <form (ngSubmit)=\"login()\">\n              <div class=\"form-group\">\n                <label for=\"inpUsername\">Username </label>\n                <input type=\"text\" class=\"form-control\" id=\"inpUsername\" [(ngModel)]=\"loginModel.UserName\"\n                  [ngModelOptions]=\"{standalone: true}\" placeholder=\"Enter Username\" required />\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inpPassword\">Password </label>\n                <input type=\"password\" class=\"form-control\" id=\"inpPassword\" [(ngModel)]=\"loginModel.Password\"\n                  [ngModelOptions]=\"{standalone: true}\" placeholder=\"Enter Password\" required />\n              </div>\n              <br />\n              <input type=\"submit\" class=\"btn btn-primary btn-lg btn-block\" id=\"btnLogin\" value=\"Sign in\" />\n              <br />\n              <hr />\n              <div class=\"text-center\">\n                <small>\n                  <b>Easyfis CRM</b>\n                  <br />\n                  V.1.02032019.1749.NOR\n                </small>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-lg-4\"></div>\n    </div>\n  </div>\n</header>"
+module.exports = "<header class=\"masthead\">\r\n  <div class=\"overlay\"></div>\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n      <div class=\"col-lg-4\"></div>\r\n      <div class=\"col-lg-4\">\r\n        <div class=\"card\">\r\n          <div class=\"card-body\">\r\n            <a routerLink=\"/landing/home\"><img src=\"../../../assets/logo/easyfislogo.png\" height=\"40\" alt=\"\"></a>\r\n            <br />\r\n            <div class=\"card-title\">\r\n              Sign in to continue to application.\r\n            </div>\r\n            <hr />\r\n            <br />\r\n            <form (ngSubmit)=\"login()\">\r\n              <div class=\"form-group\">\r\n                <label for=\"inpUsername\">Username </label>\r\n                <input type=\"text\" class=\"form-control\" id=\"inpUsername\" [(ngModel)]=\"loginModel.UserName\"\r\n                  [ngModelOptions]=\"{standalone: true}\" placeholder=\"Enter Username\" required />\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label for=\"inpPassword\">Password </label>\r\n                <input type=\"password\" class=\"form-control\" id=\"inpPassword\" [(ngModel)]=\"loginModel.Password\"\r\n                  [ngModelOptions]=\"{standalone: true}\" placeholder=\"Enter Password\" required />\r\n              </div>\r\n              <br />\r\n              <input type=\"submit\" class=\"btn btn-primary btn-lg btn-block\" id=\"btnLogin\" value=\"Sign in\" />\r\n              <br />\r\n              <hr />\r\n              <div class=\"text-center\">\r\n                <small>\r\n                  <b>Easyfis CRM</b>\r\n                  <br />\r\n                  V.1.02032019.1749.NOR\r\n                </small>\r\n              </div>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-lg-4\"></div>\r\n    </div>\r\n  </div>\r\n</header>"
 
 /***/ }),
 
@@ -306,9 +306,41 @@ var LoginService = /** @class */ (function () {
             localStorage.setItem('expires_in', response["expires_in"]);
             localStorage.setItem('token_type', response["token_type"]);
             localStorage.setItem('username', response["userName"]);
+            _this.getUserRights(response["userName"]);
             _this.loginSource.next([true, "Login Successful."]);
         }, function (error) {
             _this.loginSource.next([false, error["error"].error_description]);
+        });
+    };
+    LoginService.prototype.getUserRights = function (username) {
+        var url = this.defaultAPIHostURL + '/token';
+        var options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        var userRights = new Array();
+        this.httpClient.get(this.defaultAPIHostURL + "/api/crm/mst/user/form/list/UserFormByUserName/" + username, options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    userRights.push({
+                        Id: results[i].Id,
+                        UserId: results[i].UserId,
+                        FormId: results[i].FormId,
+                        Form: results[i].Form,
+                        CanAdd: results[i].CanAdd,
+                        CanEdit: results[i].CanEdit,
+                        CanDelete: results[i].CanDelete,
+                        CanLock: results[i].CanLock,
+                        CanUnlock: results[i].CanUnlock,
+                        CanCancel: results[i].CanCancel,
+                        CanPrint: results[i].CanPrint
+                    });
+                }
+            }
+            localStorage.setItem('userRights', JSON.stringify(userRights));
         });
     };
     LoginService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
