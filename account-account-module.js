@@ -174,7 +174,7 @@ module.exports = "header.masthead {\r\n    position: relative;\r\n    background
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"masthead\">\r\n  <div class=\"overlay\"></div>\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n      <div class=\"col-lg-4\"></div>\r\n      <div class=\"col-lg-4\">\r\n        <div class=\"card\">\r\n          <div class=\"card-body\">\r\n            <a routerLink=\"/landing/home\"><img src=\"../../../assets/logo/easyfislogo.png\" height=\"40\" alt=\"\"></a>\r\n            <br />\r\n            <div class=\"card-title\">\r\n              Sign in to continue to application.\r\n            </div>\r\n            <hr />\r\n            <br />\r\n            <form (ngSubmit)=\"login()\">\r\n              <div class=\"form-group\">\r\n                <label for=\"inpUsername\">Username </label>\r\n                <input type=\"text\" class=\"form-control\" id=\"inpUsername\" [(ngModel)]=\"loginModel.UserName\"\r\n                  [ngModelOptions]=\"{standalone: true}\" placeholder=\"Enter Username\" required />\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label for=\"inpPassword\">Password </label>\r\n                <input type=\"password\" class=\"form-control\" id=\"inpPassword\" [(ngModel)]=\"loginModel.Password\"\r\n                  [ngModelOptions]=\"{standalone: true}\" placeholder=\"Enter Password\" required />\r\n              </div>\r\n              <br />\r\n              <input type=\"submit\" class=\"btn btn-primary btn-lg btn-block\" id=\"btnLogin\" value=\"Sign in\" />\r\n              <br />\r\n              <hr />\r\n              <div class=\"text-center\">\r\n                <small>\r\n                  <b>Easyfis CRM</b>\r\n                  <br />\r\n                  V.1.02032019.1749.NOR\r\n                </small>\r\n              </div>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-lg-4\"></div>\r\n    </div>\r\n  </div>\r\n</header>"
+module.exports = "<header class=\"masthead\">\r\n  <div class=\"overlay\"></div>\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n      <div class=\"col-lg-4\"></div>\r\n      <div class=\"col-lg-4\">\r\n        <div class=\"card\">\r\n          <div class=\"card-body\">\r\n            <a routerLink=\"/landing/home\"><img src=\"../../../assets/logo/easyfislogo.png\" height=\"40\" alt=\"\"></a>\r\n            <br />\r\n            <div class=\"card-title\">\r\n              Sign in to continue to application.\r\n            </div>\r\n            <hr />\r\n            <br />\r\n            <form (ngSubmit)=\"login()\">\r\n              <div class=\"form-group\">\r\n                <label for=\"inpUsername\">Username </label>\r\n                <input type=\"text\" class=\"form-control\" id=\"inpUsername\" [(ngModel)]=\"loginModel.UserName\"\r\n                  [ngModelOptions]=\"{standalone: true}\" placeholder=\"Enter Username\" required />\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label for=\"inpPassword\">Password </label>\r\n                <input type=\"password\" class=\"form-control\" id=\"inpPassword\" [(ngModel)]=\"loginModel.Password\"\r\n                  [ngModelOptions]=\"{standalone: true}\" placeholder=\"Enter Password\" required />\r\n              </div>\r\n              <br />\r\n              <input type=\"submit\" class=\"btn btn-primary btn-lg btn-block\" id=\"btnLogin\" value=\"Sign in\" />\r\n              <br />\r\n              <hr />\r\n              <div class=\"text-center\">\r\n                <!-- <small>\r\n                  <b>Easyfis CRM</b>\r\n                  <br />\r\n                  V.1.02032019.1749.NOR\r\n                </small> -->\r\n                <small>\r\n                  <b>Easyfis CRM</b>\r\n                  <br />\r\n                  V.1.05182020.1208.ORE\r\n                </small>\r\n              </div>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-lg-4\"></div>\r\n    </div>\r\n  </div>\r\n</header>"
 
 /***/ }),
 
@@ -228,10 +228,10 @@ var LoginComponent = /** @class */ (function () {
             this.loginService.login(this.loginModel.UserName, this.loginModel.Password);
             this.loginSub = this.loginService.loginObservable.subscribe(function (data) {
                 if (data[0]) {
-                    _this.toastr.success(data[1], 'Success');
                     setTimeout(function () {
                         _this.router.navigate(['/software']);
-                    }, 500);
+                        _this.toastr.success(data[1], 'Success');
+                    }, 100);
                 }
                 else {
                     _this.toastr.error(data[1], 'Error');
@@ -307,6 +307,7 @@ var LoginService = /** @class */ (function () {
             localStorage.setItem('token_type', response["token_type"]);
             localStorage.setItem('username', response["userName"]);
             _this.getUserRights(response["userName"]);
+            _this.getUserGroup(response["userName"]);
             _this.loginSource.next([true, "Login Successful."]);
         }, function (error) {
             _this.loginSource.next([false, error["error"].error_description]);
@@ -341,6 +342,21 @@ var LoginService = /** @class */ (function () {
                 }
             }
             localStorage.setItem('userRights', JSON.stringify(userRights));
+        });
+    };
+    LoginService.prototype.getUserGroup = function (username) {
+        var url = this.defaultAPIHostURL + '/token';
+        var options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        var userGroup;
+        this.httpClient.get(this.defaultAPIHostURL + "/api/crm/user/userGroup/" + username, options).subscribe(function (response) {
+            var result = response;
+            localStorage.setItem('userGroup', result.toString());
+            console.log(response);
         });
     };
     LoginService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

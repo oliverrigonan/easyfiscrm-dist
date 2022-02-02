@@ -65,7 +65,8 @@ var routes = [
     { path: '', loadChildren: './account/account.module#AccountModule' },
     { path: 'landing', loadChildren: './landing/landing.module#LandingModule' },
     { path: 'account', loadChildren: './account/account.module#AccountModule' },
-    { path: 'software', loadChildren: './software/software.module#SoftwareModule' }
+    { path: 'software', loadChildren: './software/software.module#SoftwareModule' },
+    { path: 'software', loadChildren: './account/account.module#AccountModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -100,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 var AppSettings = /** @class */ (function () {
     function AppSettings() {
         // public defaultAPIURLHost: string = "http://localhost:53129";
-        this.defaultAPIURLHost = "http://easyfiscrm-easyfis-api.azurewebsites.net";
+        this.defaultAPIURLHost = "https://easyfiscrm-easyfis-api.azurewebsites.net";
     }
     return AppSettings;
 }());
@@ -174,15 +175,21 @@ var AppComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app-settings */ "./src/app/app-settings.ts");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _app_router_activate__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.router.activate */ "./src/app/app.router.activate.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _software_software_route_reuse_strategy__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./software/software-route-reuse-strategy */ "./src/app/software/software-route-reuse-strategy.ts");
+
+
+
 
 
 
@@ -197,24 +204,24 @@ var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"],
             ],
             imports: [
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
-                ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrModule"].forRoot({
-                    progressBar: true
-                }),
+                ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrModule"].forRoot(),
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"]
             ],
             providers: [
                 _app_settings__WEBPACK_IMPORTED_MODULE_6__["AppSettings"],
-                _app_router_activate__WEBPACK_IMPORTED_MODULE_8__["AppRouterActivate"]
+                _app_router_activate__WEBPACK_IMPORTED_MODULE_8__["AppRouterActivate"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_9__["CurrencyPipe"],
+                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_10__["RouteReuseStrategy"], useClass: _software_software_route_reuse_strategy__WEBPACK_IMPORTED_MODULE_12__["SoftwareRouteReuseStrategy"] }
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -258,6 +265,57 @@ var AppRouterActivate = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], AppRouterActivate);
     return AppRouterActivate;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/software-route-reuse-strategy.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/software/software-route-reuse-strategy.ts ***!
+  \***********************************************************/
+/*! exports provided: SoftwareRouteReuseStrategy */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SoftwareRouteReuseStrategy", function() { return SoftwareRouteReuseStrategy; });
+var SoftwareRouteReuseStrategy = /** @class */ (function () {
+    function SoftwareRouteReuseStrategy() {
+        this.handlers = {};
+    }
+    SoftwareRouteReuseStrategy.prototype.shouldDetach = function (route) {
+        return true;
+    };
+    SoftwareRouteReuseStrategy.prototype.store = function (route, handle) {
+        switch (route.routeConfig.path) {
+            case 'setup/product/detail/:id': break;
+            case 'trn/lead/detail/:id': break;
+            case 'trn/sales/detail/:id': break;
+            case 'trn/support/detail/:id': break;
+            case 'trn/lead/:startDate/:endDate/:status/:userId/:dashboard': break;
+            case 'trn/sales/:startDate/:endDate/:status/:userId/:dashboard': break;
+            case 'trn/support/:startDate/:endDate/:status/:userId/:dashboard': break;
+            case 'setup/product': break;
+            default: {
+                this.handlers[route.routeConfig.path] = handle;
+                break;
+            }
+        }
+    };
+    SoftwareRouteReuseStrategy.prototype.shouldAttach = function (route) {
+        return !!route.routeConfig && !!this.handlers[route.routeConfig.path];
+    };
+    SoftwareRouteReuseStrategy.prototype.retrieve = function (route) {
+        if (!route.routeConfig)
+            return null;
+        return this.handlers[route.routeConfig.path];
+    };
+    SoftwareRouteReuseStrategy.prototype.shouldReuseRoute = function (future, curr) {
+        return future.routeConfig === curr.routeConfig;
+    };
+    return SoftwareRouteReuseStrategy;
 }());
 
 
@@ -325,7 +383,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Github_Repo\easyfiscrm-ui\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\eganp\source\repos\easyfiscrm-ui\src\main.ts */"./src/main.ts");
 
 
 /***/ })

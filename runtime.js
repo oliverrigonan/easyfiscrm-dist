@@ -63,7 +63,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"default~account-account-module~software-software-module":"default~account-account-module~software-software-module","account-account-module":"account-account-module","software-software-module":"software-software-module","landing-landing-module":"landing-landing-module"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"default~account-account-module~software-software-module":"default~account-account-module~software-software-module","account-account-module":"account-account-module","software-software-module":"software-software-module","landing-landing-module":"landing-landing-module","canvg":"canvg","pdfjsWorker":"pdfjsWorker","pdfmake":"pdfmake","xlsx":"xlsx"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
